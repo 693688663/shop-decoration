@@ -12,7 +12,7 @@
          <!-- 功能选择区 -->
          <div class="fun_area ofh fl" ref="fun_area" :style="content_height">
             <ul>
-               <li :class="{active:content1_active==1}" @click="content1_active_fun(1)">模块</li>
+               <li :class="{active:content1_active==1}" @click="content1_active_fun(1)">模块123</li>
                <li :class="{active:content1_active==2}" @click="content1_active_fun(2)">配色</li>
                <li :class="{active:content1_active==3}" @click="content1_active_fun(3)">页头</li>
                <li :class="{active:content1_active==4}" @click="content1_active_fun(4)">页面</li>
