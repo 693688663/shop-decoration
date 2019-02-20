@@ -438,7 +438,7 @@
             handler(newName, oldName) {
                var that = this
                localStorage.layoutData = JSON.stringify(newName)
-               localStorage.layoutData = ""
+               // localStorage.layoutData = ""
             },
             deep: true,
          },
@@ -596,7 +596,6 @@
 
       },
       methods: {
-
          // 左侧工具栏的显示或隐藏
          content1_active_fun(num) {
             var that = this

@@ -3,8 +3,8 @@ const mokuai = {
         {
             "name": "宝贝推荐",
             "icon": "mk1.png",
-            "width": [190, 750, 950],
-            "type": ["hd","con","ft"],
+            "width": [ 750, 950],
+            "type": ["con"],
             "com": "mk1",
         },
         {

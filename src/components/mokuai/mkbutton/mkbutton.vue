@@ -4,7 +4,7 @@
       <div class="mkname">{{dataName}}</div>
       <div class="top" :class="{cursortop:dataLocation4!=0}" @click="top()"></div>
       <div class="bottom  " :class="{cursorbtm:dataLocation4!=datalength}" @click="bottom()"></div>
-      <div class="edit cursor "></div>
+      <div class="edit cursor" @click="edit_mk"></div>
       <div class="del cursor " @click="del_mk"></div>
    </div>
 </template>
@@ -36,7 +36,6 @@
                datalength: that.datalength,
 
             }
-            console.log(data)
             dispatch({
                type: "del_mk_ac",
                data: data,
@@ -77,7 +76,22 @@
                type: "move_edit_mk_ac",
                data: data,
             })
-         }
+         },
+         // 编辑模块按钮
+         edit_mk(){
+            var that = this
+            var dispatch = this.$store.dispatch
+            var data = {
+               name: that.dataName,
+               location1: that.dataLocation1,
+               location2: that.dataLocation2,
+               location3: that.dataLocation3,
+               location4: that.dataLocation4,
+               datalength: that.datalength,
+
+            }
+            console.log(data)
+         },
       }
    }
 </script>
