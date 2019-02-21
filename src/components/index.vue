@@ -66,8 +66,8 @@
                   <option value="">宝贝列表页</option>
                </select>
                <ul class="fl">
-                  <li :class="{active:edit_manage==1}" @click="edit_manage=1">页面编辑</li>
-                  <li :class="{active:edit_manage==2}" @click="edit_manage=2">布局管理</li>
+                  <li :class="{active:edit_manage==1}" @click="edit_manage_fun(1)">页面编辑</li>
+                  <li :class="{active:edit_manage==2}" @click="edit_manage_fun(2)">布局管理</li>
                </ul>
                <ul class="fr">
                   <li>备份</li>
@@ -87,7 +87,7 @@
                         </h3>
                         <div v-for="(site,index) in layout_data.hd">
                            <component :is="site.name" :ref="'hd'+index+site.name" :dataref="'hd'+index+site.name"
-                              :dataName="site.mkname" dataLocation1="hd" dataLocation2="" dataLocation3=""
+                              :dataName="site.mkname" :data="site" dataLocation1="hd" dataLocation2="" dataLocation3=""
                               :dataLocation4="index" :datalength="layout_data.hd.length-1"></component>
                         </div>
                      </div>
@@ -103,16 +103,16 @@
                                  <h3 ref="left_w19_h3" v-if="site.w19.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w19">
                                     <component :is="site1.name" :ref="'con'+index+'w19'+index1" :dataref="'con'+index+'w19'+index1"
-                                       :dataName="site1.mkname" dataLocation1="con" :dataLocation2="index" dataLocation3="w19"
-                                       :dataLocation4="index1" :datalength="site.w19.length-1"></component>
+                                       :dataName="site1.mkname"  :data="site1" dataLocation1="con" :dataLocation2="index"
+                                       dataLocation3="w19" :dataLocation4="index1" :datalength="site.w19.length-1"></component>
                                  </div>
                               </div>
                               <div class="fr w75" :ref="'leftEdit'+index+'w75'">
                                  <h3 ref="left_w75_h3" v-if="site.w75.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w75">
                                     <component :is="site1.name" :ref="'con'+index+'w75'+index1" :dataref="'con'+index+'w75'+index1"
-                                       :dataName="site1.mkname" dataLocation1="con" :dataLocation2="index" dataLocation3="w75"
-                                       :dataLocation4="index1" :datalength="site.w75.length-1"></component>
+                                       :dataName="site1.mkname"  :data="site1" dataLocation1="con" :dataLocation2="index"
+                                       dataLocation3="w75" :dataLocation4="index1" :datalength="site.w75.length-1"></component>
                                  </div>
                               </div>
                            </div>
@@ -122,16 +122,16 @@
                                  <h3 ref="right_w75_h3" v-if="site.w75.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w75">
                                     <component :is="site1.name" :ref="'con'+index+'w75'+index1" :dataref="'con'+index+'w75'+index1"
-                                       :dataName="site1.mkname" dataLocation1="con" :dataLocation2="index" dataLocation3="w75"
-                                       :dataLocation4="index1" :datalength="site.w75.length-1"></component>
+                                       :dataName="site1.mkname"  :data="site1" dataLocation1="con" :dataLocation2="index"
+                                       dataLocation3="w75" :dataLocation4="index1" :datalength="site.w75.length-1"></component>
                                  </div>
                               </div>
                               <div class="fr w19" :ref="'rightEdit'+index+'w19'">
                                  <h3 ref="right_w19_h3" v-if="site.w19.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w19">
                                     <component :is="site1.name" :ref="'con'+index+'w19'+index1" :dataref="'con'+index+'w19'+index1"
-                                       :dataName="site1.mkname" dataLocation1="con" :dataLocation2="index" dataLocation3="w19"
-                                       :dataLocation4="index1" :datalength="site.w19.length-1"></component>
+                                       :dataName="site1.mkname"  :data="site1" dataLocation1="con" :dataLocation2="index"
+                                       dataLocation3="w19" :dataLocation4="index1" :datalength="site.w19.length-1"></component>
                                  </div>
                               </div>
                            </div>
@@ -141,8 +141,8 @@
                                  <h3 ref="center_w1920" v-if="site.w1920.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w1920">
                                     <component :is="site1.name" :ref="'conter'+index+site1.name+index1" :dataref="'conter'+index+site1.name+index1"
-                                       :dataName="site1.mkname" dataLocation1="con" :dataLocation2="index" dataLocation3="center"
-                                       :dataLocation4="index1" :datalength="site.w1920.length-1"></component>
+                                       :dataName="site1.mkname"  :data="site1" dataLocation1="con" :dataLocation2="index"
+                                       dataLocation3="center" :dataLocation4="index1" :datalength="site.w1920.length-1"></component>
                                  </div>
                               </div>
                            </div>
@@ -155,7 +155,7 @@
                         </h3>
                         <div v-for="(site,index) in layout_data.ft">
                            <component :is="site.name" :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
-                              :dataName="site.mkname" dataLocation1="ft" dataLocation2="" dataLocation3=""
+                              :dataName="site.mkname"  :data="site" dataLocation1="ft" dataLocation2="" dataLocation3=""
                               :dataLocation4="index" :datalength="layout_data.ft.length-1"></component>
                         </div>
                      </div>
@@ -596,6 +596,16 @@
 
       },
       methods: {
+         // 
+         edit_manage_fun(num) {
+            var that = this
+            that.edit_manage = num
+            var dispatch = this.$store.dispatch
+            dispatch({
+               type: "edit_manage_ac",
+               data: num
+            })
+         },
          // 左侧工具栏的显示或隐藏
          content1_active_fun(num) {
             var that = this

@@ -1,28 +1,28 @@
 const mokuai = {
-    basice_data: [
-        {
-            "name": "宝贝推荐",
-            "icon": "mk1.png",
-            "width": [ 750, 950],
-            "type": ["con"],
-            "com": "mk1",
-        },
-        {
-            "name": "宝贝排行",
-            "icon": "mk2.png",
-            "width": [190,750,950],
-            "type": ["hd","con","ft"],
-            "com": "mk2",
+   basice_data: [
+      {
+         "name": "宝贝推荐",
+         "icon": "mk1.png",
+         "width": [190, 750, 950],
+         "type": ["con"],
+         "com": "mk1",
+      },
+      {
+         "name": "宝贝排行",
+         "icon": "mk2.png",
+         "width": [190, 750, 950],
+         "type": ["hd", "con", "ft"],
+         "com": "mk2",
 
-        },
-        {
-            "name": "默认分类",
-            "icon": "mk3.png",
-            "width": [190,750],
-            "type": ["hd","con"],
-            "com": "mk3",
+      },
+      {
+         "name": "默认分类",
+         "icon": "mk3.png",
+         "width": [190, 750],
+         "type": ["hd", "con"],
+         "com": "mk3",
 
-        },  
+      },
       //   {
       //       "name": "个性分类",
       //       "icon": "mk4.png",
@@ -49,14 +49,14 @@ const mokuai = {
       //       "com": "mk6",
 
       //   },
-        {
-            "name": "友情链接",
-            "icon": "mk7.png",
-            "width": [190, 950],
-            "type": ["ft"],
-            "com": "mk7",
+      {
+         "name": "友情链接",
+         "icon": "mk7.png",
+         "width": [190, 950],
+         "type": ["ft"],
+         "com": "mk7",
 
-        },
+      },
       //   {
       //       "name": "客服中心",
       //       "icon": "mk8.png",
@@ -176,6 +176,6 @@ const mokuai = {
       //       "type": ["hd"],
       //       "com": "mk22",
       //   },
-    ]
+   ]
 }
 export default mokuai;

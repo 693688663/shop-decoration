@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 const store = new Vuex.Store({
    state: {
+      edit_manage: 1,
       // 保存页面编辑中的坐标
       html_xy: {
          hd: {
@@ -66,6 +67,10 @@ const store = new Vuex.Store({
 
    },
    mutations: {
+      // 
+      edit_manage_mu(state, n) {
+         state.edit_manage = n.data
+      },
       // 获取本地存储中的数据信息
       setlocalStorage_layout_data_mu(state, n) {
          state.layout_data = n.data
@@ -305,20 +310,24 @@ const store = new Vuex.Store({
             name: n.data.name
          }
          state.layout_data.con.splice(n.data.num, 0, data)
-      }, 
+      },
       // 删除单元
       del_mndy_mu(state, n) {
          if (!state.layout_data.con[n.data.num]) { return }
-         if(state.layout_data.con[n.data.num].name=="mn"){
+         if (state.layout_data.con[n.data.num].name == "mn") {
             state.layout_data.con.splice(n.data.num, 1)
          }
       },
       // 添加单元数据
-      add_dy_data_mu(state,n){
-         state.layout_data.con.splice(n.data.num,0,n.data.data)
+      add_dy_data_mu(state, n) {
+         state.layout_data.con.splice(n.data.num, 0, n.data.data)
       },
    },
    actions: {
+      // 
+      edit_manage_ac(context, payload) {
+         context.commit("edit_manage_mu", payload)
+      },
       // 获取本地存储中的数据信息
       setlocalStorage_layout_data_ac(context, payload) {
          context.commit('setlocalStorage_layout_data_mu', payload)
@@ -388,8 +397,8 @@ const store = new Vuex.Store({
          context.commit("del_mndy_mu", payload)
       },
       // 添加单元数据
-      add_dy_data_ac(context,payload){
-         context.commit("add_dy_data_mu",payload)
+      add_dy_data_ac(context, payload) {
+         context.commit("add_dy_data_mu", payload)
       }
    },
 })
