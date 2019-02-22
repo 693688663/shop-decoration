@@ -7,7 +7,7 @@
                <a :href="item.urlsite">{{item.name}}</a>
             </li>
          </ul>
-         <div class="edit" @click="isShow=true">编辑</div>
+         <!-- <div class="edit" @click="isShow=true">编辑</div> -->
 
          <!--弹窗-->
          <div class="dialog" v-if="isShow">
@@ -120,7 +120,7 @@
             </div>
          </div>
       </div>
-      <!-- <mkbutton
+      <mkbutton
        v-if="hoverActive==true"
        :dataName="dataName"
        :dataLocation1="dataLocation1"
@@ -128,7 +128,7 @@
        :dataLocation3="dataLocation3"
        :dataLocation4="dataLocation4"
        :datalength="datalength"
-     ></mkbutton>-->
+     ></mkbutton>
    </div>
 </template>
 <script>
