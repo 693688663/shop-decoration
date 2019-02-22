@@ -1,6 +1,6 @@
 <template>
    <div id="mk1_type">
-      asdfasdf
+      asdfasdfqweqwe
    </div>
 </template>
 <script>
