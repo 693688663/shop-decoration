@@ -42,7 +42,7 @@
                      <ul>
                         <li v-for="(item,index) in linklist">
                            <span>
-                              链接名称:123123
+                              链接名称:
                               <input type="text" class="input1" v-model="item.name">
                               <div class="dialog-operation" @mouseleave="item.display=false">
                                  <a @mouseenter="item.display=true" id="move">移动
