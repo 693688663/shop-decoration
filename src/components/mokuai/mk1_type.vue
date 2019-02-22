@@ -7,7 +7,5 @@
 
 </script>
 <style>
-   #mk1_type {
-     
-   }
+  
 </style>
