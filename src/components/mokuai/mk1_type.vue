@@ -1,6 +1,6 @@
 <template>
    <div id="mk1_type">
-      asdfasdfqweqwe
+      asdfasdfqweqwe框架hihi会
    </div>
 </template>
 <script>
