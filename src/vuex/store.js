@@ -67,10 +67,6 @@ const store = new Vuex.Store({
 
    },
    mutations: {
-      // 
-      edit_manage_mu(state, n) {
-         state.edit_manage = n.data
-      },
       // 获取本地存储中的数据信息
       setlocalStorage_layout_data_mu(state, n) {
          state.layout_data = n.data
@@ -324,10 +320,6 @@ const store = new Vuex.Store({
       },
    },
    actions: {
-      // 
-      edit_manage_ac(context, payload) {
-         context.commit("edit_manage_mu", payload)
-      },
       // 获取本地存储中的数据信息
       setlocalStorage_layout_data_ac(context, payload) {
          context.commit('setlocalStorage_layout_data_mu', payload)
