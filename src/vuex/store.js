@@ -64,7 +64,7 @@ const store = new Vuex.Store({
          },
          display: ""
       },
-
+      edit_mk_data: {},
    },
    mutations: {
       // 获取本地存储中的数据信息
@@ -318,6 +318,14 @@ const store = new Vuex.Store({
       add_dy_data_mu(state, n) {
          state.layout_data.con.splice(n.data.num, 0, n.data.data)
       },
+      // 编辑模块
+      edit_mk_mu(state, n) {
+         console.log(n.data)
+         state.edit_mk_data = n.data
+      },
+      mokuai_mask_mu(state, n) {
+         state.edit_mk_data.type = n.data
+      }
    },
    actions: {
       // 获取本地存储中的数据信息
@@ -391,6 +399,13 @@ const store = new Vuex.Store({
       // 添加单元数据
       add_dy_data_ac(context, payload) {
          context.commit("add_dy_data_mu", payload)
+      },
+      // 编辑模块
+      edit_mk_ac(context, payload) {
+         context.commit("edit_mk_mu", payload)
+      },
+      mokuai_mask_ac(context, payload){
+         context.commit("mokuai_mask_mu", payload)
       }
    },
 })

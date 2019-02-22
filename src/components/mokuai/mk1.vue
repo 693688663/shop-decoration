@@ -3,8 +3,8 @@
       <div class="win">
          <div class="mk1">
             <div class="title">{{title_name}}</div>
-            <div class=" content  ofh" :class="{content_w19:dataLocation3=='w19',content_w75:dataLocation3=='w75',content_w95:dataLocation3=='center'}">
-               <div class="li fl" v-for="site in 4">
+            <div class=" content  ofh" :class="{content_w19:dataLocation3=='w19',content_w75:dataLocation3=='w75',content_w95:dataLocation3=='center',content_w95:dataLocation3==''}">
+               <div class="li fl" v-for="site in 6">
                   <div class="img">
                      <img src="../../assets/img/img.jpg" alt="123124">
                   </div>
@@ -20,8 +20,10 @@
             </div>
          </div>
       </div>
-      <mkbutton v-if="hoverActive==true" :dataName="dataName" :dataLocation1="dataLocation1" :dataLocation2="dataLocation2"
-         :dataLocation3="dataLocation3" :dataLocation4="dataLocation4" :datalength="datalength"> </mkbutton>
+
+      <mkbutton v-if="hoverActive==true" :datamk="datamk" :dataName="dataName" :dataLocation1="dataLocation1"
+         :dataLocation2="dataLocation2" :dataLocation3="dataLocation3" :dataLocation4="dataLocation4" :datalength="datalength">
+      </mkbutton>
    </div>
 </template>
 <script>
@@ -36,6 +38,7 @@
          dataref: "",//ref值
          dataName: "",//模块名
          data: null,
+         datamk: null,
          dataLocation1: "",//布局位置（hd  ft  con）
          dataLocation2: "",//单元序列（0,1,2 ····）
          dataLocation3: "",//单元布局（w19,w75 w1920）
@@ -93,14 +96,13 @@
 
 
       .content {
-         padding: 5px 0 0;
          display: -webkit-flex;
          display: flex;
          flex-wrap: wrap;
          justify-content: space-between;
 
          div.li {
-            margin: 5px 0px;
+            margin: 10px 0 0;
             width: 188px;
             border: 1px solid #eee;
 
@@ -156,11 +158,10 @@
       }
 
       .content_w75 {
-         padding: 5px 0 0;
 
 
          div.li {
-            /* margin: 5px 10px; */
+            margin: 10px 0 0;
             width: 240px;
             border: 1px solid #eee;
 
@@ -179,6 +180,7 @@
       .content_w95 {
 
          div.li {
+            margin: 10px 0 0;
             width: 223px;
             border: 1px solid #eee;
 

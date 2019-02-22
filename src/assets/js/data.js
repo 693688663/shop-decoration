@@ -4,7 +4,7 @@ const mokuai = {
          "name": "宝贝推荐",
          "icon": "mk1.png",
          "width": [190, 750, 950],
-         "type": ["con"],
+         "type": ["hd", "con"],
          "com": "mk1",
       },
       {

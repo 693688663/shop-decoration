@@ -13,6 +13,7 @@
 
       props: {
          dataName: "",//模块名
+         datamk: "",
          dataLocation1: "",//布局位置（hd  ft  con）
          dataLocation2: "",//单元序列（0,1,2 ····）
          dataLocation3: "",//单元布局（w19,w75 w1920）
@@ -29,6 +30,7 @@
             var dispatch = this.$store.dispatch
             var data = {
                name: that.dataName,
+
                location1: that.dataLocation1,
                location2: that.dataLocation2,
                location3: that.dataLocation3,
@@ -78,11 +80,13 @@
             })
          },
          // 编辑模块按钮
-         edit_mk(){
+         edit_mk() {
             var that = this
             var dispatch = this.$store.dispatch
             var data = {
+               type: true,
                name: that.dataName,
+               datamk: that.datamk,
                location1: that.dataLocation1,
                location2: that.dataLocation2,
                location3: that.dataLocation3,
@@ -90,7 +94,10 @@
                datalength: that.datalength,
 
             }
-            console.log(data)
+            dispatch({
+               type: "edit_mk_ac",
+               data: data,
+            })
          },
       }
    }

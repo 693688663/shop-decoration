@@ -87,8 +87,8 @@
                         </h3>
                         <div v-for="(site,index) in layout_data.hd">
                            <component :is="site.name" style="margin: 0 auto 10px" :ref="'hd'+index+site.name" :dataref="'hd'+index+site.name"
-                              :dataName="site.mkname" :data="site" dataLocation1="hd" dataLocation2="" dataLocation3=""
-                              :dataLocation4="index" :datalength="layout_data.hd.length-1"></component>
+                              :dataName="site.mkname" :data="site" :datamk="site.name" dataLocation1="hd" dataLocation2=""
+                              dataLocation3="" :dataLocation4="index" :datalength="layout_data.hd.length-1"></component>
                         </div>
                      </div>
                      <!-- 主体 -->
@@ -104,16 +104,17 @@
                                  <div v-else v-for="(site1,index1) in site.w19">
                                     <component :is="site1.name" style="margin: 0 auto 10px" :ref="'con'+index+'w19'+index1"
                                        :dataref="'con'+index+'w19'+index1" :dataName="site1.mkname" :data="site1"
-                                       dataLocation1="con" :dataLocation2="index" dataLocation3="w19" :dataLocation4="index1"
-                                       :datalength="site.w19.length-1"></component>
+                                       :datamk="site1.name" dataLocation1="con" :dataLocation2="index" dataLocation3="w19"
+                                       :dataLocation4="index1" :datalength="site.w19.length-1"></component>
                                  </div>
                               </div>
                               <div class="fr w75" :ref="'leftEdit'+index+'w75'">
                                  <h3 ref="left_w75_h3" v-if="site.w75.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w75">
                                     <component :is="site1.name" :ref="'con'+index+'w75'+index1" :dataref="'con'+index+'w75'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" dataLocation1="con"
-                                       :dataLocation2="index" dataLocation3="w75" :dataLocation4="index1" :datalength="site.w75.length-1"></component>
+                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" :datamk="site1.name"
+                                       dataLocation1="con" :dataLocation2="index" dataLocation3="w75" :dataLocation4="index1"
+                                       :datalength="site.w75.length-1"></component>
                                  </div>
                               </div>
                            </div>
@@ -123,16 +124,18 @@
                                  <h3 ref="right_w75_h3" v-if="site.w75.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w75">
                                     <component :is="site1.name" :ref="'con'+index+'w75'+index1" :dataref="'con'+index+'w75'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" dataLocation1="con"
-                                       :dataLocation2="index" dataLocation3="w75" :dataLocation4="index1" :datalength="site.w75.length-1"></component>
+                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" :datamk="site1.name"
+                                       dataLocation1="con" :dataLocation2="index" dataLocation3="w75" :dataLocation4="index1"
+                                       :datalength="site.w75.length-1"></component>
                                  </div>
                               </div>
                               <div class="fr w19" :ref="'rightEdit'+index+'w19'">
                                  <h3 ref="right_w19_h3" v-if="site.w19.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w19">
                                     <component :is="site1.name" :ref="'con'+index+'w19'+index1" :dataref="'con'+index+'w19'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" dataLocation1="con"
-                                       :dataLocation2="index" dataLocation3="w19" :dataLocation4="index1" :datalength="site.w19.length-1"></component>
+                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" :datamk="site1.name"
+                                       dataLocation1="con" :dataLocation2="index" dataLocation3="w19" :dataLocation4="index1"
+                                       :datalength="site.w19.length-1"></component>
                                  </div>
                               </div>
                            </div>
@@ -143,8 +146,8 @@
                                  <div v-else v-for="(site1,index1) in site.w1920">
                                     <component :is="site1.name" style="margin: 0 auto 10px" :ref="'conter'+index+site1.name+index1"
                                        :dataref="'conter'+index+site1.name+index1" :dataName="site1.mkname" :data="site1"
-                                       dataLocation1="con" :dataLocation2="index" dataLocation3="center" :dataLocation4="index1"
-                                       :datalength="site.w1920.length-1"></component>
+                                       :datamk="site1.name" dataLocation1="con" :dataLocation2="index" dataLocation3="center"
+                                       :dataLocation4="index1" :datalength="site.w1920.length-1"></component>
                                  </div>
                               </div>
                            </div>
@@ -157,8 +160,8 @@
                         </h3>
                         <div v-for="(site,index) in layout_data.ft">
                            <component :is="site.name" style="margin: 0 auto 10px" :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
-                              :dataName="site.mkname" :data="site" dataLocation1="ft" dataLocation2="" dataLocation3=""
-                              :dataLocation4="index" :datalength="layout_data.ft.length-1"></component>
+                              :dataName="site.mkname" :data="site" :datamk="site.name" dataLocation1="ft" dataLocation2=""
+                              dataLocation3="" :dataLocation4="index" :datalength="layout_data.ft.length-1"></component>
                         </div>
                      </div>
                   </div>
@@ -316,10 +319,17 @@
          </div>
       </div>
       <!-- 模块模拟框 -->
+
       <div ref="mkmk" id="mkmk" class="pa" v-if="mk_move_xy.display" :style="mk_move_xy.xy" @mouseup="bjmkmouseup($event)">
          {{layout_data_mk.mkname}}
       </div>
-
+      <!-- 模块编辑框 -->
+      <div class="mokuai_mask" v-if="edit_mk_data.type" @click="edit_mk_data_fun(false)">
+         <component :is="'mk1'+'_type'"></component>
+      </div>
+      <!-- <component :is="site.name" style="margin: 0 auto 10px" :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
+                              :dataName="site.mkname" :data="site" dataLocation1="ft" dataLocation2="" dataLocation3=""
+                              :dataLocation4="index" :datalength="layout_data.ft.length-1"></component> -->
    </div>
 </template>
 <script>
@@ -331,6 +341,7 @@
    // 页面编辑页组件
    import mk from './mokuai/mk'//提示模块
    import mk1 from './mokuai/mk1'//功能模块
+   import mk1_type from './mokuai/mk1_type'//功能模块
    import mk2 from './mokuai/mk2'//功能模块
    import mk3 from './mokuai/mk3'//功能模块
    import mk4 from './mokuai/mk4'//功能模块
@@ -361,6 +372,7 @@
          // 页面编辑页组件
          mk,
          mk1,
+         mk1_type,
          mk2,
          mk3,
          mk4,
@@ -433,6 +445,7 @@
          layout_data_mk_xy: state => state.layout_data_mk_xy,//当前移动模块的起始位置
          layout_data_mk_move_xy: state => state.layout_data_mk_move_xy,//当前移动模块的移动轨迹
          layout_data_mk_site: state => state.layout_data_mk_site,//当前模块的位置信息
+         edit_mk_data: state => state.edit_mk_data//编辑模块数据
       }),
       watch: {
          // 所有模块数据
@@ -2190,6 +2203,14 @@
             }
             that.dy_type = false
          },
+         edit_mk_data_fun(val) {
+            var that = this
+            var dispatch = this.$store.dispatch
+            dispatch({
+               type: "mokuai_mask_ac",
+               data: val
+            })
+         }
       },
    }
 </script>
@@ -2863,5 +2884,15 @@
       height: 28px;
       border: 2px dashed #FF9831;
       margin-bottom: 10px;
+   }
+
+   .mokuai_mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1005;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.1)
    }
 </style>
