@@ -4,9 +4,9 @@
          <div class="mk1">
             <div class="title">{{title_name}}</div>
             <div class=" content  ofh" :class="{content_w19:dataLocation3=='w19',content_w75:dataLocation3=='w75',content_w95:dataLocation3=='center'}">
-               <div class="li fl" v-for="site in 4" :style="li_style">
-                  <div class="img" :style="img_style">
-                     <img src="../../assets/img/img.jpg" :style="img_style" alt="123124">
+               <div class="li fl" v-for="site in 4">
+                  <div class="img">
+                     <img src="../../assets/img/img.jpg" alt="123124">
                   </div>
                   <p class="shop_name">{{shop_name}}</p>
                   <p class="money">¥&nbsp;<span>{{money}}</span></p>
@@ -46,10 +46,6 @@
          return {
             hoverActive: false,//按钮是否显示
             // mk1_type: true,//
-            li_list: null,//每行显示个数 190 1   750 默认三个  950 默认四个
-            content_style: {},
-            li_style: {},
-            img_style: {},
 
             title_name: "宝贝推荐",
             shop_name: "商品名称",
@@ -59,17 +55,8 @@
          }
       },
       computed: mapState({
-         edit_manage: state => state.edit_manage,//窗口切换
       }),
-      // watch: {
-      //    edit_manage: {
-      //       handler(newName, oldName) {
-      //          var that = this
-      //          that.layout_style()
-      //       },
-      //       deep: true,
-      //    }
-      // },
+
       mounted: function () {
          var that = this
 
