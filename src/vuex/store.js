@@ -323,6 +323,7 @@ const store = new Vuex.Store({
          console.log(n.data)
          state.edit_mk_data = n.data
       },
+         // 隐藏编辑模块
       mokuai_mask_mu(state, n) {
          state.edit_mk_data.type = n.data
       }
@@ -404,6 +405,7 @@ const store = new Vuex.Store({
       edit_mk_ac(context, payload) {
          context.commit("edit_mk_mu", payload)
       },
+         // 隐藏编辑模块
       mokuai_mask_ac(context, payload){
          context.commit("mokuai_mask_mu", payload)
       }

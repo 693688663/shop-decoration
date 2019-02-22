@@ -324,12 +324,11 @@
          {{layout_data_mk.mkname}}
       </div>
       <!-- 模块编辑框 -->
-      <div class="mokuai_mask" v-if="edit_mk_data.type" @click="edit_mk_data_fun(false)">
-         <component :is="'mk1'+'_type'"></component>
+      <div class="mokuai_mask" v-if="edit_mk_data.type">
+         <span class="del cursor" @click="edit_mk_data_fun(false)"></span>
+         <component :is="edit_mk_data.datamk+'_type'"></component>
       </div>
-      <!-- <component :is="site.name" style="margin: 0 auto 10px" :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
-                              :dataName="site.mkname" :data="site" dataLocation1="ft" dataLocation2="" dataLocation3=""
-                              :dataLocation4="index" :datalength="layout_data.ft.length-1"></component> -->
+
    </div>
 </template>
 <script>
@@ -2203,6 +2202,7 @@
             }
             that.dy_type = false
          },
+         // 隐藏编辑模块
          edit_mk_data_fun(val) {
             var that = this
             var dispatch = this.$store.dispatch
