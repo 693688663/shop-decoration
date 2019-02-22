@@ -18,7 +18,7 @@
                   <i @click="isShow=false">x</i>
                </h2>
                <!--tab-nav切换-->
-               <div class="dialog-tab">666
+               <div class="dialog-tab">
                   <a :class="{actived:tabShow==true}" v-on:click="tabChange(true)">内容设置</a>
                   <a :class="{actived:tabShow==false}" v-on:click="tabChange(false)">显示设置</a>
                   <span>
