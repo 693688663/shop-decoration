@@ -1,6 +1,6 @@
 <template>
    <div id="mk1_type">
-      123123
+      12312312
    </div>
 </template>
 <script>
