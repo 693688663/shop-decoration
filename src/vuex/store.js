@@ -322,8 +322,6 @@ const mutations = {
    },
    // 编辑模块
    edit_mk_mu(state, n) {
-      console.log(state.layout_data)
-      console.log(n.data)
       state.edit_mk_data = n.data
    },
    // 隐藏编辑模块
