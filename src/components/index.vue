@@ -2893,6 +2893,11 @@
       z-index: 1005;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.1)
+      background: rgba(0, 0, 0, 0.6)
+   }
+   .mokuai_mask>.del {
+      width: 40px;
+      height: 40px;
+      background-size: 20px 20px ;
    }
 </style>
