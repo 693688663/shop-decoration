@@ -7,7 +7,7 @@
          <li class="fl" :class="{active:li_active==2}" @click="li_active=2">电脑端显示设置</li>
       </ul>
       <div class="con">
-
+         
       </div>
    </div>
 </template>
