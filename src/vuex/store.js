@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import * as d_action from "./d_action"
-import * as d_mutation from "./d_mutation"
+import d_action from "./d_action"
+import d_mutation from "./d_mutation"
 import * as l_action from "./l_action"
 import * as l_mutation from "./l_mutation"
 Vue.use(Vuex);
@@ -413,11 +413,11 @@ const actions = {
 }
 export default new Vuex.Store({
    state,
-   actions,
-   mutations,
-   d_action,
-   d_mutation,
-   l_action,
-   l_mutation,
+   actions: actions,
+   mutations: mutations,
+   // d_action,
+   // d_mutation,
+   // l_action,
+   // l_mutation,
 
 })

@@ -76,8 +76,8 @@
 </template>
 <script>
    // vuex存储
-   import { mapState, mapActions } from 'vuex'
-   import { baby_set_data_ac } from "../../vuex/d_action"
+   import { mapState, mapActions, dispatch } from 'vuex'
+   // import qwe from "../../vuex/d_action"
    export default {
       data: function () {
          return {
@@ -97,6 +97,9 @@
          edit_mk_data: state => state.edit_mk_data,//模块数据
       }),
       methods: {
+         ...mapActions({
+            fetchLabel: 'QWE' 
+         }),
          // 隐藏编辑模块
          edit_mk_data_fun(val) {
             var that = this
@@ -121,10 +124,7 @@
             //    type: "baby_set_data_ac",
             //    data: data
             // })
-            console.log(baby_set_data_ac)
-            // this.$store.dispatch('baby_set_data_ac')
-            // baby_set_data_ac(data)
-            // console.log(that.edit_mk_data)
+            console.log(that.fetchLabel())
          },
          // 宝贝数量切换
          sort_fun() {
