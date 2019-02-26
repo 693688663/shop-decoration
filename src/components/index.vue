@@ -325,7 +325,7 @@
       </div>
       <!-- 模块编辑框 -->
       <div class="mokuai_mask" v-if="edit_mk_data.type">
-        
+
          <component :is="edit_mk_data.datamk+'_type'"></component>
       </div>
 
@@ -347,7 +347,7 @@
    import mk5 from './mokuai/mk5'//功能模块
    import mk6 from './mokuai/mk6'//功能模块
    import mk7 from './mokuai/mk7'//功能模块
-    import mk7_type from './mokuai/mk7_type'//功能模块
+   import mk7_type from './mokuai/mk7_type'//功能模块
    import mk8 from './mokuai/mk8'//功能模块
    import mk9 from './mokuai/mk9'//功能模块
    import mk10 from './mokuai/mk10'//功能模块
@@ -615,12 +615,12 @@
          // 
          edit_manage_fun(num) {
             var that = this
-            that.edit_manage = num
             var dispatch = this.$store.dispatch
-            dispatch({
-               type: "edit_manage_ac",
-               data: num
-            })
+            that.edit_manage = num
+            // dispatch({
+            //    type: "edit_manage_ac",
+            //    data: num
+            // })
          },
          // 左侧工具栏的显示或隐藏
          content1_active_fun(num) {
@@ -2204,7 +2204,7 @@
             }
             that.dy_type = false
          },
-        
+
       },
    }
 </script>
@@ -2889,9 +2889,10 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.6)
    }
+
    .mokuai_mask>.del {
       width: 40px;
       height: 40px;
-      background-size: 20px 20px ;
+      background-size: 20px 20px;
    }
 </style>

@@ -1,9 +1,8 @@
-const d_action = function () {
-   return {
-      baby_set_data_ac: function ({ commit, state }, payload) {
-         console.log(payload)
-      }
-   }
-}
 
-export default d_action
+export default {
+   baby_set_data_ac: function (context, payload) {
+      context.commit("baby_set_data_mu", payload)
+      // console.log(payload)
+   },
+
+}

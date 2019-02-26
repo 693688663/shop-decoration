@@ -77,7 +77,6 @@
 <script>
    // vuex存储
    import { mapState, mapActions, dispatch } from 'vuex'
-   // import qwe from "../../vuex/d_action"
    export default {
       data: function () {
          return {
@@ -97,9 +96,6 @@
          edit_mk_data: state => state.edit_mk_data,//模块数据
       }),
       methods: {
-         ...mapActions({
-            fetchLabel: 'QWE' 
-         }),
          // 隐藏编辑模块
          edit_mk_data_fun(val) {
             var that = this
@@ -120,11 +116,10 @@
                money: that.money,
                number: that.number,
             }
-            // dispatch({
-            //    type: "baby_set_data_ac",
-            //    data: data
-            // })
-            console.log(that.fetchLabel())
+            dispatch({
+               type: "baby_set_data_ac",
+               data: data
+            })
          },
          // 宝贝数量切换
          sort_fun() {

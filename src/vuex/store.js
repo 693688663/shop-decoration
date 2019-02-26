@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import d_action from "./d_action"
 import d_mutation from "./d_mutation"
-import * as l_action from "./l_action"
-import * as l_mutation from "./l_mutation"
+import l_action from "./l_action"
+import l_mutation from "./l_mutation"
 Vue.use(Vuex);
 const state = {
    edit_manage: 1,
@@ -326,7 +326,7 @@ const mutations = {
    },
    // 隐藏编辑模块
    mokuai_mask_mu(state, n) {
-       console.log(n)
+      console.log(n)
       state.edit_mk_data.type = n.data
    }
 }
@@ -412,13 +412,19 @@ const actions = {
       context.commit("mokuai_mask_mu", payload)
    }
 }
+const action = Object.assign(
+   actions,
+   d_action,
+   l_action
+);
+const mutation = Object.assign(
+   mutations,
+   d_mutation,
+   l_mutation
+);
 export default new Vuex.Store({
    state,
-   actions: actions,
-   mutations: mutations,
-   // d_action,
-   // d_mutation,
-   // l_action,
-   // l_mutation,
-
+   actions: action,
+   mutations: mutation,
+   // getters
 })
