@@ -1,5 +1,5 @@
 export default {
-    //本地友情链接数据保存到仓库
+    //本地友情链接数据赋值到仓库
     f_links_data(state, n) {
      var site = state.edit_mk_data
      console.log(n.data)
