@@ -107,8 +107,10 @@
             </div>
             </div>
    </div>
+   
 </template>
 <script>
+ import { mapState } from 'vuex'
  export default {
       data: function () {
          return {
@@ -132,7 +134,11 @@
             ]
          };
       },
+       computed: mapState({
+         edit_mk_data: state => state.edit_mk_data,//获取位置信息
+       }),
        methods: {
+       
          //页面内容切换
          tabChange: function (t) {
             var that = this;
@@ -158,6 +164,7 @@
                display: false
             };
             that.linklist.push(data);
+             console.log(that.edit_mk_data);
             // alert(111);
          },
          // 删除一列数据
@@ -169,11 +176,13 @@
          // 保存函数
          savedata() {
             var that = this;
-            var data = null
-            console.log(that.linklist)
-            data = that.linklist;
-            that.links = data;
-            console.log(that.links)
+            var dispatch = this.$store.dispatch
+            dispatch({
+               type: "link_data",
+               data: that.linklist
+            })
+           
+            // console.log(that.links)
          },
 
          // 移动序列
