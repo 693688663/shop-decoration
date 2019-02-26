@@ -322,11 +322,11 @@ const mutations = {
    },
    // 编辑模块
    edit_mk_mu(state, n) {
+      console.log(n)
       state.edit_mk_data = n.data
    },
    // 隐藏编辑模块
    mokuai_mask_mu(state, n) {
-      console.log(n)
       state.edit_mk_data.type = n.data
    }
 }
