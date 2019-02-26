@@ -93,8 +93,6 @@
          padding: 0;
       }
 
-
-
       .content {
          display: -webkit-flex;
          display: flex;

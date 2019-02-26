@@ -18,7 +18,7 @@
             <div class="li">
                <span class="type">自动推荐排序：</span>
                <span class="messagea">
-                  <select class="input-box" name="sort" v-model="sort_type">
+                  <select class="input-box" name="sort" v-model="data.recommend_sort_type">
                      <option value="1" selected="">人气指数</option>
                      <option value="2">热卖宝贝在前</option>
                      <option value="3">热门收藏在前</option>
@@ -31,7 +31,7 @@
             <div class="li">
                <span class="type">宝贝分类：</span>
                <span class="messagea">
-                  <select class="input-box" name="sort" v-model="baby_classify">
+                  <select class="input-box" name="sort" v-model="data.baby_classify">
                      <option value="1" selected="">所以宝贝</option>
                      <option value="2">热卖宝贝在前</option>
                      <option value="3">热门收藏在前</option>
@@ -44,19 +44,19 @@
             <div class="li">
                <span class="type">关键字：</span>
                <span class="messagea text">
-                  <input type="text" v-model="keyword">
+                  <input type="text" v-model="data.keyword">
                </span>
             </div>
             <div class="li">
                <span class="type">价格范围：</span>
                <span class="messagea money">
-                  <input type="text" v-model="money.min">&nbsp;-&nbsp;<input type="text" v-model="money.max">&nbsp;元
+                  <input type="text" v-model="data.money_min">&nbsp;-&nbsp;<input type="text" v-model="data.money_max">&nbsp;元
                </span>
             </div>
             <div class="li">
                <span class="type">宝贝数量：</span>
                <span class="messagea num">
-                  <select class="input-box" name="sort" v-model="number.type" @change="sort_fun()">
+                  <select class="input-box" name="sort" v-model="data.baby_type" @change="sort_fun()">
                      <option value="3" selected="">3</option>
                      <option value="4">4</option>
                      <option value="6">6</option>
@@ -66,7 +66,7 @@
                      <option value="16">16</option>
                      <option value="0">自定义</option>
                   </select>
-                  <input type="text" v-model="number.num" v-show="number.type=='0'">
+                  <input type="text" v-model="data.baby_number" v-show="data.baby_type=='0'">
                </span>
             </div>
          </div>
@@ -81,20 +81,50 @@
       data: function () {
          return {
             li_active: 1,//显示切换
-            // data
-            sort_type: "1",//排序方式
-            baby_classify: "1", //宝贝分类
-            keyword: null,// 关键字
-            money: { min: "", max: "" },// 价格范围
-            number: {
-               type: "3",
-               num: ""
-            },// 宝贝数量
+            //基本设置信息
+            data: {
+               recommend_ways: "1",// 推荐方式
+               recommend_sort_type: "1",//自动推荐排序
+               baby_classify: "1",//宝贝分类
+               keyword: "",// 关键字
+               money_min: "",//最小金额
+               money_max: "",// 最大金额
+               baby_type: "3",//宝贝数量下标
+               baby_number: "3",// 宝贝数量
+            },
          }
       },
       computed: mapState({
-         edit_mk_data: state => state.edit_mk_data,//模块数据
+         edit_mk_data: state => state.edit_mk_data,//当前编辑模块的位置信息
+         layout_data: state => state.layout_data,//所有模块的布局信息
       }),
+      mounted: function () {
+         var that = this
+         var site = that.edit_mk_data
+         var data_list;
+         if (site.location1 == "hd") {
+            data_list = that.layout_data.hd[site.location4].data
+         }
+         if (site.location1 == "ft") {
+            data_list = that.layout_data.ft[site.location4].data
+         }
+         if (site.location1 == "con") {
+            if (site.location3 == "w19") {
+               data_list = that.layout_data.con[site.location2].w19[site.location4].data
+            }
+            if (site.location3 == "w75") {
+               data_list = that.layout_data.con[site.location2].w75[site.location4].data
+            }
+            if (site.location3 == "center") {
+               data_list = that.layout_data.con[site.location2].w1920[site.location4].data
+            }
+         }
+         if (data_list.baby_type) {
+            that.data = data_list
+         }
+
+
+      },
       methods: {
          // 隐藏编辑模块
          edit_mk_data_fun(val) {
@@ -109,24 +139,19 @@
          save_fun() {
             var that = this
             var dispatch = this.$store.dispatch
-            var data = {
-               sort_type: that.sort_type,
-               baby_classify: that.baby_classify,
-               keyword: that.keyword,
-               money: that.money,
-               number: that.number,
-            }
             dispatch({
                type: "baby_set_data_ac",
-               data: data
+               data: that.data
             })
+            that.edit_mk_data_fun(false) 
          },
          // 宝贝数量切换
          sort_fun() {
             var that = this
             var dispatch = this.$store.dispatch
-            if (that.number.type != "0") {
-               that.number.num = that.number.type
+            if (that.baby_type != "0") {
+               that.data.baby_number = that.baby_type
+
             }
          }
       }
