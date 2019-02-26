@@ -325,7 +325,7 @@
       </div>
       <!-- 模块编辑框 -->
       <div class="mokuai_mask" v-if="edit_mk_data.type">
-         <span class="del cursor" @click="edit_mk_data_fun(false)"></span>
+        
          <component :is="edit_mk_data.datamk+'_type'"></component>
       </div>
 
@@ -2204,15 +2204,7 @@
             }
             that.dy_type = false
          },
-         // 隐藏编辑模块
-         edit_mk_data_fun(val) {
-            var that = this
-            var dispatch = this.$store.dispatch
-            dispatch({
-               type: "mokuai_mask_ac",
-               data: val
-            })
-         }
+        
       },
    }
 </script>
