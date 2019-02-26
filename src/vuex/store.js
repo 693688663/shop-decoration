@@ -328,6 +328,7 @@ const mutations = {
    },
    // 隐藏编辑模块
    mokuai_mask_mu(state, n) {
+       console.log(n)
       state.edit_mk_data.type = n.data
    }
 }
