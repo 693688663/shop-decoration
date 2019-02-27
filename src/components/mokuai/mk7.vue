@@ -33,8 +33,8 @@
       props: {
          dataref: "", //ref值
          dataName: "", //模块名
-         data: null,
-         datamk: null,
+         data: null,//
+         datamk: null,//模块序列名
          dataLocation1: "", //布局位置（hd  ft  con）
          dataLocation2: "", //单元序列（0,1,2 ····）
          dataLocation3: "", //单元布局（w19,w75 w1920）

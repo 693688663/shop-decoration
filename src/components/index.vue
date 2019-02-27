@@ -454,7 +454,7 @@
             handler(newName, oldName) {
                var that = this
                localStorage.layoutData = JSON.stringify(newName)
-               // localStorage.layoutData = ""
+            //    localStorage.layoutData = ""
             },
             deep: true,
          },

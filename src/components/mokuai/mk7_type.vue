@@ -107,8 +107,10 @@
             </div>
             </div>
    </div>
+   
 </template>
 <script>
+ import { mapState } from 'vuex'
  export default {
       data: function () {
          return {
@@ -132,7 +134,43 @@
             ]
          };
       },
+       computed: mapState({
+         edit_mk_data: state => state.edit_mk_data,//获取当前编辑位置信息
+         layout_data:state => state.layout_data //获取所有模块的布局信息
+       }),
+       mounted:function(){
+        var that = this;
+        var newlinksdata=[];
+        var site = that.edit_mk_data
+        //判断位置信息,把从仓库拿到的值赋给一个空数组
+        if (site.location1 == "hd") {
+            newlinksdata = that.layout_data.hd[site.location4].data 
+        }
+        if (site.location1 == "ft") {
+            newlinksdata = that.layout_data.ft[site.location4].data
+            console.log(newlinksdata);
+        }
+        if (site.location1 == "con") {
+            if (site.location3 == "w19") {
+            newlinksdata = that.layout_data.con[site.location2].w19[site.location4].data
+            }
+            if (site.location3 == "w75") {
+            newlinksdata = that.layout_data.con[site.location2].w75[site.location4].data
+            }
+            if (site.location3 == "center") {
+            newlinksdata = that.layout_data.con[site.location2].w1920[site.location4].data
+            }
+        }
+         if (newlinksdata.length>0) {
+            that.linklist = newlinksdata;
+            console.log(that.linklist);
+         }
+      
+        // that.linklist = newlinksdata
+        
+       },
        methods: {
+       
          //页面内容切换
          tabChange: function (t) {
             var that = this;
@@ -158,22 +196,31 @@
                display: false
             };
             that.linklist.push(data);
-            // alert(111);
          },
          // 删除一列数据
          deletePerson(index) {
             // 删一个数组元素
             var that = this;
-            that.linklist.splice(index, 1);
+            let data = {
+               name: null,
+               urlsite: null,
+               descration: null,
+               display: false
+            };
+            that.linklist.splice(index,1);
+            console.log(that.linklist.length);
+
+
          },
          // 保存函数
          savedata() {
             var that = this;
-            var data = null
-            console.log(that.linklist)
-            data = that.linklist;
-            that.links = data;
-            console.log(that.links)
+            var dispatch = this.$store.dispatch;
+            dispatch({
+               type: "link_data",
+               data: that.linklist
+            })
+
          },
 
          // 移动序列
