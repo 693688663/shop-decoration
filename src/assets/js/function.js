@@ -29,7 +29,6 @@ export default {
       }
       // 当模块内部数据有意义则更新当前数据
       if (data_list.show_name) {
-         // that.data = data_list
          return data_list
       }
       return
