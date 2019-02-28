@@ -7,32 +7,33 @@
          <li class="fl" :class="{active:li_active==2}" @click="li_active=2">电脑端显示设置</li>
       </ul>
       <div class="con">
-         <div class="Baby_set" v-if="li_active==1">
+         <div class="Baby_set" v-show="li_active==1">
             <div class="li">
                <span class="type">推荐方式：</span>
                <span class="messagea">
-                  <label><input name="Recommendation" type="radio" value="0" checked="checked" />自动推荐</label>
-                  <!-- <label><input name="Recommendation" type="radio" value="1" />手工推荐</label> -->
+                  <label><input name="Recommendation" type="radio" value="1" v-model="data_dom.recommend_ways" />自动推荐</label>
+                  <!-- <label><input name="Recommendation" type="radio" value="2" v-model="data_dom.recommend_ways"/>手工推荐</label> -->
                </span>
             </div>
             <div class="li">
                <span class="type">自动推荐排序：</span>
                <span class="messagea">
-                  <select class="input-box" name="sort" v-model="data.recommend_sort_type">
-                     <option value="1" selected="">人气指数</option>
+                  <select class="input-box" name="sort" @change="select_fun($event,'recommend_sort_type')" v-model="data.recommend_sort_type">
+                     <option value="1">人气指数</option>
                      <option value="2">热卖宝贝在前</option>
                      <option value="3">热门收藏在前</option>
                      <option value="4">最新发布在前</option>
                      <option value="5">价格最低在前</option>
                      <option value="6">价格最低在后</option>
                   </select>
+                  {{data.recommend_sort_type}}
                </span>
             </div>
             <div class="li">
                <span class="type">宝贝分类：</span>
                <span class="messagea">
-                  <select class="input-box" name="sort" v-model="data.baby_classify">
-                     <option value="1" selected="">所以宝贝</option>
+                  <select class="input-box" name="sort" v-model="data.baby_classify" @change="select_fun($event,'baby_classify')">
+                     <option value="1">所以宝贝</option>
                      <option value="2">热卖宝贝在前</option>
                      <option value="3">热门收藏在前</option>
                      <option value="4">最新发布在前</option>
@@ -56,7 +57,7 @@
             <div class="li">
                <span class="type">宝贝数量：</span>
                <span class="messagea num">
-                  <select class="input-box" name="sort" v-model="data.baby_type" @change="sort_fun()">
+                  <select class="input-box" name="sort" v-model="data.baby_type" @change="select_fun($event,'baby_type')">
                      <option value="3" selected="">3</option>
                      <option value="4">4</option>
                      <option value="6">6</option>
@@ -70,19 +71,135 @@
                </span>
             </div>
          </div>
-         <p class="operation"><span class="save" @click="save_fun()">保存</span><span @click="edit_mk_data_fun(false)">取消</span></p>
+         <!-- 显示设置 -->
+         <div class="display_set" v-if="li_active==2">
+            <div class="li display_setup">
+               <span class="type">显示设置：</span>
+               <span class="messagea">
+                  <label><input name="display_set" type="radio" value="0" />不显示</label>
+                  <label><input name="display_set" type="radio" value="1" checked="checked" />显示</label>
+               </span>
+               <input type="text" :value="edit_mk_data.name">
+            </div>
+            <div class="li show_way">
+               <span class="type">展示方式：</span>
+               <span class="message">
+                  <div class="show_way_list show_way_list_1" v-show="edit_mk_data.location3=='w19'">
+                     <div class="dom">
+                        <div class="border">
+                           <div class="dom_con">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                           </div>
+                        </div>
+                     </div>
+                     <p>一行展示一个宝贝</p>
+                  </div>
+                  <div class="show_way_list show_way_list_3" v-show="edit_mk_data.location3=='w75'||edit_mk_data.location3=='center'">
+                     <div class="dom">
+                        <div class="border">
+                           <div class="dom_con">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                           </div>
+                        </div>
+                     </div>
+                     <p>一行展示三个宝贝</p>
+                  </div>
+                  <div class="show_way_list show_way_list_4" v-show="edit_mk_data.location3=='w75'||edit_mk_data.location3=='center'">
+                     <div class="dom">
+                        <div class="border">
+                           <div class="dom_con">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                           </div>
+                        </div>
+                     </div>
+                     <p>一行展示四个宝贝</p>
+                  </div>
+                  <div class="show_way_list show_way_list_5" v-show="edit_mk_data.location3=='center'">
+                     <div class="dom">
+                        <div class="border">
+                           <div class="dom_con">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                           </div>
+                        </div>
+                     </div>
+                     <p>一行展示五个宝贝</p>
+                  </div>
+                  <div class="show_way_list show_way_list_7" v-if="edit_mk_data.location3=='center'">
+                     <div class="dom">
+                        <div class="border">
+                           <div class="dom_con">
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                              <div></div>
+                           </div>
+                        </div>
+                     </div>
+                     <p>一行展示七个宝贝</p>
+                  </div>
+               </span>
+            </div>
+            <div class="li is_show">
+               <span class="type">是否显示：</span>
+               <span class="message">
+                  <label><input name="display_show" type="checkbox" value="0" />折扣价 </label>
+                  <label><input name="display_show" type="checkbox" value="1" checked="checked" />最近30天销售数据</label>
+                  <label><input name="display_show" type="checkbox" value="1" checked="checked" />累计评价数 </label>
+                  <label><input name="display_show" type="checkbox" value="1" checked="checked" />评论</label>
+               </span>
+            </div>
+         </div>
+         <p class="operation">
+            <span class="save" @click="save_fun()">保存</span>
+            <span @click="edit_mk_data_fun(false)">取消</span>
+         </p>
       </div>
    </div>
 </template>
 <script>
    // vuex存储
    import { mapState, mapActions, dispatch } from 'vuex'
+   import fun from '../../assets/js/function.js'
    export default {
       data: function () {
          return {
             li_active: 1,//显示切换
             //基本设置信息
             data: {
+               name: "",// 模块名
                recommend_ways: "1",// 推荐方式
                recommend_sort_type: "1",//自动推荐排序
                baby_classify: "1",//宝贝分类
@@ -91,6 +208,24 @@
                money_max: "",// 最大金额
                baby_type: "3",//宝贝数量下标
                baby_number: "3",// 宝贝数量
+               show_name: "1",// 显示设置
+               show_type: "",// 展示方式
+               yes_show: [],// 是否显示
+            },
+            //基本设置信息本地
+            data_dom: {
+               name: "",// 模块名
+               recommend_ways: "1",// 推荐方式
+               recommend_sort_type: "1",//自动推荐排序
+               baby_classify: "1",//宝贝分类
+               keyword: "",// 关键字
+               money_min: "",//最小金额
+               money_max: "",// 最大金额
+               baby_type: "3",//宝贝数量下标
+               baby_number: "3",// 宝贝数量
+               show_name: "1",// 显示设置
+               show_type: "",// 展示方式
+               yes_show: [],// 是否显示
             },
          }
       },
@@ -100,36 +235,20 @@
       }),
       mounted: function () {
          var that = this
-         var site = that.edit_mk_data
-         var data_list;
-         if (site.location1 == "hd") {
-            data_list = that.layout_data.hd[site.location4].data
-         }
-         if (site.location1 == "ft") {
-            data_list = that.layout_data.ft[site.location4].data
-         }
-         if (site.location1 == "con") {
-            if (site.location3 == "w19") {
-               data_list = that.layout_data.con[site.location2].w19[site.location4].data
-            }
-            if (site.location3 == "w75") {
-               data_list = that.layout_data.con[site.location2].w75[site.location4].data
-            }
-            if (site.location3 == "center") {
-               data_list = that.layout_data.con[site.location2].w1920[site.location4].data
-            }
-         }
-         if (data_list.baby_type) {
-            that.data = data_list
-         }
-
-
+         that.get_data()
       },
       methods: {
-         // 隐藏编辑模块
+         // 保存下拉菜单中的值
+         select_fun(event, value) {
+            var that = this
+            that.data_dom[value] = event.target.value
+            console.log(that.data_dom)
+         },
+         // 隐藏模块编辑弹窗
          edit_mk_data_fun(val) {
             var that = this
             var dispatch = this.$store.dispatch
+            // 隐藏模块
             dispatch({
                type: "mokuai_mask_ac",
                data: val
@@ -139,28 +258,36 @@
          save_fun() {
             var that = this
             var dispatch = this.$store.dispatch
-            dispatch({
-               type: "baby_set_data_ac",
-               data: that.data
-            })
-            that.edit_mk_data_fun(false) 
+            // 保存数据
+            fun.save_data(dispatch, that.data)
+            // 隐藏模块编辑弹窗
+            that.edit_mk_data_fun(false)
+
          },
          // 宝贝数量切换
          sort_fun() {
             var that = this
             var dispatch = this.$store.dispatch
+            // 宝贝数量切换判断是否显示手动输入数量
             if (that.baby_type != "0") {
                that.data.baby_number = that.baby_type
-
             }
-         }
+         },
+         // 获取数据
+         get_data() {
+            var that = this
+            // 获取数据
+            if (fun.get_data(that.edit_mk_data, that.layout_data)) {
+               that.data = fun.get_data(that.edit_mk_data, that.layout_data)
+            }
+         },
       }
    }
 </script>
-<style>
+<style lang="less">
    #mk1_type {
       margin: 100px auto 0;
-      width: 750px;
+      width: 800px;
       background: #fff;
 
    }
@@ -290,6 +417,188 @@
       padding: 0 5px;
       border: 1px solid #a9a9a9
    }
+
+   #mk1_type .con .display_set {
+      margin-bottom: 10px;
+      font-size: 12px;
+
+
+   }
+
+   #mk1_type .con .display_set .li {
+      line-height: 26px;
+   }
+
+   #mk1_type .con .display_set .li span {
+      display: inline-block;
+   }
+
+   #mk1_type .con .display_set .li span.type {
+      text-align: right;
+      width: 100px;
+   }
+
+   #mk1_type .con .display_set .show_way {
+      .type {
+         vertical-align: top;
+      }
+
+      .message {
+         height: auto;
+         width: 670px;
+
+         .show_way_list {
+            margin: 10px;
+            float: left;
+            text-align: center;
+
+            .dom {
+               border: 5px solid #fff;
+
+               .border {
+                  border: 1px solid #ddd;
+
+                  div {
+                     div {
+                        background: #ccc;
+                     }
+                  }
+               }
+            }
+
+            .dom:hover {
+               border: 5px solid #fefecc;
+            }
+
+            .active {
+               border: 5px solid #fefecc;
+            }
+         }
+
+         .show_way_list_1 {
+
+            .dom {
+
+               .border {
+                  height: 138px;
+
+                  .dom_con {
+                     div {
+                        width: 40px;
+                        height: 40px;
+                        margin: 5px auto;
+                     }
+                  }
+               }
+            }
+
+         }
+
+         .show_way_list_3 {
+            width: 200px;
+
+            .dom {
+
+               .border {
+                  height: 138px;
+
+                  .dom_con {
+                     width: 158px;
+                     margin: 20px auto;
+
+                     div {
+                        display: inline-block;
+                        width: 45px;
+                        height: 45px;
+                     }
+                  }
+               }
+            }
+
+         }
+
+         .show_way_list_4 {
+            width: 200px;
+
+            .dom {
+
+               .border {
+                  height: 138px;
+
+                  .dom_con {
+                     margin: 25px auto;
+
+                     div {
+                        display: inline-block;
+                        width: 35px;
+                        height: 35px;
+                     }
+                  }
+               }
+            }
+
+         }
+
+         .show_way_list_5 {
+            width: 200px;
+
+            .dom {
+
+               .border {
+                  height: 138px;
+
+                  .dom_con {
+                     margin: 35px auto;
+
+                     div {
+                        display: inline-block;
+                        width: 30px;
+                        height: 30px;
+                     }
+                  }
+               }
+            }
+
+         }
+
+         .show_way_list_7 {
+            width: 200px;
+            height: 138px;
+
+            .dom {
+               .border {
+                  height: 138px;
+
+                  .dom_con {
+                     margin: 40px auto;
+
+                     div {
+                        display: inline-block;
+                        width: 23px;
+                        height: 23px;
+                     }
+                  }
+               }
+            }
+
+         }
+      }
+   }
+
+   #mk1_type .con .display_set {
+      .is_show {
+         .message {
+            line-height: 26px;
+
+            label {
+               height: 26px;
+               line-height: 26px;
+               margin: 0 5px;
+            }
+         }
+      }
+   }
+
 
    #mk1_type .con .operation {
       margin: 30px 0 20px;
