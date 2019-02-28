@@ -26,7 +26,7 @@
                      <option value="5">价格最低在前</option>
                      <option value="6">价格最低在后</option>
                   </select>
-                  {{data.recommend_sort_type}}
+                  recommend_sort_type={{data.recommend_sort_type}}
                </span>
             </div>
             <div class="li">
@@ -277,8 +277,10 @@
          get_data() {
             var that = this
             // 获取数据
-            if (fun.get_data(that.edit_mk_data, that.layout_data)) {
-               that.data = fun.get_data(that.edit_mk_data, that.layout_data)
+            var data = fun.get_data(that.edit_mk_data, that.layout_data)
+            console.log(data)
+            if (data.baby_type) {
+               that.data = data
             }
          },
       }
