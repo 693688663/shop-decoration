@@ -325,7 +325,6 @@
       </div>
       <!-- 模块编辑框 -->
       <div class="mokuai_mask" v-if="edit_mk_data.type">
-
          <component :is="edit_mk_data.datamk+'_type'"></component>
       </div>
 

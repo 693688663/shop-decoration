@@ -30,7 +30,6 @@
             var dispatch = this.$store.dispatch
             var data = {
                name: that.dataName,
-
                location1: that.dataLocation1,
                location2: that.dataLocation2,
                location3: that.dataLocation3,

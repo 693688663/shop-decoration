@@ -136,38 +136,11 @@
       },
        computed: mapState({
          edit_mk_data: state => state.edit_mk_data,//获取当前编辑位置信息
-         layout_data:state => state.layout_data //获取所有模块的布局信息
+         layout_data:state => state.layout_data, //获取所有模块的布局信息
        }),
        mounted:function(){
         var that = this;
-        var newlinksdata=[];
-        var site = that.edit_mk_data
-        //判断位置信息,把从仓库拿到的值赋给一个空数组
-        if (site.location1 == "hd") {
-            newlinksdata = that.layout_data.hd[site.location4].data 
-        }
-        if (site.location1 == "ft") {
-            newlinksdata = that.layout_data.ft[site.location4].data
-            console.log(newlinksdata);
-        }
-        if (site.location1 == "con") {
-            if (site.location3 == "w19") {
-            newlinksdata = that.layout_data.con[site.location2].w19[site.location4].data
-            }
-            if (site.location3 == "w75") {
-            newlinksdata = that.layout_data.con[site.location2].w75[site.location4].data
-            }
-            if (site.location3 == "center") {
-            newlinksdata = that.layout_data.con[site.location2].w1920[site.location4].data
-            }
-        }
-         if (newlinksdata.length>0) {
-            that.linklist = newlinksdata;
-            console.log(that.linklist);
-         }
-      
-        // that.linklist = newlinksdata
-        
+        that.re_selection();
        },
        methods: {
        
@@ -196,6 +169,7 @@
                display: false
             };
             that.linklist.push(data);
+            
          },
          // 删除一列数据
          deletePerson(index) {
@@ -206,9 +180,13 @@
                urlsite: null,
                descration: null,
                display: false
-            };
-            that.linklist.splice(index,1);
-            console.log(that.linklist.length);
+            };    
+             // 删除最后一条重新创建新数组       
+            if(that.linklist.length<=1){               
+               that.linklist.splice(0,1,data);
+            }else{
+              that.linklist.splice(index,1);
+            }
 
 
          },
@@ -220,6 +198,7 @@
                type: "link_data",
                data: that.linklist
             })
+            console.log(that.linklist);
 
          },
 
@@ -251,7 +230,38 @@
             dispatch({
                type: "mokuai_mask_ac",
                data: val
-            })
+            });
+             that.re_selection();
+
+         },
+
+         //回选
+         re_selection:function(){
+            var that = this;
+            var newlinksdata=[];
+            var site = that.edit_mk_data
+            //判断位置信息,把从仓库拿到的值赋给一个空数组
+            if (site.location1 == "hd") {
+                newlinksdata = that.layout_data.hd[site.location4].data 
+            }
+            if (site.location1 == "ft") {
+                newlinksdata = that.layout_data.ft[site.location4].data
+            }
+            if (site.location1 == "con") {
+                if (site.location3 == "w19") {
+                newlinksdata = that.layout_data.con[site.location2].w19[site.location4].data
+                }
+                if (site.location3 == "w75") {
+                newlinksdata = that.layout_data.con[site.location2].w75[site.location4].data
+                }
+                if (site.location3 == "center") {
+                newlinksdata = that.layout_data.con[site.location2].w1920[site.location4].data
+                }
+            }
+            if (newlinksdata.length>0) {
+                that.linklist = newlinksdata;
+            }
+
          }
       }
  }
