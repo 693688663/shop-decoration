@@ -3,8 +3,9 @@
       <div class="win">
          <div class="mk1">
             <div class="title">{{title_name}}</div>
-            <div class=" content  ofh" :class="{content_w19:dataLocation3=='w19',content_w75:dataLocation3=='w75',content_w95:dataLocation3=='center',content_w95:dataLocation3==''}">
-               <div class="li fl" v-for="site in 6">
+            <div class=" content  ofh" :class="{content_w19:dataLocation3=='w19',content_w75:dataLocation3=='w75',content_w95:dataLocation3=='center',
+            content_w95:dataLocation3==''}">
+               <div class="li fl" v-if="data_type" v-for="site in parseInt(list_data.baby_number)">
                   <div class="img">
                      <img src="../../assets/img/img.jpg" alt="123124">
                   </div>
@@ -29,6 +30,7 @@
 <script>
    import { mapState, mapActions } from 'vuex'
    import Mokuai from '../../assets/js/data.js';
+   import fun from '../../assets/js/function.js'
    import mkbutton from './mkbutton/mkbutton'
    export default {
       components: {
@@ -48,24 +50,57 @@
       data: function () {
          return {
             hoverActive: false,//按钮是否显示
-            // mk1_type: true,//
-
             title_name: "宝贝推荐",
             shop_name: "商品名称",
             money: "5.00",
             duigou: "10000",
             shoucang: "10000",
+            list_data: {
+               baby_number: 3,
+            },//设置数据
+            data_type: 0,// 是否有设置数据
          }
       },
       computed: mapState({
+         layout_data: state => state.layout_data,//所有模块的布局信息
       }),
-
+      watch: {
+         // 所有模块数据
+         layout_data: {
+            handler(newName, oldName) {
+               var that = this
+               that.get_type()
+            },
+            deep: true,
+         },
+      },
       mounted: function () {
          var that = this
-
+         // 获取基础设置
+         that.get_type()
       },
       methods: {
-
+         // 获取基本设置
+         get_type() {
+            var that = this
+            var site = {
+               location1: that.dataLocation1,
+               location2: that.dataLocation2,
+               location3: that.dataLocation3,
+               location4: that.dataLocation4,
+            }
+            var data = fun.get_data(site, that.layout_data)
+            that.data_type = Object.keys(data).length
+            if (that.data_type > 0) {
+               that.list_data = data
+               console.log(that.list_data)
+            }
+            else {
+               that.data_type = 1
+               that.list_data = { "baby_number": 1, }
+            }
+            console.log(that.list_data)
+         },
       }
    }
 </script>

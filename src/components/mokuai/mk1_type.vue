@@ -11,14 +11,14 @@
             <div class="li">
                <span class="type">推荐方式：</span>
                <span class="messagea">
-                  <label><input name="Recommendation" type="radio" value="1" v-model="data_dom.recommend_ways" />自动推荐</label>
+                  <label><input name="Recommendation" type="radio" value="1" />自动推荐</label>
                   <!-- <label><input name="Recommendation" type="radio" value="2" v-model="data_dom.recommend_ways"/>手工推荐</label> -->
                </span>
             </div>
             <div class="li">
                <span class="type">自动推荐排序：</span>
                <span class="messagea">
-                  <select class="input-box" name="sort" @change="select_fun($event,'recommend_sort_type')" v-model="data.recommend_sort_type">
+                  <select class="input-box" ref="recommend_sort_type" name="sort">
                      <option value="1">人气指数</option>
                      <option value="2">热卖宝贝在前</option>
                      <option value="3">热门收藏在前</option>
@@ -26,13 +26,12 @@
                      <option value="5">价格最低在前</option>
                      <option value="6">价格最低在后</option>
                   </select>
-                  recommend_sort_type={{data.recommend_sort_type}}
                </span>
             </div>
             <div class="li">
                <span class="type">宝贝分类：</span>
                <span class="messagea">
-                  <select class="input-box" name="sort" v-model="data.baby_classify" @change="select_fun($event,'baby_classify')">
+                  <select class="input-box" name="sort" ref="baby_classify">
                      <option value="1">所以宝贝</option>
                      <option value="2">热卖宝贝在前</option>
                      <option value="3">热门收藏在前</option>
@@ -45,19 +44,19 @@
             <div class="li">
                <span class="type">关键字：</span>
                <span class="messagea text">
-                  <input type="text" v-model="data.keyword">
+                  <input type="text" ref="keyword">
                </span>
             </div>
             <div class="li">
                <span class="type">价格范围：</span>
                <span class="messagea money">
-                  <input type="text" v-model="data.money_min">&nbsp;-&nbsp;<input type="text" v-model="data.money_max">&nbsp;元
+                  <input type="text" ref="money_min">&nbsp;-&nbsp;<input type="text" ref="money_max">&nbsp;元
                </span>
             </div>
             <div class="li">
                <span class="type">宝贝数量：</span>
                <span class="messagea num">
-                  <select class="input-box" name="sort" v-model="data.baby_type" @change="select_fun($event,'baby_type')">
+                  <select class="input-box" name="sort" ref="baby_type" v-model="baby_type" @change="select_change($event,'baby_type')">
                      <option value="3" selected="">3</option>
                      <option value="4">4</option>
                      <option value="6">6</option>
@@ -67,7 +66,7 @@
                      <option value="16">16</option>
                      <option value="0">自定义</option>
                   </select>
-                  <input type="text" v-model="data.baby_number" v-show="data.baby_type=='0'">
+                  <input type="text" ref="baby_number" v-if="baby_type==0" v-model="baby_number">
                </span>
             </div>
          </div>
@@ -96,7 +95,7 @@
                      </div>
                      <p>一行展示一个宝贝</p>
                   </div>
-                  <div class="show_way_list show_way_list_3" v-show="edit_mk_data.location3=='w75'||edit_mk_data.location3=='center'">
+                  <div class="show_way_list show_way_list_3" v-show="edit_mk_data.location3=='w75'||edit_mk_data.location3=='center'||edit_mk_data.location3==''">
                      <div class="dom">
                         <div class="border">
                            <div class="dom_con">
@@ -111,7 +110,7 @@
                      </div>
                      <p>一行展示三个宝贝</p>
                   </div>
-                  <div class="show_way_list show_way_list_4" v-show="edit_mk_data.location3=='w75'||edit_mk_data.location3=='center'">
+                  <div class="show_way_list show_way_list_4" v-show="edit_mk_data.location3=='w75'||edit_mk_data.location3=='center'||edit_mk_data.location3==''">
                      <div class="dom">
                         <div class="border">
                            <div class="dom_con">
@@ -128,7 +127,7 @@
                      </div>
                      <p>一行展示四个宝贝</p>
                   </div>
-                  <div class="show_way_list show_way_list_5" v-show="edit_mk_data.location3=='center'">
+                  <div class="show_way_list show_way_list_5" v-show="edit_mk_data.location3=='center'||edit_mk_data.location3==''">
                      <div class="dom">
                         <div class="border">
                            <div class="dom_con">
@@ -147,7 +146,7 @@
                      </div>
                      <p>一行展示五个宝贝</p>
                   </div>
-                  <div class="show_way_list show_way_list_7" v-if="edit_mk_data.location3=='center'">
+                  <div class="show_way_list show_way_list_7" v-if="edit_mk_data.location3=='center'||edit_mk_data.location3==''">
                      <div class="dom">
                         <div class="border">
                            <div class="dom_con">
@@ -207,26 +206,13 @@
                money_min: "",//最小金额
                money_max: "",// 最大金额
                baby_type: "3",//宝贝数量下标
-               baby_number: "3",// 宝贝数量
+               baby_number: 3,// 宝贝数量
                show_name: "1",// 显示设置
                show_type: "",// 展示方式
                yes_show: [],// 是否显示
             },
-            //基本设置信息本地
-            data_dom: {
-               name: "",// 模块名
-               recommend_ways: "1",// 推荐方式
-               recommend_sort_type: "1",//自动推荐排序
-               baby_classify: "1",//宝贝分类
-               keyword: "",// 关键字
-               money_min: "",//最小金额
-               money_max: "",// 最大金额
-               baby_type: "3",//宝贝数量下标
-               baby_number: "3",// 宝贝数量
-               show_name: "1",// 显示设置
-               show_type: "",// 展示方式
-               yes_show: [],// 是否显示
-            },
+            baby_type: "3",
+            baby_number: "",
          }
       },
       computed: mapState({
@@ -235,15 +221,10 @@
       }),
       mounted: function () {
          var that = this
+         // 获取数据
          that.get_data()
       },
       methods: {
-         // 保存下拉菜单中的值
-         select_fun(event, value) {
-            var that = this
-            that.data_dom[value] = event.target.value
-            console.log(that.data_dom)
-         },
          // 隐藏模块编辑弹窗
          edit_mk_data_fun(val) {
             var that = this
@@ -254,31 +235,64 @@
                data: val
             })
          },
+         // 下拉菜单改变
+         select_change(event, value) {
+            var that = this
+            if (event.target.value == 0) { that.baby_number_show = true }
+            if (value == "baby_type" && event.target.value != 0) {
+               that.baby_number = event.target.value
+            }
+         },
          // 保存按钮
          save_fun() {
             var that = this
             var dispatch = this.$store.dispatch
-            // 保存数据
-            fun.save_data(dispatch, that.data)
+            var ref = that.$refs
+            var baby_number;
+            if (ref.baby_number) {
+               baby_number = ref.baby_number.value
+            } else {
+               baby_number = ref.baby_type.value
+            }
+            //基本设置信息
+            var data = {
+               name: "",// 模块名
+               recommend_ways: "1",// 推荐方式
+               recommend_sort_type: ref.recommend_sort_type.value,//自动推荐排序
+               baby_classify: ref.baby_classify.value,//宝贝分类
+               keyword: ref.keyword.value,// 关键字
+               money_min: ref.money_min.value,//最小金额
+               money_max: ref.money_max.value,// 最大金额
+               baby_type: ref.baby_type.value,//宝贝数量下标
+               baby_number: baby_number,//宝贝数量
+               show_name: "1",// 显示设置
+               show_type: "",// 展示方式
+               yes_show: [],// 是否显示
+            }
+            console.log(data)
+            fun.save_data(dispatch, data)
             // 隐藏模块编辑弹窗
             that.edit_mk_data_fun(false)
-
-         },
-         // 宝贝数量切换
-         sort_fun() {
-            var that = this
-            var dispatch = this.$store.dispatch
-            // 宝贝数量切换判断是否显示手动输入数量
-            if (that.baby_type != "0") {
-               that.data.baby_number = that.baby_type
-            }
          },
          // 获取数据
          get_data() {
             var that = this
             // 获取数据
+            // that.data = {
+            //    name: "",// 模块名
+            //    recommend_ways: "1",// 推荐方式
+            //    recommend_sort_type: "1",//自动推荐排序
+            //    baby_classify: "1",//宝贝分类
+            //    keyword: "",// 关键字
+            //    money_min: "",//最小金额
+            //    money_max: "",// 最大金额
+            //    baby_type: "3",//宝贝数量下标
+            //    baby_number: 3,// 宝贝数量
+            //    show_name: "1",// 显示设置
+            //    show_type: "",// 展示方式
+            //    yes_show: [],// 是否显示
+            // }
             var data = fun.get_data(that.edit_mk_data, that.layout_data)
-            console.log(data)
             if (data.baby_type) {
                that.data = data
             }
