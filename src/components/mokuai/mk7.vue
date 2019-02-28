@@ -3,12 +3,10 @@
       <div class="link">
          <p class="title" :style="title_bg">友情链接</p>
          <ul id="links">
-            <li v-if="links.length>0" v-for="item in links">
+            <li v-if="get_links_data.length>0" v-for="item in get_links_data">
                <a :href="item.urlsite">{{item.name}}</a>
             </li>
          </ul>
-         <!-- <div class="edit" @click="isShow=true">编辑</div> -->
-
 
       </div>
       <mkbutton
@@ -25,7 +23,8 @@
 </template>
 <script>
    import Mokuai from "../../assets/js/data.js";
-   import mkbutton from "./mkbutton/mkbutton";
+   import mkbutton from "./mkbutton/mkbutton";  
+   import {mapState} from 'vuex'
    export default {
       components: {
          mkbutton
@@ -47,18 +46,42 @@
             title_bg: {
                background: "#0079fe"
             },
-            links: [{}],
+            get_links_data:[{}]
          };
       },
+       computed: mapState({
+         layout_data:state => state.layout_data, //获取所有模块的布局信息
+       }),
+
       mounted: function () {
          var that = this;
+         that.re_selection();
       },
-      watch: {
-         linklist: []
-
-      },
+   
       methods: {
-          
+        //回选
+         re_selection:function(){
+            var that = this;
+            //判断位置信息,把从仓库拿到的值赋给一个空数组
+            if (that.dataLocation1 == "hd") {
+               that.get_links_data = that.layout_data.hd[that.dataLocation4].data 
+            }
+            if (that.dataLocation1 == "ft") {
+                 that.get_links_data = that.layout_data.ft[that.dataLocation4].data
+            }
+            if (that.dataLocation1 == "con") {
+                if (that.dataLocation3 == "w19") {
+                 that.get_links_data = that.layout_data.con[that.dataLocation2].w19[that.dataLocation4].data
+                }
+                if (that.dataLocation3 == "w75") {
+                 that.get_links_data = that.layout_data.con[that.dataLocation2].w75[that.dataLocation4].data
+                }
+                if (that.dataLocation3 == "center") {
+                 that.get_links_data = that.layout_data.con[that.dataLocation2].w1920[that.dataLocation4].data
+                }
+            }
+
+         }
       }
    };
 </script>
@@ -102,8 +125,8 @@
    .link ul#links li a {
       font-size: 14px;
       color: #333;
-      line-height: 30px;
-      height: 30px;
+      line-height: 50px;
+      height: 50px;
       padding-left: 20px;
       display: block;
    }

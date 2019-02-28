@@ -322,7 +322,7 @@ const mutations = {
    },
    // 编辑模块
    edit_mk_mu(state, n) {
-      console.log(n)
+    //   console.log(n)
       state.edit_mk_data = n.data
    },
    // 隐藏编辑模块
@@ -412,6 +412,7 @@ const actions = {
       context.commit("mokuai_mask_mu", payload)
    }
 }
+
 const action = Object.assign(
    actions,
    d_action,
@@ -422,9 +423,9 @@ const mutation = Object.assign(
    d_mutation,
    l_mutation
 );
+
 export default new Vuex.Store({
    state,
    actions: action,
    mutations: mutation,
-   // getters
 })
