@@ -18,13 +18,19 @@
             <div class="li">
                <span class="type">自动推荐排序：</span>
                <span class="messagea">
-                  <select class="input-box" ref="recommend_sort_type" name="sort">
-                     <option value="1">人气指数</option>
-                     <option value="2">热卖宝贝在前</option>
-                     <option value="3">热门收藏在前</option>
-                     <option value="4">最新发布在前</option>
-                     <option value="5">价格最低在前</option>
-                     <option value="6">价格最低在后</option>
+                  <select class="input-box" ref="recommend_sort_type" name="sort" value="5">
+                     <option value="1" v-if='data.recommend_sort_type!=1'>人气指数</option>
+                     <option value="1" v-if='data.recommend_sort_type==1' selected>人气指数</option>
+                     <option value="2" v-if='data.recommend_sort_type!=2'>热卖宝贝在前</option>
+                     <option value="2" v-if='data.recommend_sort_type==2' selected>热卖宝贝在前</option>
+                     <option value="3" v-if='data.recommend_sort_type!=3'>热门收藏在前</option>
+                     <option value="3" v-if='data.recommend_sort_type==3' selected>热门收藏在前</option>
+                     <option value="4" v-if='data.recommend_sort_type!=4'>最新发布在前</option>
+                     <option value="4" v-if='data.recommend_sort_type==4' selected>最新发布在前</option>
+                     <option value="5" v-if='data.recommend_sort_type!=5'>价格最低在前</option>
+                     <option value="5" v-if='data.recommend_sort_type==5' selected>价格最低在前</option>
+                     <option value="6" v-if='data.recommend_sort_type!=6'>价格最低在后</option>
+                     <option value="6" v-if='data.recommend_sort_type==6' selected>价格最低在后</option>
                   </select>
                </span>
             </div>
@@ -32,53 +38,72 @@
                <span class="type">宝贝分类：</span>
                <span class="messagea">
                   <select class="input-box" name="sort" ref="baby_classify">
-                     <option value="1">所以宝贝</option>
-                     <option value="2">热卖宝贝在前</option>
-                     <option value="3">热门收藏在前</option>
-                     <option value="4">最新发布在前</option>
-                     <option value="5">价格最低在前</option>
-                     <option value="6">价格最低在后</option>
+                     <option value="1" v-if='data.baby_classify!=1'>所以宝贝</option>
+                     <option value="1" v-if='data.baby_classify==1' selected>所以宝贝</option>
+                     <option value="2" v-if='data.baby_classify!=2'>热卖宝贝在前</option>
+                     <option value="2" v-if='data.baby_classify==2' selected>热卖宝贝在前</option>
+                     <option value="3" v-if='data.baby_classify!=3'>热门收藏在前</option>
+                     <option value="3" v-if='data.baby_classify==3' selected>热门收藏在前</option>
+                     <option value="4" v-if='data.baby_classify!=4'>最新发布在前</option>
+                     <option value="4" v-if='data.baby_classify==4' selected>最新发布在前</option>
+                     <option value="5" v-if='data.baby_classify!=5'>价格最低在前</option>
+                     <option value="5" v-if='data.baby_classify==5' selected>价格最低在前</option>
+                     <option value="6" v-if='data.baby_classify!=6'>价格最低在后</option>
+                     <option value="6" v-if='data.baby_classify==6' selected>价格最低在后</option>
                   </select>
                </span>
             </div>
             <div class="li">
                <span class="type">关键字：</span>
                <span class="messagea text">
-                  <input type="text" ref="keyword">
+                  <input type="text" ref="keyword" :value="data.keyword" @change="$event,'keyword'">
                </span>
             </div>
             <div class="li">
                <span class="type">价格范围：</span>
                <span class="messagea money">
-                  <input type="text" ref="money_min">&nbsp;-&nbsp;<input type="text" ref="money_max">&nbsp;元
+                  <input type="text" ref="money_min" :value="data.money_min" @change="$event,'keyword'">&nbsp;-&nbsp;<input
+                     type="text" ref="money_max" :value="data.money_max" @change="$event,'keyword'">&nbsp;元
                </span>
             </div>
             <div class="li">
                <span class="type">宝贝数量：</span>
                <span class="messagea num">
-                  <select class="input-box" name="sort" ref="baby_type" v-model="baby_type" @change="select_change($event,'baby_type')">
-                     <option value="3" selected="">3</option>
-                     <option value="4">4</option>
-                     <option value="6">6</option>
-                     <option value="8">8</option>
-                     <option value="10">10</option>
-                     <option value="12">12</option>
-                     <option value="16">16</option>
-                     <option value="0">自定义</option>
+                  <select class="input-box" name="sort" ref="baby_type" @change="baby_type_fun($event,baby_type)">
+                     <option value="3" v-if='data.baby_type!=3'>3</option>
+                     <option value="3" v-if='data.baby_type==3' selected>3</option>
+                     <option value="4" v-if='data.baby_type!=4'>4</option>
+                     <option value="4" v-if='data.baby_type==4' selected>4</option>
+                     <option value="6" v-if='data.baby_type!=6'>6</option>
+                     <option value="6" v-if='data.baby_type==6' selected>6</option>
+                     <option value="8" v-if='data.baby_type!=8'>8</option>
+                     <option value="8" v-if='data.baby_type==8' selected>8</option>
+                     <option value="10" v-if='data.baby_type!=10'>10</option>
+                     <option value="10" v-if='data.baby_type==10' selected>10</option>
+                     <option value="12" v-if='data.baby_type!=12'>12</option>
+                     <option value="12" v-if='data.baby_type==12' selected>12</option>
+                     <option value="16" v-if='data.baby_type!=16'>16</option>
+                     <option value="16" v-if='data.baby_type==16' selected>16</option>
+                     <option value="0" v-if='data.baby_type!=0'>自定义</option>
+                     <option value="0" v-if='data.baby_type==0' selected>自定义</option>
                   </select>
-                  <input type="text" ref="baby_number" v-if="baby_type==0" v-model="baby_number">
+                  <input class="baby_number" type="text" ref="baby_number" :value="data.baby_number" v-show='data.baby_type==0'>
                </span>
             </div>
          </div>
          <!-- 显示设置 -->
-         <div class="display_set" v-if="li_active==2">
+         <div class="display_set" v-show="li_active==2">
             <div class="li display_setup">
                <span class="type">显示设置：</span>
                <span class="messagea">
-                  <label><input name="display_set" type="radio" value="0" />不显示</label>
-                  <label><input name="display_set" type="radio" value="1" checked="checked" />显示</label>
+                  <label v-if="data.show_name!=0"><input name="display_set" type="radio" value="0" @change="mk1_type_fun($event)" />不显示</label>
+                  <label v-if="data.show_name==0"><input name="display_set" type="radio" value="0" checked="checked"
+                        @change="mk1_type_fun($event)" />不显示</label>
+                  <label v-if="data.show_name!=1"><input name="display_set" type="radio" value="1" @change="mk1_type_fun($event)" />显示</label>
+                  <label v-if="data.show_name==1"><input name="display_set" type="radio" value="1" checked="checked"
+                        @change="mk1_type_fun($event)" />显示</label>
                </span>
-               <input type="text" :value="edit_mk_data.name">
+               <input type="text" :value="data.name" ref="mk1_type_name">
             </div>
             <div class="li show_way">
                <span class="type">展示方式：</span>
@@ -192,15 +217,19 @@
    // vuex存储
    import { mapState, mapActions, dispatch } from 'vuex'
    import fun from '../../assets/js/function.js'
+   // import mk1_type1 from './mk1_type1'//提示模块
    export default {
+      components: {
+         // mk1_type1,
+      },
       data: function () {
          return {
-            li_active: 1,//显示切换
+            li_active: 2,//显示切换
             //基本设置信息
             data: {
                name: "",// 模块名
                recommend_ways: "1",// 推荐方式
-               recommend_sort_type: "1",//自动推荐排序
+               recommend_sort_type: '1',//自动推荐排序
                baby_classify: "1",//宝贝分类
                keyword: "",// 关键字
                money_min: "",//最小金额
@@ -212,7 +241,6 @@
                yes_show: [],// 是否显示
             },
             baby_type: "3",
-            baby_number: "",
          }
       },
       computed: mapState({
@@ -223,6 +251,8 @@
          var that = this
          // 获取数据
          that.get_data()
+         console.log(that.edit_mk_data.name)
+         that.data.name = that.edit_mk_data.name
       },
       methods: {
          // 隐藏模块编辑弹窗
@@ -236,11 +266,15 @@
             })
          },
          // 下拉菜单改变
-         select_change(event, value) {
+         baby_type_fun(event) {
             var that = this
-            if (event.target.value == 0) { that.baby_number_show = true }
-            if (value == "baby_type" && event.target.value != 0) {
-               that.baby_number = event.target.value
+            var ref = that.$refs
+
+            if (event.target.value != 0) {
+               ref.baby_number.value = event.target.value
+               that.$refs.baby_number.style.display = "none"
+            } else {
+               that.$refs.baby_number.style.display = "inline-block"
             }
          },
          // 保存按钮
@@ -249,11 +283,12 @@
             var dispatch = this.$store.dispatch
             var ref = that.$refs
             var baby_number;
-            if (ref.baby_number) {
-               baby_number = ref.baby_number.value
-            } else {
+            if (ref.baby_type.value != 0) {
                baby_number = ref.baby_type.value
+            } else {
+               baby_number = ref.baby_number.value
             }
+
             //基本设置信息
             var data = {
                name: "",// 模块名
@@ -274,24 +309,19 @@
             // 隐藏模块编辑弹窗
             that.edit_mk_data_fun(false)
          },
+         mk1_type_fun(event) {
+            var that = this
+            console.log(event.target.value)
+            if (event.target.value == 1) {
+               that.$refs.mk1_type_name.value = that.edit_mk_data.name
+            } else {
+               that.$refs.mk1_type_name.value = ""
+
+            }
+         },
          // 获取数据
          get_data() {
             var that = this
-            // 获取数据
-            // that.data = {
-            //    name: "",// 模块名
-            //    recommend_ways: "1",// 推荐方式
-            //    recommend_sort_type: "1",//自动推荐排序
-            //    baby_classify: "1",//宝贝分类
-            //    keyword: "",// 关键字
-            //    money_min: "",//最小金额
-            //    money_max: "",// 最大金额
-            //    baby_type: "3",//宝贝数量下标
-            //    baby_number: 3,// 宝贝数量
-            //    show_name: "1",// 显示设置
-            //    show_type: "",// 展示方式
-            //    yes_show: [],// 是否显示
-            // }
             var data = fun.get_data(that.edit_mk_data, that.layout_data)
             if (data.baby_type) {
                that.data = data
@@ -579,7 +609,6 @@
 
          .show_way_list_7 {
             width: 200px;
-            height: 138px;
 
             .dom {
                .border {
@@ -635,5 +664,9 @@
    #mk1_type .con .operation span.save {
       background: #2d2d2d;
       color: #fff;
+   }
+
+   .baby_number {
+      display: inline-block
    }
 </style>
