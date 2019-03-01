@@ -134,9 +134,6 @@
             ],
          };
       },
-      components:{
-        Mk7Type
-      },
        computed: mapState({
          edit_mk_data: state => state.edit_mk_data,//获取当前编辑位置信息
          layout_data:state => state.layout_data, //获取所有模块的布局信息
