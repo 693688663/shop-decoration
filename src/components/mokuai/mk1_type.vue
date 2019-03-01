@@ -96,14 +96,14 @@
             <div class="li display_setup">
                <span class="type">显示设置：</span>
                <span class="messagea">
-                  <label v-if="data.show_name!=0"><input name="display_set" type="radio" value="0" @change="mk1_type_fun($event)" />不显示</label>
+                  <label v-if="data.show_name!=0"><input name="display_set" type="radio" value="0" @change="mk1_type_name_show_fun($event)" />不显示</label>
                   <label v-if="data.show_name==0"><input name="display_set" type="radio" value="0" checked="checked"
-                        @change="mk1_type_fun($event)" />不显示</label>
-                  <label v-if="data.show_name!=1"><input name="display_set" type="radio" value="1" @change="mk1_type_fun($event)" />显示</label>
+                        @change="mk1_type_name_show_fun($event)" />不显示</label>
+                  <label v-if="data.show_name!=1"><input name="display_set" type="radio" value="1" @change="mk1_type_name_show_fun($event)" />显示</label>
                   <label v-if="data.show_name==1"><input name="display_set" type="radio" value="1" checked="checked"
-                        @change="mk1_type_fun($event)" />显示</label>
+                        @change="mk1_type_name_show_fun($event)" />显示</label>
                </span>
-               <input type="text" :value="data.name" ref="mk1_type_name">
+               <input class="mk1_type_name" v-show="data.show_name==1" type="text" value="" ref="mk1_type_name">
             </div>
             <div class="li show_way">
                <span class="type">展示方式：</span>
@@ -217,14 +217,12 @@
    // vuex存储
    import { mapState, mapActions, dispatch } from 'vuex'
    import fun from '../../assets/js/function.js'
-   // import mk1_type1 from './mk1_type1'//提示模块
    export default {
       components: {
-         // mk1_type1,
       },
       data: function () {
          return {
-            li_active: 2,//显示切换
+            li_active: 1,//显示切换
             //基本设置信息
             data: {
                name: "",// 模块名
@@ -251,10 +249,28 @@
          var that = this
          // 获取数据
          that.get_data()
-         console.log(that.edit_mk_data.name)
-         that.data.name = that.edit_mk_data.name
+         // 设置模块名
+         if (that.data.name) {
+            // 有模块名时设置模块名
+            that.$refs.mk1_type_name.value = that.data.name
+         } else {
+            // 没有模块名时设置初始模块名
+            that.data.name = that.edit_mk_data.name
+            that.$refs.mk1_type_name.value = that.edit_mk_data.name
+         }
+
       },
       methods: {
+         // 获取设置数据
+         get_data() {
+            var that = this
+            var data = fun.get_data(that.edit_mk_data, that.layout_data)
+            // 当数据有意义是
+            if (data.baby_type) {
+               // 同步到页面
+               that.data = data
+            }
+         },
          // 隐藏模块编辑弹窗
          edit_mk_data_fun(val) {
             var that = this
@@ -265,15 +281,18 @@
                data: val
             })
          },
-         // 下拉菜单改变
+         // 宝贝数量改变
          baby_type_fun(event) {
             var that = this
             var ref = that.$refs
-
+            // 当为选择数量时
             if (event.target.value != 0) {
+               // 设置选择的数量
                ref.baby_number.value = event.target.value
+               // 隐藏输入框
                that.$refs.baby_number.style.display = "none"
             } else {
+               // 显示输入框
                that.$refs.baby_number.style.display = "inline-block"
             }
          },
@@ -281,15 +300,18 @@
          save_fun() {
             var that = this
             var dispatch = this.$store.dispatch
+            // 获取组件中的refs
             var ref = that.$refs
             var baby_number;
+            // 当宝贝数量为自选数量时
             if (ref.baby_type.value != 0) {
+               // 获取宝贝数量
                baby_number = ref.baby_type.value
             } else {
+               // 获取宝贝数量
                baby_number = ref.baby_number.value
             }
-
-            //基本设置信息
+            // 获取基础设置信息
             var data = {
                name: "",// 模块名
                recommend_ways: "1",// 推荐方式
@@ -301,32 +323,38 @@
                baby_type: ref.baby_type.value,//宝贝数量下标
                baby_number: baby_number,//宝贝数量
                show_name: "1",// 显示设置
-               show_type: "",// 展示方式
+               show_type: "",// 展示方式  
                yes_show: [],// 是否显示
             }
             console.log(data)
-            fun.save_data(dispatch, data)
-            // 隐藏模块编辑弹窗
-            that.edit_mk_data_fun(false)
+            console.log(that.$refs)
+            // 保存数据
+            // fun.save_data(dispatch, data)
+            // 隐藏弹窗
+            // that.edit_mk_data_fun(false)
          },
-         mk1_type_fun(event) {
+         // 宝贝设置与电脑端显示设置切换
+         // mk1_type_li_change(num) {
+         //    var that = this;
+         //    that.li_active = num;
+         // },
+         // 标题名字显示设置切换
+         mk1_type_name_show_fun(event) {
             var that = this
             console.log(event.target.value)
+            //当为不显示时
             if (event.target.value == 1) {
-               that.$refs.mk1_type_name.value = that.edit_mk_data.name
+               // 设置标题名
+               console.log(that.data.name)
+               that.$refs.mk1_type_name.value = that.data.name
+               that.$refs.mk1_type_name.style.display = "inline-block"
+
             } else {
                that.$refs.mk1_type_name.value = ""
+               that.$refs.mk1_type_name.style.display = "none"
+            }
+         },
 
-            }
-         },
-         // 获取数据
-         get_data() {
-            var that = this
-            var data = fun.get_data(that.edit_mk_data, that.layout_data)
-            if (data.baby_type) {
-               that.data = data
-            }
-         },
       }
    }
 </script>
@@ -379,6 +407,7 @@
       margin-right: 5px;
       cursor: pointer;
 
+
    }
 
    #mk1_type ul li.active {
@@ -400,6 +429,8 @@
       line-height: 26px;
       margin-bottom: 10px;
       font-size: 12px;
+
+
    }
 
    #mk1_type .con .Baby_set .li span {
@@ -468,7 +499,9 @@
       margin-bottom: 10px;
       font-size: 12px;
 
-
+      /* .mk1_type_name {
+         display: inline-block;
+      } */
    }
 
    #mk1_type .con .display_set .li {
@@ -488,6 +521,8 @@
       .type {
          vertical-align: top;
       }
+
+
 
       .message {
          height: auto;
