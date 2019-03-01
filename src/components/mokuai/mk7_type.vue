@@ -131,7 +131,7 @@
                   descration: null,
                   display: false
                }
-            ]
+            ],
          };
       },
        computed: mapState({
@@ -142,8 +142,7 @@
         var that = this;
         that.re_selection();
        },
-       methods: {
-       
+       methods: {      
          //页面内容切换
          tabChange: function (t) {
             var that = this;
@@ -187,8 +186,6 @@
             }else{
               that.linklist.splice(index,1);
             }
-
-
          },
          // 保存函数
          savedata() {
@@ -197,8 +194,9 @@
             dispatch({
                type: "link_data",
                data: that.linklist
-            })
+            });
             console.log(that.linklist);
+
 
          },
 
