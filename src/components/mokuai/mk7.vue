@@ -67,7 +67,7 @@ export default {
       }
       if (that.dataLocation1 == "ft") {
         that.get_links_data = that.layout_data.ft[that.dataLocation4].data;
-        console.log(that.get_links_data);
+        //console.log(that.get_links_data);
       }
       if (that.dataLocation1 == "con") {
         if (that.dataLocation3 == "w19") {
@@ -81,8 +81,8 @@ export default {
             
         }
       }
-        console.log(that.dataLocation1)
-        console.log(that.dataLocation3);
+        //console.log(that.dataLocation1)
+        //console.log(that.dataLocation3);
     }
   }
 };
