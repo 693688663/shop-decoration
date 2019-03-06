@@ -1,9 +1,9 @@
 <template>
   <div :ref="dataref" id="mk7" class="pr" @mouseover="hoverActive=true" @mouseout="hoverActive=false">
     <div :class="{content_w19:dataLocation3=='w19',content_w95:dataLocation3=='center',content_ft_w95:dataLocation3==''}">
-      <p :style="title_bg">友情链接</p>
+      <p :style="title_bg">{{get_links_data.set_title}}</p>
       <ul>
-        <li v-if="get_links_data.length>0" v-for="item in get_links_data">
+        <li v-if="get_links_data.linklist.length>0" v-for="item in get_links_data.linklist">
           <a :href="item.urlsite">{{item.name}}</a>
         </li>
       </ul>
@@ -45,7 +45,7 @@ export default {
       title_bg: {
         background: "#0079fe"
       },
-      get_links_data: [{}]
+      get_links_data:{}
     };
   },
   computed: mapState({
@@ -66,6 +66,7 @@ export default {
   mounted: function() {
     var that = this;
     that.re_selection();
+    console.log(that.get_links_data)
   },
 
   methods: {
@@ -78,7 +79,7 @@ export default {
       }
       if (that.dataLocation1 == "ft") {
         that.get_links_data = that.layout_data.ft[that.dataLocation4].data;
-        //console.log(that.get_links_data);
+        console.log(that.get_links_data);
       }
       if (that.dataLocation1 == "con") {
         if (that.dataLocation3 == "w19") {

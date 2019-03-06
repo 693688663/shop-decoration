@@ -53,6 +53,7 @@
                             <input type="text" class="input2" v-model="item.descration">
                         </span>
                     </li>
+                    
                     </ul>
                 </div>
 
@@ -130,12 +131,10 @@ export default {
             urlsite: null,
             descration: null,
             display: false
-          }
+          },
         ],
-        set_title:''
+        set_title:'友情链接'
       }
-
-
     };
   },
   computed: mapState({
@@ -144,6 +143,7 @@ export default {
   }),
   mounted:function(){
     var that = this;
+    //回显
     that.re_selection();
   },
   methods: {
@@ -166,33 +166,24 @@ export default {
       var that = this;
       //保存数据
       let data ={
-          linklist: [
-            {
-              name: null,
-              urlsite: null,
-              descration: null,
-              display: false
-            }
-          ],
-          set_title:''
+          name: null,
+          urlsite: null,
+          descration: null,
+          display: false
       }
       that.linkdata.linklist.push(data);
 
     },
+
     // 删除一列数据
     deletePerson(index) {
       // 删一个数组元素
       var that = this;
-      let data ={
-          linklist: [
-            {
-              name: null,
-              urlsite: null,
-              descration: null,
-              display: false
-            }
-          ],
-          set_title:''
+      let data ={   
+          name: null,
+          urlsite: null,
+          descration: null,
+          display: false
       }
       // 删除最后一条重新创建新数组
       if(that.linkdata.linklist.length<=1){
@@ -200,16 +191,17 @@ export default {
       }else{
         that.linkdata.linklist.splice(index,1);
       }
+      console.log( that.linkdata);
     },
     // 保存函数
     savedata() {
       var that = this;
       var dispatch = this.$store.dispatch;
-      console.log(that.linkdata);
       dispatch({
         type: "link_data",
         data: that.linkdata
       });
+      //console.log(that.linkdata);
     },
 
     // 移动序列
@@ -256,7 +248,7 @@ export default {
       }
       if (site.location1 == "ft") {
         newlinksdata = JSON.parse(JSON.stringify(that.layout_data.ft[site.location4].data))
-        //  console.log(newlinksdata);
+        //console.log(newlinksdata);
       }
       if (site.location1 == "con") {
         if (site.location3 == "w19") {
@@ -269,11 +261,11 @@ export default {
           newlinksdata = JSON.parse(JSON.stringify(that.layout_data.con[site.location2].w1920[site.location4].data))
         }
       }
-      if (newlinksdata.length > 0) {
-        that.linkdata= newlinksdata
-        console.log(that.linkdata);
+      if(newlinksdata.linklist){
+        if (newlinksdata.linklist.length > 0) {        
+          that.linkdata = newlinksdata
+        }
       }
-
     }
   }
 }
@@ -411,7 +403,7 @@ export default {
    .dialog-tab-cont .show-title .set-title input {
       float: left;
       margin-top: 3px;
-      width: 100px;
+      width: 120px;
       border: 1px solid #ccc;
       height: 20px;
       font-size: 14px;
