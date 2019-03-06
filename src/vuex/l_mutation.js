@@ -2,13 +2,13 @@ export default {
     //本地友情链接数据赋值到仓库
     f_links_data(state, n) {
      var site = state.edit_mk_data
-    //  console.log(n.data)
+      console.log(n.data)
      if (site.location1 == "hd") {
         state.layout_data.hd[site.location4].data = n.data
      }
      if (site.location1 == "ft") {
         state.layout_data.ft[site.location4].data = n.data
-        //   console.log(state.layout_data.ft[site.location4].data)
+          console.log(state.layout_data.ft[site.location4].data)
      }
      if (site.location1 == "con") {
         if (site.location3 == "w19") {
