@@ -156,7 +156,7 @@
                      <!-- 尾部 -->
                      <div class="html_ft" ref="html_ft">
                         <h3 class="ts" ref="html_ft_h3" v-if="layout_data.ft.length==0">
-                           页头部分，暂无功能模块
+                           页尾部分，暂无功能模块
                         </h3>
                         <div v-for="(site,index) in layout_data.ft">
                            <component :is="site.name" style="margin: 0 auto 10px" :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
