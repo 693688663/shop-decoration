@@ -2,10 +2,11 @@
    <div :ref="dataref" id="mk1" class="pr" @mouseover="hoverActive=true" @mouseout="hoverActive=false">
       <div class="win">
          <div class="mk1">
-            <div class="title">{{title_name}}</div>
+            <div class="title"><span v-if="list_data.show_name==2">{{list_data.name}}</span></div>
             <div class=" content  ofh" :class="{content_w19:dataLocation3=='w19',content_w75:dataLocation3=='w75',content_w95:dataLocation3=='center',
-            content_w95:dataLocation3==''}">
-               <div class="li fl" v-if="data_type" v-for="site in parseInt(list_data.baby_number)">
+            content_w95:dataLocation3==''}"
+               v-if="Object.keys(list_data).length>0">
+               <div class="li fl" v-for="site in parseInt(list_data.baby_number)">
                   <div class="img">
                      <img src="../../assets/img/img.jpg" alt="123124">
                   </div>
@@ -49,16 +50,29 @@
       },
       data: function () {
          return {
+            // 数据对象
+            list_data: {
+               name: "",// 模块名
+               recommend_ways: "1",// 推荐方式
+               recommend_sort_type: '1',//自动推荐排序
+               baby_classify: "1",//宝贝分类
+               keyword: "",// 关键字
+               money_min: "",//最小金额
+               money_max: "",// 最大金额
+               baby_type: "3",//宝贝数量下标
+               baby_number: 3,// 宝贝数量
+               show_name: "2",// 显示设置
+               show_type: 1,// 展示方式
+               yes_show: [],// 是否显示
+            },//基础设置数据
+            // 功能对象
             hoverActive: false,//按钮是否显示
+            // 临时数据对象
             title_name: "宝贝推荐",
             shop_name: "商品名称",
             money: "5.00",
             duigou: "10000",
             shoucang: "10000",
-            list_data: {
-               baby_number: 3,
-            },//设置数据
-            data_type: 0,// 是否有设置数据
          }
       },
       computed: mapState({
@@ -69,7 +83,7 @@
          layout_data: {
             handler(newName, oldName) {
                var that = this
-               that.get_type()
+               that.list_data = that.get_type()
             },
             deep: true,
          },
@@ -77,30 +91,84 @@
       mounted: function () {
          var that = this
          // 获取基础设置
-         that.get_type()
+         var data = that.get_type()
+         // 无基本设置时
+         if (Object.keys(data).length == 0) {
+            // 无基本设置时设置基本设置
+            that.set_data()
+         }
+         else {
+            that.list_data = data
+         }
+
+
       },
       methods: {
          // 获取基本设置
          get_type() {
             var that = this
+            var dispatch = this.$store.dispatch
+            // 保存位置数据
             var site = {
                location1: that.dataLocation1,
                location2: that.dataLocation2,
                location3: that.dataLocation3,
                location4: that.dataLocation4,
             }
-            var data = fun.get_data(site, that.layout_data)
-            that.data_type = Object.keys(data).length
-            if (that.data_type > 0) {
-               that.list_data = data
-               console.log(that.list_data)
-            }
-            else {
-               that.data_type = 1
-               that.list_data = { "baby_number": 1, }
-            }
-            console.log(that.list_data)
+            // 获取设置数据
+            return fun.get_data(site, that.layout_data)
          },
+         // 无基本设置时设置基本设置
+         set_data() {
+            var that = this
+            var dispatch = this.$store.dispatch
+            // 发送基础设置数据
+            var set_data = {
+               name: that.dataName,// 模块名
+               recommend_ways: "1",// 推荐方式
+               recommend_sort_type: '1',//自动推荐排序
+               baby_classify: "1",//宝贝分类
+               keyword: "",// 关键字
+               money_min: "",//最小金额
+               money_max: "",// 最大金额
+               baby_type: "3",//宝贝数量下标
+               baby_number: 3,// 宝贝数量
+               show_name: "2",// 显示设置
+               show_type: 1,// 展示方式
+               yes_show: [],// 是否显示
+            }
+            if (!that.dataLocation3) {
+               set_data.baby_type = 4
+               set_data.baby_number = 4
+               set_data.show_type = 4
+            }
+            if (that.dataLocation3 == "w19") {
+               set_data.baby_type = 3
+               set_data.baby_number = 3
+               set_data.show_type = 1
+
+            }
+            if (that.dataLocation3 == "w75") {
+               set_data.baby_type = 3
+               set_data.baby_number = 3
+               set_data.show_type = 3
+            }
+            if (that.dataLocation3 == "center") {
+               set_data.baby_type = 4
+               set_data.baby_number = 4
+               set_data.show_type = 4
+            }
+            var site = {
+               location1: that.dataLocation1,
+               location2: that.dataLocation2,
+               location3: that.dataLocation3,
+               location4: that.dataLocation4,
+            }
+            // 发送数据
+            fun.first_save_data(dispatch, site, set_data)
+
+         },
+
       }
    }
 </script>

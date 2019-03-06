@@ -6,6 +6,7 @@ export default {
          data: data
       })
    },
+   // 获取数据
    get_data(site, layout_data) {
       // 根据位置获取模块设置数据
       if (site.location1 == "hd") {
@@ -26,4 +27,14 @@ export default {
          }
       }
    },
+   // 初次加载及修改位置是保存数据
+   first_save_data(dispatch, site, data) {
+      dispatch({
+         type: "first_save_data_ac",
+         data: {
+            site: site,
+            data: data,
+         }
+      })
+   }
 }
