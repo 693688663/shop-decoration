@@ -51,7 +51,18 @@ export default {
   computed: mapState({
     layout_data: state => state.layout_data //获取所有模块的布局信息
   }),
-
+  
+  //监听数据改变状态
+   watch: {
+         // 所有模块数据
+         layout_data: {
+            handler(newName, oldName) {
+               var that = this
+               that.re_selection()
+            },
+            deep: true,
+         },
+   },
   mounted: function() {
     var that = this;
     that.re_selection();

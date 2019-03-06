@@ -28,7 +28,7 @@
                 <!--文字-->
                 <div class="link-words" v-if="radioShow==true">
                     <ul>
-                    <li v-for="(item,index) in linklist">
+                    <li v-for="(item,index) in linkdata.linklist">
                         <span>
                             链接名称:
                             <input type="text" class="input1" v-model="item.name">
@@ -95,7 +95,7 @@
                     <input type="radio" name="showTitle" v-model="show" value="show" v-on:click="settitle(true)">显示
                     </label>
                     <div class="set-title" v-if="showtitle">
-                    <input type="text" placeholder="设置标题">
+                    <input type="text" placeholder="设置标题" v-model="linkdata.set_title">
                     <span>最多15个汉字,30个字符</span>
                     </div>
                 </div>
@@ -123,17 +123,21 @@ export default {
       show: "hidden",
       showtitle: false,
       seen: [],
-      linklist: [
-        {
-          name: null,
-          urlsite: null,
-          descration: null,
-          display: false
-        }
-      ],
+      linkdata:{
+        linklist: [
+          {
+            name: null,
+            urlsite: null,
+            descration: null,
+            display: false
+          }
+        ],
+        set_title:''
+      }
+
+
     };
   },
-
   computed: mapState({
     edit_mk_data: state => state.edit_mk_data,//获取当前编辑位置信息
     layout_data:state => state.layout_data, //获取所有模块的布局信息
@@ -161,64 +165,72 @@ export default {
     addNewList() {
       var that = this;
       //保存数据
-      let data = {
-        name: null,
-        urlsite: null,
-        descration: null,
-        display: false
-      };
-      that.linklist.push(data);
+      let data ={
+          linklist: [
+            {
+              name: null,
+              urlsite: null,
+              descration: null,
+              display: false
+            }
+          ],
+          set_title:''
+      }
+      that.linkdata.linklist.push(data);
 
     },
     // 删除一列数据
     deletePerson(index) {
       // 删一个数组元素
       var that = this;
-      let data = {
-        name: null,
-        urlsite: null,
-        descration: null,
-        display: false
-      };
+      let data ={
+          linklist: [
+            {
+              name: null,
+              urlsite: null,
+              descration: null,
+              display: false
+            }
+          ],
+          set_title:''
+      }
       // 删除最后一条重新创建新数组
-      if(that.linklist.length<=1){
-        that.linklist.splice(0,1,data);
+      if(that.linkdata.linklist.length<=1){
+        that.linkdata.linklist.splice(0,1,data);
       }else{
-        that.linklist.splice(index,1);
+        that.linkdata.linklist.splice(index,1);
       }
     },
     // 保存函数
     savedata() {
       var that = this;
       var dispatch = this.$store.dispatch;
+      console.log(that.linkdata);
       dispatch({
         type: "link_data",
-        data: that.linklist
+        data: that.linkdata
       });
-      console.log(that.linklist);
-
-
     },
 
     // 移动序列
     moveall: function (num, index) {
       var that = this;
       // 取出数据
-      var val = that.linklist[index];
+      var val = that.linkdata.linklist[index];
       // 删除数据
-      that.linklist.splice(index, 1);
+      that.linkdata.linklist.splice(index, 1);
       // 上移
       if (num == -1 || num == 1) {
         // 添加数据
-        that.linklist.splice(index + num, 0, val);
+       that.linkdata.linklist.splice(index + num, 0, val);
       }
       // 置顶
       if (num == 0) {
-        that.linklist.splice(0, 0, val);
+        that.linkdata.linklist.splice(0, 0, val);
       }
       // 置低
       if (num == 2) {
-        that.linklist.splice(that.linklist.length, 0, val);
+        that.linkdata.linklist.splice(that.linkdata.linklist.length, 0, val);
       }
     },
     // 隐藏编辑模块
@@ -236,7 +248,7 @@ export default {
     //回选
     re_selection:function(){
       var that = this;
-      var newlinksdata=[];
+      var newlinksdata={};
       var site = that.edit_mk_data
       //判断位置信息,把从仓库拿到的值赋给一个空数组
       if (site.location1 == "hd") {
@@ -244,7 +256,7 @@ export default {
       }
       if (site.location1 == "ft") {
         newlinksdata = JSON.parse(JSON.stringify(that.layout_data.ft[site.location4].data))
-        console.log(newlinksdata);
+        //  console.log(newlinksdata);
       }
       if (site.location1 == "con") {
         if (site.location3 == "w19") {
@@ -258,7 +270,8 @@ export default {
         }
       }
       if (newlinksdata.length > 0) {
-        that.linklist = newlinksdata
+        that.linkdata= newlinksdata
+        console.log(that.linkdata);
       }
 
     }
