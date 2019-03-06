@@ -1,6 +1,14 @@
 <template>
-  <div :ref="dataref" id="mk7" class="pr" @mouseover="hoverActive=true" @mouseout="hoverActive=false">
-    <div :class="{content_w19:dataLocation3=='w19',content_w95:dataLocation3=='center',content_ft_w95:dataLocation3==''}">
+  <div
+    :ref="dataref"
+    id="mk7"
+    class="pr"
+    @mouseover="hoverActive=true"
+    @mouseout="hoverActive=false"
+  >
+    <div
+      :class="{content_w19:dataLocation3=='w19',content_w95:dataLocation3=='center',content_ft_w95:dataLocation3==''}"
+    >
       <p :style="title_bg">{{get_links_data.set_title}}</p>
       <ul>
         <li v-if="get_links_data.linklist.length>0" v-for="item in get_links_data.linklist">
@@ -45,28 +53,29 @@ export default {
       title_bg: {
         background: "#0079fe"
       },
-      get_links_data:{}
+      get_links_data: {}
     };
   },
   computed: mapState({
     layout_data: state => state.layout_data //获取所有模块的布局信息
   }),
-  
+
   //监听数据改变状态
-   watch: {
-         // 所有模块数据
-         layout_data: {
-            handler(newName, oldName) {
-               var that = this
-               that.re_selection()
-            },
-            deep: true,
-         },
-   },
+  watch: {
+    // 所有模块数据
+    layout_data: {
+      handler(newName, oldName) {
+        var that = this;
+        that.re_selection();
+      },
+      deep: true
+    }
+  },
   mounted: function() {
     var that = this;
     that.re_selection();
-    console.log(that.get_links_data)
+    console.log(that.get_links_data);
+    that.linktitle();
   },
 
   methods: {
@@ -83,18 +92,61 @@ export default {
       }
       if (that.dataLocation1 == "con") {
         if (that.dataLocation3 == "w19") {
-          that.get_links_data = that.layout_data.con[that.dataLocation2].w19[that.dataLocation4].data;
+          that.get_links_data =
+            that.layout_data.con[that.dataLocation2].w19[
+              that.dataLocation4
+            ].data;
         }
         if (that.dataLocation3 == "w75") {
-          that.get_links_data = that.layout_data.con[that.dataLocation2].w75[that.dataLocation4].data;
+          that.get_links_data =
+            that.layout_data.con[that.dataLocation2].w75[
+              that.dataLocation4
+            ].data;
         }
         if (that.dataLocation3 == "center") {
-          that.get_links_data = that.layout_data.con[that.dataLocation2].w1920[that.dataLocation4].data;
-            
+          that.get_links_data =
+            that.layout_data.con[that.dataLocation2].w1920[
+              that.dataLocation4
+            ].data;
         }
       }
-        //console.log(that.dataLocation1)
-        //console.log(that.dataLocation3);
+      //console.log(that.dataLocation1)
+      //console.log(that.dataLocation3);
+    },
+    linktitle: function() {
+      var that = this;
+      console.log(that.get_links_data);
+      var dispatch = this.$store.dispatch;
+
+      //组件位置信息
+      var site = {
+        location1: that.dataLocation1,
+        location2: that.dataLocation2,
+        location3: that.dataLocation3,
+        location4: that.dataLocation4
+      };
+
+      //当对象长度为0时,判断对象有没有数据
+      if (Object.keys(that.get_links_data).length == 0) {
+        var data = {
+          linkdata: {
+            linklist: [
+              {
+                name: null,
+                urlsite: null,
+                descration: null,
+                display: false
+              }
+            ],
+            set_title: "友情链接"
+          },
+          site: site
+        };
+        dispatch({
+          type: "set_csh_info",
+          data: data
+        });
+      }
     }
   }
 };
@@ -106,7 +158,8 @@ export default {
   margin: 0 auto;
 }
 
-.content_w95,.content_ft_w95 {
+.content_w95,
+.content_ft_w95 {
   width: 950px;
   overflow: hidden;
   p {
@@ -139,8 +192,8 @@ export default {
     }
   }
 }
-.content_w19{
-  width: 190px; 
+.content_w19 {
+  width: 190px;
   overflow: hidden;
   p {
     font-size: 14px;
@@ -149,15 +202,15 @@ export default {
     line-height: 30px;
     padding-left: 10px;
   }
-  ul{
+  ul {
     width: 99%;
     border-right: 1px solid #ddd;
     border-left: 1px solid #ddd;
-    border-bottom: 1px solid #ddd; 
+    border-bottom: 1px solid #ddd;
     overflow: hidden;
     min-height: 40px;
-      li {
-      width:50%;
+    li {
+      width: 50%;
       float: left;
       line-height: 40px;
       background: #fff;

@@ -248,7 +248,7 @@ export default {
       }
       if (site.location1 == "ft") {
         newlinksdata = JSON.parse(JSON.stringify(that.layout_data.ft[site.location4].data))
-        //console.log(newlinksdata);
+        console.log(newlinksdata);
       }
       if (site.location1 == "con") {
         if (site.location3 == "w19") {
