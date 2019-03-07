@@ -97,15 +97,15 @@
          }
          else {
             that.list_data = data
+            // 获取数据
             that.get_message()
-            console.log(that.list_data)
          }
       },
       methods: {
          // 获取后台数据
          get_message() {
             var that = this
-            console.log(that.list_data)
+            that.message = []
             for (var i = 0; i < that.list_data.baby_number; i++) {
                let data = {
                   title_name: "宝贝推荐",
