@@ -293,20 +293,6 @@
          save_fun() {
             var that = this
             var dispatch = this.$store.dispatch
-            // 向后台发送请求获取首次显示数据
-            var message = []
-            console.log(that.data)
-            for (var i = 0; i < that.data.baby_number; i++) {
-               let data = {
-                  title_name: "宝贝推荐",
-                  shop_name: "商品名称",
-                  money: "5.00",
-                  duigou: "10000",
-                  shoucang: "10000",
-               }
-               message[i] = data
-            }
-            that.data.message = message
             // 保存数据
             fun.save_data(dispatch, that.data)
             // 隐藏弹窗

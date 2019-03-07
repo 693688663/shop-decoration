@@ -6,7 +6,7 @@
             <div class="content  ofh" :class="{content_w19:dataLocation3=='w19',content_w75:dataLocation3=='w75',content_w95:dataLocation3=='center',
             w95:dataLocation3==''}"
                v-if="Object.keys(list_data).length>0">
-               <div class="li fl" v-for="(site,index) in list_data.message">
+               <div class="li fl" v-for="(site,index) in message">
                   <div class="img">
                      <img src="../../assets/img/img.jpg" alt="123124">
                   </div>
@@ -64,24 +64,11 @@
                show_name: "2",// 显示设置
                show_type: 1,// 展示方式
                yes_show: [],// 是否显示
-               message: [
-                  {
-                     title_name: "宝贝推荐",
-                     shop_name: "商品名称",
-                     money: "5.00",
-                     duigou: "10000",
-                     shoucang: "10000",
-                  }
-               ],
             },//基础设置数据
+            // 获取的后台数据
+            message: [],
             // 功能对象
-            hoverActive: false,//按钮是否显示
-            // 临时数据对象
-            title_name: "宝贝推荐",
-            shop_name: "商品名称",
-            money: "5.00",
-            duigou: "10000",
-            shoucang: "10000",
+            hoverActive: false,//按钮是否显示         
          }
       },
       computed: mapState({
@@ -92,27 +79,45 @@
          layout_data: {
             handler(newName, oldName) {
                var that = this
+               // 获取设置数据
                that.list_data = that.get_type()
+               that.get_message()
             },
             deep: true,
          },
       },
       mounted: function () {
          var that = this
-         // 获取基础设置
+         // 获取设置数据
          var data = that.get_type()
-         // 无基本设置时
+         // 无设置数据时
          if (Object.keys(data).length == 0) {
-            // 无基本设置时设置基本设置
+            // 新建原始设置数据
             that.set_data()
          }
          else {
             that.list_data = data
-            console.log(data)
+            that.get_message()
+            console.log(that.list_data)
          }
       },
       methods: {
-         // 获取基本设置
+         // 获取后台数据
+         get_message() {
+            var that = this
+            console.log(that.list_data)
+            for (var i = 0; i < that.list_data.baby_number; i++) {
+               let data = {
+                  title_name: "宝贝推荐",
+                  shop_name: "商品名称",
+                  money: "5.00",
+                  duigou: "10000",
+                  shoucang: "10000",
+               }
+               that.message[i] = data
+            }
+         },
+         // 获取设置数据
          get_type() {
             var that = this
             var dispatch = this.$store.dispatch
@@ -126,7 +131,7 @@
             // 获取设置数据
             return fun.get_data(site, that.layout_data)
          },
-         // 无基本设置时设置基本设置
+         // 无设置数据时添加设置数据
          set_data() {
             var that = this
             var dispatch = this.$store.dispatch
@@ -172,19 +177,6 @@
                location3: that.dataLocation3,
                location4: that.dataLocation4,
             }
-            // 向后台发送请求获取首次显示数据
-            var message = []
-            for (var i = 0; i < set_data.show_type; i++) {
-               let data = {
-                  title_name: "宝贝推荐",
-                  shop_name: "商品名称",
-                  money: "5.00",
-                  duigou: "10000",
-                  shoucang: "10000",
-               }
-               message[i] = data
-            }
-            set_data.message = message
             // 保存数据
             fun.first_save_data(dispatch, site, set_data)
 

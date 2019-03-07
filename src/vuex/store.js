@@ -37,7 +37,8 @@ const state = {
          mk: [],
       },
    },
-   // 保存单元及模块的数据  此数据为后台保存数据
+   // 通过设置数据获取信息数据
+   // 保存单元及模块的数据  同时也是设置数据
    layout_data: {
       hd: [],
       con: [],
@@ -322,7 +323,7 @@ const mutations = {
    },
    // 编辑模块
    edit_mk_mu(state, n) {
-    //   console.log(n)
+      //   console.log(n)
       state.edit_mk_data = n.data
    },
    // 隐藏编辑模块
