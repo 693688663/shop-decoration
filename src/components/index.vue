@@ -352,6 +352,7 @@
    import mk7 from './mokuai/mk7'//功能模块
    import mk7_type from './mokuai/mk7_type'//功能模块
    import mk8 from './mokuai/mk8'//功能模块
+   import mk8_type from './mokuai/mk8_type'//功能模块
    import mk9 from './mokuai/mk9'//功能模块
    import mk10 from './mokuai/mk10'//功能模块
    import mk11 from './mokuai/mk11'//功能模块
@@ -384,6 +385,7 @@
          mk7,
          mk7_type,
          mk8,
+         mk8_type,
          mk9,
          mk10,
          mk11,
