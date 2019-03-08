@@ -1,5 +1,5 @@
 <template>
-   <div :ref="dataref" id="mk1" class="pr" @mouseover="hoverActive=true" @mouseout="hoverActive=false">
+   <div :ref="dataref" id="mk1" class="pr" @mouseover="hoverActive_fun(true)" @mouseout="hoverActive_fun(false)">
       <div class="win">
          <div class="mk1">
             <div class="title"><span v-if="list_data.show_name==2">{{list_data.name}}</span></div>
@@ -88,21 +88,37 @@
       },
       mounted: function () {
          var that = this
-         // 获取设置数据
-         var data = that.get_type()
-         // 无设置数据时
-         if (Object.keys(data).length == 0) {
-            // 新建原始设置数据
-            that.set_data()
+         console.log(that.data)
+         if (!that.data) {
+            // 获取设置数据
+            var data = that.get_type()
+            // 无设置数据时
+            if (Object.keys(data).length == 0) {
+               // 新建原始设置数据
+               that.set_data()
+            }
+            else {
+               // 数据有意义时判断数据是否符合规范
+               that.list_data = data
+            }
+         } else {
+            that.list_data = that.data
+            that.hoverActive = false
          }
-         else {
-            // 数据有意义时判断数据是否符合规范
-            that.list_data = data
-            // 获取数据
-            that.get_message()
-         }
+         // 获取数据
+         that.get_message()
       },
       methods: {
+         // 显示提示框切换
+         hoverActive_fun(value) {
+            var that = this
+            if (that.data) {
+               that.hoverActive = false
+            } else {
+               that.hoverActive = value
+
+            }
+         },
          // 获取后台数据
          get_message() {
             var that = this
