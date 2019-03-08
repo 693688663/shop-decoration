@@ -1,12 +1,17 @@
 <template>
    <div id="mk1_type">
+      <!-- title -->
       <div class="title pr">宝贝推荐 <span class="del cursor" @click="edit_mk_data_fun(false)"></span></div>
+      <!-- 提示 -->
       <div class="tips">您可以通过系统自动推荐或者手动选择最多28个店铺内宝贝，通常可以用于畅销商品、最新上架的商品推荐等场景</div>
+      <!-- 设置按钮切换 -->
       <ul class="">
          <li class="fl" :class="{active:li_active==1}" @click="li_active=1">宝贝设置</li>
          <li class="fl" :class="{active:li_active==2}" @click="li_active=2">电脑端显示设置</li>
       </ul>
+      <!-- content -->
       <div class="con">
+         <!-- 宝贝设置 -->
          <div class="Baby_set" v-show="li_active==1">
             <div class="li">
                <span class="type">推荐方式：</span>
@@ -203,8 +208,9 @@
       },
       data: function () {
          return {
+            // 功能对象
             li_active: 1,//显示切换
-            //基本设置信息
+            //临时数据对象
             data: {
                name: "",// 模块名
                recommend_ways: "1",// 推荐方式
@@ -221,6 +227,7 @@
             },
          }
       },
+      // 获取状态仓库数据
       computed: mapState({
          edit_mk_data: state => state.edit_mk_data,//当前编辑模块的位置信息
          layout_data: state => state.layout_data,//所有模块的布局信息
