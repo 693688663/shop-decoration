@@ -58,11 +58,11 @@ const mokuai = {
 
       },
       {
-          "name": "客服中心",
-          "icon": "mk8.png",
-          "width": [190],
-          "type": ["con", "ft"],
-          "com": "mk8",
+         "name": "客服中心",
+         "icon": "mk8.png",
+         "width": [190],
+         "type": ["con", "ft"],
+         "com": "mk8",
 
       },
       //   {

@@ -62,7 +62,7 @@
                baby_type: "3",//宝贝数量下标
                baby_number: 3,// 宝贝数量
                show_name: "2",// 显示设置
-               show_type: 1,// 展示方式
+               show_type: 1,// 展示列数
                yes_show: [],// 是否显示
             },//基础设置数据
             // 获取的后台数据
@@ -96,6 +96,7 @@
             that.set_data()
          }
          else {
+            // 数据有意义时判断数据是否符合规范
             that.list_data = data
             // 获取数据
             that.get_message()

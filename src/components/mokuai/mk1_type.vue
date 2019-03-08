@@ -348,8 +348,6 @@
             font-size: 14px;
             margin-right: 5px;
             cursor: pointer;
-
-
          }
 
          li.active {
