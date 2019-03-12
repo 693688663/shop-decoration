@@ -227,6 +227,7 @@
 </script>
 <style lang="less">
    #mk1 {
+      padding-bottom: 10px;
       width: 100%;
       max-width: 950px;
       margin: 0 auto;

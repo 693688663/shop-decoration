@@ -1,47 +1,47 @@
 <template>
    <div id="preview">
-      <div class="hd">
+      <div class="hd" v-if="layout_data.hd.length>0">
          <div class="li" v-for="site in layout_data.hd">
-            <component :is="site.name" :data="site.data"></component>
+            <component :is="site.name" :data="site.data" dataLocation3=""></component>
          </div>
       </div>
-      <div class="con">
+      <div class="con" v-if="layout_data.con.length>0">
          <div class="dy" v-for="(site,index) in layout_data.con">
             <div class="left ofh" v-if="site.name=='left'">
                <div class="w19 fl">
                   <div class="li" v-for="(site1,index1) in layout_data.con[index].w19">
-                     <component :is="site1.name" :data="site1.data"></component>
+                     <component :is="site1.name" :data="site1.data" dataLocation3="w19"></component>
                   </div>
                </div>
                <div class="w75 fr">
                   <div class="li" v-for="(site1,index1) in layout_data.con[index].w75">
-                     <component :is="site1.name" :data="site1.data"></component>
+                     <component :is="site1.name" :data="site1.data" dataLocation3="w75"></component>
                   </div>
                </div>
             </div>
             <div class="right ofh" v-if="site.name=='right'">
                <div class="w75 fl">
                   <div class="li" v-for="(site1,index1) in layout_data.con[index].w75">
-                     <component :is="site1.name" :data="site1.data"></component>
+                     <component :is="site1.name" :data="site1.data" dataLocation3="w75"></component>
                   </div>
                </div>
                <div class="w19 fr">
                   <div class="li" v-for="(site1,index1) in layout_data.con[index].w19">
-                     <component :is="site1.name" :data="site1.data"></component>
+                     <component :is="site1.name" :data="site1.data" dataLocation3="w19"></component>
                   </div>
                </div>
             </div>
             <div class="center ofh" v-if="site.name=='center'">
                <div class="li" v-for="(site1,index1) in layout_data.con[index].w1920
                ">
-                  <component :is="site1.name" :data="site1.data"></component>
+                  <component :is="site1.name" :data="site1.data" dataLocation3="center"></component>
                </div>
             </div>
          </div>
       </div>
-      <div class="ft">
+      <div class="ft" v-if="layout_data.ft.length>0">
          <div class="li" v-for="site in layout_data.ft">
-            <component :is="site.name" :data="site.data"></component>
+            <component :is="site.name" :data="site.data" dataLocation3=""></component>
          </div>
       </div>
    </div>
@@ -50,6 +50,7 @@
 <script>
    // vuex存储
    import { mapState, mapActions } from 'vuex'
+   import mknav from './mokuai/mknav'//功能模块
    import mk1 from './mokuai/mk1'//功能模块
    import mk2 from './mokuai/mk2'//功能模块
    import mk3 from './mokuai/mk3'//功能模块
@@ -73,6 +74,7 @@
    export default {
       name: "preview",
       components: {
+         mknav,
          mk1,
          mk2,
          mk3,
@@ -105,11 +107,8 @@
       }),
       mounted: function () {
          var that = this
-         // 获取本地的布局信息
-         var layout_data = JSON.parse(this.$route.query.layout_data)
-         // 赋值给本地变量
-         that.layout_data = layout_data
-         // console.log(that.layout_data)
+         that.layout_data = JSON.parse(localStorage.layoutData)
+         console.log( JSON.parse(localStorage.layoutData))
       },
    }
 </script>

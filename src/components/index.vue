@@ -43,7 +43,7 @@
                      <p>基础模块 <span class="fx"></span></p>
                   </div>
                   <ul class="basics">
-                     <li v-for="(site,index) in basice_data">
+                     <li v-for="(site,index) in basice_data" v-if="site.name!='导航'">
                         <div @mousedown="mkmousedown($event,site)" @mouseup='mkmouseup($event)'>
                            <span :style="'background:url(../../static/img/'+site.icon+') no-repeat center'"></span>
                            <p>{{site.name}}</p>
@@ -71,10 +71,7 @@
                </ul>
                <ul class="fr">
                   <li>备份</li>
-                  <li>
-                     <router-link class="link" tag="a" :to="{name:'preview',params:{'layout_data':JSON.stringify(layout_data)},query:{'layout_data':JSON.stringify(layout_data)}}"
-                        target="_blank">预览</router-link>
-                  </li>
+                  <li @click="enter_ly('preview')"> 预览 </li>
                   <li>发布站点</li>
                </ul>
             </div>
@@ -89,7 +86,7 @@
                            页头部分，暂无功能模块
                         </h3>
                         <div v-for="(site,index) in layout_data.hd">
-                           <component :is="site.name" style="margin: 0 auto 10px" :ref="'hd'+index+site.name" :dataref="'hd'+index+site.name"
+                           <component :is="site.name" style="margin: 0 auto" :ref="'hd'+index+site.name" :dataref="'hd'+index+site.name"
                               :dataName="site.mkname" data="" :datamk="site.name" dataLocation1="hd" dataLocation2=""
                               dataLocation3="" :dataLocation4="index" :datalength="layout_data.hd.length-1"></component>
                         </div>
@@ -105,7 +102,7 @@
                               <div class="fl w19" :ref="'leftEdit'+index+'w19'">
                                  <h3 ref="left_w19_h3" v-if="site.w19.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w19">
-                                    <component :is="site1.name" style="margin: 0 auto 10px" :ref="'con'+index+'w19'+index1"
+                                    <component :is="site1.name" style="margin: 0 auto" :ref="'con'+index+'w19'+index1"
                                        :dataref="'con'+index+'w19'+index1" :dataName="site1.mkname" data="" :datamk="site1.name"
                                        dataLocation1="con" :dataLocation2="index" dataLocation3="w19" :dataLocation4="index1"
                                        :datalength="site.w19.length-1"></component>
@@ -115,7 +112,7 @@
                                  <h3 ref="left_w75_h3" v-if="site.w75.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w75">
                                     <component :is="site1.name" :ref="'con'+index+'w75'+index1" :dataref="'con'+index+'w75'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" data="" :datamk="site1.name"
+                                       :dataName="site1.mkname" style="margin: 0 auto " data="" :datamk="site1.name"
                                        dataLocation1="con" :dataLocation2="index" dataLocation3="w75" :dataLocation4="index1"
                                        :datalength="site.w75.length-1"></component>
                                  </div>
@@ -127,7 +124,7 @@
                                  <h3 ref="right_w75_h3" v-if="site.w75.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w75">
                                     <component :is="site1.name" :ref="'con'+index+'w75'+index1" :dataref="'con'+index+'w75'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" data="" :datamk="site1.name"
+                                       :dataName="site1.mkname" style="margin: 0 auto " data="" :datamk="site1.name"
                                        dataLocation1="con" :dataLocation2="index" dataLocation3="w75" :dataLocation4="index1"
                                        :datalength="site.w75.length-1"></component>
                                  </div>
@@ -136,7 +133,7 @@
                                  <h3 ref="right_w19_h3" v-if="site.w19.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w19">
                                     <component :is="site1.name" :ref="'con'+index+'w19'+index1" :dataref="'con'+index+'w19'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" data="" :datamk="site1.name"
+                                       :dataName="site1.mkname" style="margin: 0 auto " data="" :datamk="site1.name"
                                        dataLocation1="con" :dataLocation2="index" dataLocation3="w19" :dataLocation4="index1"
                                        :datalength="site.w19.length-1"></component>
                                  </div>
@@ -147,7 +144,7 @@
                               <div class="fl w1920">
                                  <h3 ref="center_w1920" v-if="site.w1920.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w1920">
-                                    <component :is="site1.name" style="margin: 0 auto 10px" :ref="'conter'+index+site1.name+index1"
+                                    <component :is="site1.name" style="margin: 0 auto " :ref="'conter'+index+site1.name+index1"
                                        :dataref="'conter'+index+site1.name+index1" :dataName="site1.mkname" data=""
                                        :datamk="site1.name" dataLocation1="con" :dataLocation2="index" dataLocation3="center"
                                        :dataLocation4="index1" :datalength="site.w1920.length-1"></component>
@@ -162,7 +159,7 @@
                            页尾部分，暂无功能模块
                         </h3>
                         <div v-for="(site,index) in layout_data.ft">
-                           <component :is="site.name" style="margin: 0 auto 10px" :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
+                           <component :is="site.name" style="margin: 0 auto " :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
                               :dataName="site.mkname" data="" :datamk="site.name" dataLocation1="ft" dataLocation2=""
                               dataLocation3="" :dataLocation4="index" :datalength="layout_data.ft.length-1"></component>
                         </div>
@@ -322,7 +319,6 @@
          </div>
       </div>
       <!-- 模块模拟框 -->
-
       <div ref="mkmk" id="mkmk" class="pa" v-if="mk_move_xy.display" :style="mk_move_xy.xy" @mouseup="bjmkmouseup($event)">
          {{layout_data_mk.mkname}}
       </div>
@@ -366,6 +362,7 @@
    import mk20 from './mokuai/mk20'//功能模块
    import mk21 from './mokuai/mk21'//功能模块
    import mk22 from './mokuai/mk22'//功能模块
+   import mknav from './mokuai/mknav'//导航
    // 布局管理页组件
    import guanliButton from './mokuai/mkbutton/guanliButton'//功能模块
    export default {
@@ -373,6 +370,7 @@
       name: 'index',
       components: {
          // 页面编辑页组件
+         mknav,
          mk,
          mk1,
          mk1_type,
@@ -439,7 +437,8 @@
             },
             // 布局管理是否显示
             dy_move_show: false,
-            // 
+            // 模块个数
+            mk_number: 0,
          }
       },
       computed: mapState({
@@ -451,6 +450,7 @@
          layout_data_mk_move_xy: state => state.layout_data_mk_move_xy,//当前移动模块的移动轨迹
          layout_data_mk_site: state => state.layout_data_mk_site,//当前模块的位置信息
          edit_mk_data: state => state.edit_mk_data//编辑模块数据
+
       }),
       watch: {
          // 所有模块数据
@@ -458,7 +458,9 @@
             handler(newName, oldName) {
                var that = this
                localStorage.layoutData = JSON.stringify(newName)
-               //    localStorage.layoutData = ""
+               // console.log(newName)
+               that.get_mk_number_fun()
+               // localStorage.layoutData = ""
             },
             deep: true,
          },
@@ -573,6 +575,7 @@
       },
       mounted: function () {
          var that = this;
+         // console.log(that.layout_data)
          if (localStorage.layoutData) {
             var dispatch = this.$store.dispatch
             var data = JSON.parse(localStorage.layoutData)
@@ -616,7 +619,39 @@
 
       },
       methods: {
-         // 
+         // 获取模块个数
+         get_mk_number_fun() {
+            var that = this
+            that.mk_number = 0
+            // hd中的模块长度
+            console.log(that.layout_data.hd.length)
+            that.mk_number += that.layout_data.hd.length
+            // ft中的模块长度
+            that.mk_number += that.layout_data.ft.length
+            // 单元长度大于1
+            if (that.layout_data.con.length > 0) {
+               for (var i = 0; i < that.layout_data.con.length; i++) {
+                  if (that.layout_data.con[i].name != "center") {
+                     that.mk_number += that.layout_data.con[i].w19.length
+                     that.mk_number += that.layout_data.con[i].w75.length
+                  } else {
+                     that.mk_number += that.layout_data.con[i].w1920.length
+                  }
+               }
+            }
+         },
+         // 进入预览窗口
+         enter_ly(value) {
+            var that = this
+            // 创建连接
+            let routeData = this.$router.resolve({
+               name: value,
+            });
+            // 新窗口打开页面
+            window.open(routeData.href, '_blank');
+
+         },
+         // 页面编辑、布局管理切换
          edit_manage_fun(num) {
             var that = this
             var dispatch = this.$store.dispatch
@@ -741,6 +776,12 @@
          // 模块移动功能
          mkmousedown(event, site) {
             var that = this
+            console.log(that.mk_number)
+            console.log(that.layout_data)
+            if (that.mk_number > 10) {
+               this.$toast.center('模块总数不可超过10');
+               return
+            }
             var dispatch = this.$store.dispatch
             // 判断是否为div元素
             if (event.target.localName != "div") {
@@ -775,6 +816,7 @@
                var endx = event.clientX - startx;
                // 获取位移量y=当前位置y-开始位置y
                var endy = event.clientY - starty;
+
                // 设置位移位置x
                _target.style.left = Math.floor(endx) + 'px';
                // 设置位移位置y
@@ -1097,7 +1139,6 @@
                   }
                   // 添加布局单元center坐标
                   else {
-                     // console.log("添加center模块")
                      // var name = that.layout_data.con[i].name + "Edit" + i;
                      var data = {
                         name: name,
@@ -1340,7 +1381,6 @@
             var that = this
             var mk = site.com
             var mkname = site.name
-            // console.log(mkname)
             var dispatch = this.$store.dispatch
             var goOn = false
             // 当前鼠标位置与元素为位置进行对比
@@ -1536,7 +1576,6 @@
                               // 在上
                               if (mouseY > (that.html_xy.con.dy[i].mk[o].xy.top + that.html_xy.con.dy[i].mk[o].xy.bottom) / 2) {
                                  num = o + 1
-                                 // console.log("在上")
                               }
                            }
                            // 在模块上添加模块
@@ -1569,7 +1608,6 @@
                         if (!goOn) { return }
                         // 如果没有模块则与h3坐标对比
                         if (that.layout_data.con[i].w19.length == 0) {
-                           // console.log("在w19中没有模块")
                            // 直接将模块放置到位置
                            // 添加模块
                            that.mksite = {
@@ -1851,7 +1889,6 @@
                               // 在上
                               if (mouseY > (that.layout_xy.con.dy[i].mk[o].xy.top + that.layout_xy.con.dy[i].mk[o].xy.bottom) / 2) {
                                  num = o + 1
-                                 // console.log("在上")
                               }
                            }
                            // 在模块上添加模块
@@ -1884,7 +1921,6 @@
                         if (!goOn) { return }
                         // 如果没有模块则与h3坐标对比
                         if (that.layout_data.con[i].w19.length == 0) {
-                           // console.log("在w19中没有模块")
                            // 直接将模块放置到位置
                            // 添加模块
                            that.mksite = {
@@ -2086,11 +2122,12 @@
          },
          shezhi(num) {
             var that = this
-            console.log(num)
+            // console.log(num)
             that.layout_choose = true
          },
          // 松开模块模拟框
          bjmkmouseup(event) {
+            // console.log("松开")
             var that = this
             var dispatch = this.$store.dispatch
             // 隐藏跟随狂
@@ -2104,6 +2141,7 @@
             }
             // 添加模块
             if (!that.mksite.location1) {
+               // console.log("添加模块")
                var data = {
                   site: that.layout_data_mk_site,
                   data: that.layout_data_mk
@@ -2494,7 +2532,7 @@
 
 
                   .edit1>div {
-                     margin-bottom: 10px;
+                     /* margin-bottom: 10px; */
                   }
 
                   .edit1 {
@@ -2502,7 +2540,7 @@
                      min-height: 80%;
 
                      .html_con>div {
-                        margin-top: 10px !important;
+                        /* margin-top: 10px !important; */
                      }
 
                      .ts {
@@ -2737,66 +2775,68 @@
          width: 700px;
          padding: 10px 20px;
          background: rgba(100, 100, 100, 0.2);
-         z-index: 100;
+         z-index: 1005;
 
          .title {
             background: #293749;
             color: #fff;
             padding: 5px 10px;
             font-size: 12px;
-            cursor: move;
+            /* cursor: move; */
 
             .gb {
                cursor: pointer;
             }
 
-            .layout_content {
-               background: #fff;
-               padding: 5px 10px;
 
-               fr {
-                  font-size: 12px;
+         }
+
+         .layout_content {
+            background: #fff;
+            padding: 5px 10px;
+
+            fr {
+               font-size: 12px;
+            }
+
+            ul {
+               li {
+                  float: left;
+                  width: 32%;
+                  margin: 5px;
+                  padding: 5px;
+                  border: 1px solid #add2fe;
+                  color: #369;
+                  cursor: pointer;
                }
 
-               ul {
-                  li {
-                     float: left;
-                     width: 32%;
-                     margin: 5px;
-                     padding: 5px;
-                     border: 1px solid #add2fe;
-                     color: #369;
-                     cursor: pointer;
-                  }
-
-                  li:hover {
-                     border: 1px solid #FF9831;
-                  }
+               li:hover {
+                  border: 1px solid #FF9831;
                }
+            }
 
-               .w75 {
-                  width: 150px;
-                  height: 50px;
-                  border: 1px solid #ddd;
-                  font-size: 12px;
-                  text-align: center;
-               }
+            .w75 {
+               width: 150px;
+               height: 50px;
+               border: 1px solid #ddd;
+               font-size: 12px;
+               text-align: center;
+            }
 
-               .w19 {
-                  height: 50px;
-                  width: 50px;
-                  border: 1px solid #ddd;
-                  font-size: 12px;
-                  text-align: center;
-               }
+            .w19 {
+               height: 50px;
+               width: 50px;
+               border: 1px solid #ddd;
+               font-size: 12px;
+               text-align: center;
+            }
 
-               .w95 {
-                  width: 215px;
-                  border: 1px solid #ddd;
-                  height: 50px;
-                  font-size: 12px;
-                  text-align: center;
-               }
+            .w95 {
+               width: 215px;
+               border: 1px solid #ddd;
+               height: 50px;
+               font-size: 12px;
+               text-align: center;
             }
          }
       }
@@ -2817,6 +2857,7 @@
 
    #leftEdit .w19 h3,
    #leftEdit .w75 h3 {
+      margin-top: 10px;
       color: #B2B4B6;
       text-align: center;
       line-height: 100px;
@@ -2838,6 +2879,7 @@
 
    #rightEdit .w19 h3,
    #rightEdit .w75 h3 {
+      margin-top: 10px;
       color: #B2B4B6;
       text-align: center;
       line-height: 100px;
@@ -2860,7 +2902,8 @@
       text-align: center;
       line-height: 100px;
       background: #eeeeee;
-      margin: 0 auto
+      margin: 0 auto;
+      margin-top: 10px;
    }
 
    #mkmk {
@@ -2880,8 +2923,7 @@
    #dymk {
       width: 834px;
       height: 28px;
-
-      cursor: move;
+      /* cursor: move; */
       z-index: 1002;
    }
 

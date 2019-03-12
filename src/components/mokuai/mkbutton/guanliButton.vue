@@ -7,7 +7,7 @@
       <div v-else class="module" :ref="dataref">
          <p>
             <span>{{datamkname}}</span>
-            <span class="fr modulebd" @click="del_mk(dataName,dataLocation1,dataLocation2,dataLocation3,dataLocation4,datalength)"></span>
+            <span class="fr modulebd" v-if="datamkname!='导航'" @click="del_mk(dataName,dataLocation1,dataLocation2,dataLocation3,dataLocation4,datalength)"></span>
             <span class="fr module_move" @mousedown="bjmkmousedown($event)"></span>
          </p>
       </div>
@@ -82,7 +82,8 @@
                type: 'eventmove_mk_ac',
                data: data1
             })
-            // // 获取布局管理中模块坐标信息
+            console.log(that.layout_data)
+            // 获取布局管理中模块坐标信息
             document.onmousemove = function (ev) {
                var event = ev || window.event;
                var data2 = {

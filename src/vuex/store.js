@@ -40,7 +40,9 @@ const state = {
    // 通过设置数据获取信息数据
    // 保存单元及模块的数据  同时也是设置数据
    layout_data: {
-      hd: [],
+      hd: [
+         { data: {}, mkname: "导航", name: "mknav" },
+      ],
       con: [],
       ft: [],
    },
@@ -121,7 +123,7 @@ const mutations = {
             state.layout_data.con[n.data.location2].w1920.splice(n.data.location4, 0, data)
          }
       }
-
+      // console.log("1")
    },
    // 添加模块
    setEdit_move_mk_mu(state, n) {
@@ -145,6 +147,8 @@ const mutations = {
             state.layout_data.con[site.location2].w1920.splice(site.location4, 0, data)
          }
       }
+      // console.log("2")
+      // console.log(state.layout_data)
    },
    // 删除提示框
    del_hint_mk_mu(state, n) {

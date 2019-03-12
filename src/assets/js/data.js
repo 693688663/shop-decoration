@@ -1,6 +1,13 @@
 const mokuai = {
    basice_data: [
       {
+         "name": "导航",
+         // "icon": "mknav.png",
+         "width": [950],
+         "type": ["hd"],
+         "com": "mknav",
+      },
+      {
          "name": "宝贝推荐",
          "icon": "mk1.png",
          "width": [190, 750, 950],

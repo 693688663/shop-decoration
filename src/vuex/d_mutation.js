@@ -2,11 +2,9 @@
 export default {
    // 宝贝推荐赋值
    baby_set_data_mu(state, n) {
-      console.log(n.data)
       var site = state.edit_mk_data
       if (site.location1 == "hd") {
          state.layout_data.hd[site.location4].data = n.data
-         console.log(state.layout_data.hd[site.location4].data)
       }
       if (site.location1 == "ft") {
          state.layout_data.ft[site.location4].data = n.data
@@ -28,7 +26,6 @@ export default {
       var data = n.data.data
       if (site.location1 == "hd") {
          state.layout_data.hd[site.location4].data = data
-         console.log(state.layout_data.hd[site.location4].data)
       }
       if (site.location1 == "ft") {
          state.layout_data.ft[site.location4].data = data
