@@ -575,7 +575,6 @@
       },
       mounted: function () {
          var that = this;
-         // console.log(that.layout_data)
          if (localStorage.layoutData) {
             var dispatch = this.$store.dispatch
             var data = JSON.parse(localStorage.layoutData)
@@ -624,7 +623,6 @@
             var that = this
             that.mk_number = 0
             // hd中的模块长度
-            console.log(that.layout_data.hd.length)
             that.mk_number += that.layout_data.hd.length
             // ft中的模块长度
             that.mk_number += that.layout_data.ft.length
@@ -776,10 +774,9 @@
          // 模块移动功能
          mkmousedown(event, site) {
             var that = this
-            console.log(that.mk_number)
-            console.log(that.layout_data)
-            if (that.mk_number > 10) {
-               this.$toast.center('模块总数不可超过10');
+            // 模块数不能超过三十个
+            if (that.mk_number > 29) {
+               this.$toast.center('模块总数不可超过30');
                return
             }
             var dispatch = this.$store.dispatch
