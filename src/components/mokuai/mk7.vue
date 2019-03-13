@@ -92,27 +92,20 @@ export default {
       }
       if (that.dataLocation1 == "con") {
         if (that.dataLocation3 == "w19") {
-          that.get_links_data =
-            that.layout_data.con[that.dataLocation2].w19[
-              that.dataLocation4
-            ].data;
+          that.get_links_data = that.layout_data.con[that.dataLocation2].w19[that.dataLocation4].data;
         }
         if (that.dataLocation3 == "w75") {
-          that.get_links_data =
-            that.layout_data.con[that.dataLocation2].w75[
-              that.dataLocation4
-            ].data;
+          that.get_links_data = that.layout_data.con[that.dataLocation2].w75[that.dataLocation4].data;
         }
         if (that.dataLocation3 == "center") {
-          that.get_links_data =
-            that.layout_data.con[that.dataLocation2].w1920[
-              that.dataLocation4
-            ].data;
+          that.get_links_data = that.layout_data.con[that.dataLocation2].w1920[that.dataLocation4].data;
         }
       }
       //console.log(that.dataLocation1)
       //console.log(that.dataLocation3);
     },
+
+    //友情链接设置初始化信息
     linktitle: function() {
       var that = this;
       console.log(that.get_links_data);
@@ -151,7 +144,7 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style scoped lang="less">
 #mk7 {
   width: 100%;
   max-width: 950px;

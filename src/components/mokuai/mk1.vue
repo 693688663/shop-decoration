@@ -97,6 +97,7 @@
       mounted: function () {
          var that = this
          // 判断数据来源 如果为index
+         console.log(that.data)
          if (!that.data) {
             // 获取设置数据
             var data = that.get_type()
@@ -139,6 +140,7 @@
             var that = this
             // 创建初始数据为空
             that.message = []
+            
             // 循环模拟请求的数据
             for (var i = 0; i < that.list_data.baby_number; i++) {
                let data = {

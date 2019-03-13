@@ -10,7 +10,7 @@
                 <a :class="{actived:tabShow==true}" v-on:click="tabChange(true)">内容设置</a>
                 <a :class="{actived:tabShow==false}" v-on:click="tabChange(false)">显示设置</a>
                 <span>
-                    <img src>使用帮助
+                    <img src='../../../static/img/help.png'>使用帮助
                 </span>
             </div>
             <!--tab-cont切换-->
@@ -270,7 +270,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped lang="less">
  .dialog {
       background: #000;
       position: relative;
@@ -349,6 +349,11 @@ export default {
       line-height: 30px;
       color: #333;
       margin-right: 20px;
+   }
+  .dialog-tab span img{
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
    }
 
    .dialog-tab-cont {
@@ -452,9 +457,6 @@ export default {
       position: relative;
    }
 
-   /* .link-words ul li span .dialog-operation a#move {
-   position: relative;
- } */
    .move {
       overflow: hidden;
       border: 1px solid #ddd;
