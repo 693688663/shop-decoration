@@ -1,21 +1,32 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/components/index'
-// import mk7 from '@/components/mokuai/mk7'
+import preview from '@/components/preview'
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'index',
-      component: index
-    },
-   //  {
-   //    path: '/',
-   //    name: 'mk7',
-   //    component: mk7
-   //  }
-  ]
+   routes: [
+      {
+         path: '/',
+         name: 'index',
+         component: index,
+         meta: {
+            title: '店铺装修',
+            keepAlive: true
+         }
+       
+
+      },
+      {
+         path: '/preview',
+         name: 'preview',
+         component: preview,
+         meta:{
+            title: '店铺预览',
+            keepAlive: false
+          },
+      },
+
+   ]
 })

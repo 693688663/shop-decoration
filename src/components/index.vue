@@ -43,7 +43,7 @@
                      <p>基础模块 <span class="fx"></span></p>
                   </div>
                   <ul class="basics">
-                     <li v-for="(site,index) in basice_data">
+                     <li v-for="(site,index) in basice_data" v-if="site.name!='导航'">
                         <div @mousedown="mkmousedown($event,site)" @mouseup='mkmouseup($event)'>
                            <span :style="'background:url(../../static/img/'+site.icon+') no-repeat center'"></span>
                            <p>{{site.name}}</p>
@@ -71,7 +71,7 @@
                </ul>
                <ul class="fr">
                   <li>备份</li>
-                  <li>预览</li>
+                  <li @click="enter_ly('preview')"> 预览 </li>
                   <li>发布站点</li>
                </ul>
             </div>
@@ -86,8 +86,8 @@
                            页头部分，暂无功能模块
                         </h3>
                         <div v-for="(site,index) in layout_data.hd">
-                           <component :is="site.name" style="margin: 0 auto 10px" :ref="'hd'+index+site.name" :dataref="'hd'+index+site.name"
-                              :dataName="site.mkname" :data="site" :datamk="site.name" dataLocation1="hd" dataLocation2=""
+                           <component :is="site.name" style="margin: 0 auto" :ref="'hd'+index+site.name" :dataref="'hd'+index+site.name"
+                              :dataName="site.mkname" data="" :datamk="site.name" dataLocation1="hd" dataLocation2=""
                               dataLocation3="" :dataLocation4="index" :datalength="layout_data.hd.length-1"></component>
                         </div>
                      </div>
@@ -102,17 +102,17 @@
                               <div class="fl w19" :ref="'leftEdit'+index+'w19'">
                                  <h3 ref="left_w19_h3" v-if="site.w19.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w19">
-                                    <component :is="site1.name" style="margin: 0 auto 10px" :ref="'con'+index+'w19'+index1"
-                                       :dataref="'con'+index+'w19'+index1" :dataName="site1.mkname" :data="site1"
-                                       :datamk="site1.name" dataLocation1="con" :dataLocation2="index" dataLocation3="w19"
-                                       :dataLocation4="index1" :datalength="site.w19.length-1"></component>
+                                    <component :is="site1.name" style="margin: 0 auto" :ref="'con'+index+'w19'+index1"
+                                       :dataref="'con'+index+'w19'+index1" :dataName="site1.mkname" data="" :datamk="site1.name"
+                                       dataLocation1="con" :dataLocation2="index" dataLocation3="w19" :dataLocation4="index1"
+                                       :datalength="site.w19.length-1"></component>
                                  </div>
                               </div>
                               <div class="fr w75" :ref="'leftEdit'+index+'w75'">
                                  <h3 ref="left_w75_h3" v-if="site.w75.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w75">
                                     <component :is="site1.name" :ref="'con'+index+'w75'+index1" :dataref="'con'+index+'w75'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" :datamk="site1.name"
+                                       :dataName="site1.mkname" style="margin: 0 auto " data="" :datamk="site1.name"
                                        dataLocation1="con" :dataLocation2="index" dataLocation3="w75" :dataLocation4="index1"
                                        :datalength="site.w75.length-1"></component>
                                  </div>
@@ -124,7 +124,7 @@
                                  <h3 ref="right_w75_h3" v-if="site.w75.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w75">
                                     <component :is="site1.name" :ref="'con'+index+'w75'+index1" :dataref="'con'+index+'w75'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" :datamk="site1.name"
+                                       :dataName="site1.mkname" style="margin: 0 auto " data="" :datamk="site1.name"
                                        dataLocation1="con" :dataLocation2="index" dataLocation3="w75" :dataLocation4="index1"
                                        :datalength="site.w75.length-1"></component>
                                  </div>
@@ -133,7 +133,7 @@
                                  <h3 ref="right_w19_h3" v-if="site.w19.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w19">
                                     <component :is="site1.name" :ref="'con'+index+'w19'+index1" :dataref="'con'+index+'w19'+index1"
-                                       :dataName="site1.mkname" style="margin: 0 auto 10px" :data="site1" :datamk="site1.name"
+                                       :dataName="site1.mkname" style="margin: 0 auto " data="" :datamk="site1.name"
                                        dataLocation1="con" :dataLocation2="index" dataLocation3="w19" :dataLocation4="index1"
                                        :datalength="site.w19.length-1"></component>
                                  </div>
@@ -144,8 +144,8 @@
                               <div class="fl w1920">
                                  <h3 ref="center_w1920" v-if="site.w1920.length==0">暂无功能模块</h3>
                                  <div v-else v-for="(site1,index1) in site.w1920">
-                                    <component :is="site1.name" style="margin: 0 auto 10px" :ref="'conter'+index+site1.name+index1"
-                                       :dataref="'conter'+index+site1.name+index1" :dataName="site1.mkname" :data="site1"
+                                    <component :is="site1.name" style="margin: 0 auto " :ref="'conter'+index+site1.name+index1"
+                                       :dataref="'conter'+index+site1.name+index1" :dataName="site1.mkname" data=""
                                        :datamk="site1.name" dataLocation1="con" :dataLocation2="index" dataLocation3="center"
                                        :dataLocation4="index1" :datalength="site.w1920.length-1"></component>
                                  </div>
@@ -159,8 +159,8 @@
                            页尾部分，暂无功能模块
                         </h3>
                         <div v-for="(site,index) in layout_data.ft">
-                           <component :is="site.name" style="margin: 0 auto 10px" :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
-                              :dataName="site.mkname" :data="site" :datamk="site.name" dataLocation1="ft" dataLocation2=""
+                           <component :is="site.name" style="margin: 0 auto " :ref="'ft'+index+site.name" :dataref="'ft'+index+site.name"
+                              :dataName="site.mkname" data="" :datamk="site.name" dataLocation1="ft" dataLocation2=""
                               dataLocation3="" :dataLocation4="index" :datalength="layout_data.ft.length-1"></component>
                         </div>
                      </div>
@@ -319,7 +319,6 @@
          </div>
       </div>
       <!-- 模块模拟框 -->
-
       <div ref="mkmk" id="mkmk" class="pa" v-if="mk_move_xy.display" :style="mk_move_xy.xy" @mouseup="bjmkmouseup($event)">
          {{layout_data_mk.mkname}}
       </div>
@@ -363,6 +362,7 @@
    import mk20 from './mokuai/mk20'//功能模块
    import mk21 from './mokuai/mk21'//功能模块
    import mk22 from './mokuai/mk22'//功能模块
+   import mknav from './mokuai/mknav'//导航
    // 布局管理页组件
    import guanliButton from './mokuai/mkbutton/guanliButton'//功能模块
    export default {
@@ -370,6 +370,7 @@
       name: 'index',
       components: {
          // 页面编辑页组件
+         mknav,
          mk,
          mk1,
          mk1_type,
@@ -436,7 +437,8 @@
             },
             // 布局管理是否显示
             dy_move_show: false,
-            // 
+            // 模块个数
+            mk_number: 0,
          }
       },
       computed: mapState({
@@ -448,6 +450,7 @@
          layout_data_mk_move_xy: state => state.layout_data_mk_move_xy,//当前移动模块的移动轨迹
          layout_data_mk_site: state => state.layout_data_mk_site,//当前模块的位置信息
          edit_mk_data: state => state.edit_mk_data//编辑模块数据
+
       }),
       watch: {
          // 所有模块数据
@@ -455,7 +458,9 @@
             handler(newName, oldName) {
                var that = this
                localStorage.layoutData = JSON.stringify(newName)
-            //    localStorage.layoutData = ""
+               // console.log(newName)
+               that.get_mk_number_fun()
+               // localStorage.layoutData = ""
             },
             deep: true,
          },
@@ -570,6 +575,7 @@
       },
       mounted: function () {
          var that = this;
+         // console.log(that.layout_data)
          if (localStorage.layoutData) {
             var dispatch = this.$store.dispatch
             var data = JSON.parse(localStorage.layoutData)
@@ -613,7 +619,39 @@
 
       },
       methods: {
-         // 
+         // 获取模块个数
+         get_mk_number_fun() {
+            var that = this
+            that.mk_number = 0
+            // hd中的模块长度
+            console.log(that.layout_data.hd.length)
+            that.mk_number += that.layout_data.hd.length
+            // ft中的模块长度
+            that.mk_number += that.layout_data.ft.length
+            // 单元长度大于1
+            if (that.layout_data.con.length > 0) {
+               for (var i = 0; i < that.layout_data.con.length; i++) {
+                  if (that.layout_data.con[i].name != "center") {
+                     that.mk_number += that.layout_data.con[i].w19.length
+                     that.mk_number += that.layout_data.con[i].w75.length
+                  } else {
+                     that.mk_number += that.layout_data.con[i].w1920.length
+                  }
+               }
+            }
+         },
+         // 进入预览窗口
+         enter_ly(value) {
+            var that = this
+            // 创建连接
+            let routeData = this.$router.resolve({
+               name: value,
+            });
+            // 新窗口打开页面
+            window.open(routeData.href, '_blank');
+
+         },
+         // 页面编辑、布局管理切换
          edit_manage_fun(num) {
             var that = this
             var dispatch = this.$store.dispatch
@@ -738,6 +776,12 @@
          // 模块移动功能
          mkmousedown(event, site) {
             var that = this
+            console.log(that.mk_number)
+            console.log(that.layout_data)
+            if (that.mk_number > 10) {
+               this.$toast.center('模块总数不可超过10');
+               return
+            }
             var dispatch = this.$store.dispatch
             // 判断是否为div元素
             if (event.target.localName != "div") {
@@ -772,6 +816,7 @@
                var endx = event.clientX - startx;
                // 获取位移量y=当前位置y-开始位置y
                var endy = event.clientY - starty;
+
                // 设置位移位置x
                _target.style.left = Math.floor(endx) + 'px';
                // 设置位移位置y
@@ -1094,7 +1139,6 @@
                   }
                   // 添加布局单元center坐标
                   else {
-                     // console.log("添加center模块")
                      // var name = that.layout_data.con[i].name + "Edit" + i;
                      var data = {
                         name: name,
@@ -1337,7 +1381,6 @@
             var that = this
             var mk = site.com
             var mkname = site.name
-            // console.log(mkname)
             var dispatch = this.$store.dispatch
             var goOn = false
             // 当前鼠标位置与元素为位置进行对比
@@ -1533,7 +1576,6 @@
                               // 在上
                               if (mouseY > (that.html_xy.con.dy[i].mk[o].xy.top + that.html_xy.con.dy[i].mk[o].xy.bottom) / 2) {
                                  num = o + 1
-                                 // console.log("在上")
                               }
                            }
                            // 在模块上添加模块
@@ -1566,7 +1608,6 @@
                         if (!goOn) { return }
                         // 如果没有模块则与h3坐标对比
                         if (that.layout_data.con[i].w19.length == 0) {
-                           // console.log("在w19中没有模块")
                            // 直接将模块放置到位置
                            // 添加模块
                            that.mksite = {
@@ -1848,7 +1889,6 @@
                               // 在上
                               if (mouseY > (that.layout_xy.con.dy[i].mk[o].xy.top + that.layout_xy.con.dy[i].mk[o].xy.bottom) / 2) {
                                  num = o + 1
-                                 // console.log("在上")
                               }
                            }
                            // 在模块上添加模块
@@ -1881,7 +1921,6 @@
                         if (!goOn) { return }
                         // 如果没有模块则与h3坐标对比
                         if (that.layout_data.con[i].w19.length == 0) {
-                           // console.log("在w19中没有模块")
                            // 直接将模块放置到位置
                            // 添加模块
                            that.mksite = {
@@ -2083,11 +2122,12 @@
          },
          shezhi(num) {
             var that = this
-            console.log(num)
+            // console.log(num)
             that.layout_choose = true
          },
          // 松开模块模拟框
          bjmkmouseup(event) {
+            // console.log("松开")
             var that = this
             var dispatch = this.$store.dispatch
             // 隐藏跟随狂
@@ -2101,6 +2141,7 @@
             }
             // 添加模块
             if (!that.mksite.location1) {
+               // console.log("添加模块")
                var data = {
                   site: that.layout_data_mk_site,
                   data: that.layout_data_mk
@@ -2209,12 +2250,8 @@
       },
    }
 </script>
-<style>
+<style lang="less">
    /* 全局设置 */
-   .index {
-      height: 100%;
-   }
-
    html,
    body {
       height: 100%;
@@ -2223,572 +2260,586 @@
 
    }
 
-   /* 头部样式 */
-   .header {
-      padding-top: 20px;
-      background: #293749;
-   }
-
-   .header ul {
-      margin: 0 auto;
-      display: block;
-      overflow: hidden;
-      text-align: center;
-      width: 520px;
-   }
-
-   .header li {
-      width: 50%;
-      height: 34px;
-      line-height: 34px;
-      background: #3e4b5b;
-      float: left;
-      color: #9fa6ad;
-      cursor: pointer;
-   }
-
-   .header .active {
-      background: #fff;
-      color: #666;
-      border-radius: 4px 4px 0 0;
-   }
-
-   /* 主体内容左侧工具栏 */
-
-   .content .fun_area {
-      z-index: 1002;
-   }
-
-   .content .fun_area ul {
-      float: left;
-      width: 69px;
+   .index {
       height: 100%;
-      background: #f8f9fa;
-      border-right: 1px solid #cad0d8;
-      /* z-index: 2; */
-   }
-
-   .content .fun_area li {
-      height: 69px;
-      text-align: center;
-      line-height: 69px;
-      border-bottom: 1px solid #ddd;
-      cursor: pointer;
-   }
-
-   .content .fun_area .active {
-      color: #0589d8;
-   }
-
-
-   /* 主题内容模块栏 */
-   .content .fun_piece {
-      position: relative;
-      left: 0;
-      width: 229px;
-      border-right: 1px solid #cad0d8;
-      height: 100%;
-      z-index: 1001;
-   }
-
-   .content .fun_piece>ul>li {
-      display: none;
-   }
-
-   .content .fun_piece .active {
-      display: block;
-   }
-
-   .content .fun_piece .gb {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      background: url(../../static/img/GB.png)no-repeat center;
-      cursor: pointer;
-   }
-
-   .content .fun_piece .remove {
-      text-align: right;
-      margin-top: 10px !important;
-      padding-right: 10px;
-   }
-
-   .content .fun_piece li .ts {
-      text-align: center;
-      font-size: 12px;
-      margin-top: 20px;
-   }
-
-   .content .fun_piece .win_width {
-      width: 80%;
-      margin: 0 auto;
-      overflow: hidden;
-      margin-top: 20px;
-   }
-
-   .content .fun_piece .win_width>li:first-child {
-      margin-left: 0px;
-   }
-
-   .content .fun_piece .win_width li {
-      float: left;
-      font-size: 12px;
-      width: 19%;
-      height: 16px;
-      line-height: 16px;
-      text-align: center;
-      border: 1px solid #DDDDDD;
-      margin-left: -1px;
-      cursor: pointer;
-   }
-
-   .content .fun_piece .win_width li.active {
-      border-color: #428ce8;
-      background: #428ce8;
-      color: #fff;
-   }
-
-   .content .fun_piece .tool_head {
-      padding: 0 10px;
-      line-height: 35px;
-      font-size: 14px;
-      border-top: 1px solid #dee1e7;
-      background: #ebedf3;
-      margin-top: 20px;
-      cursor: pointer;
-   }
-
-   .content .fun_piece .tool_head .fx {
-      display: inline-block;
-      float: right;
-      height: 12px;
-      margin-top: 11px;
-      width: 20px;
-      background: url(../../static/img/FX.png) 0px 12px;
-   }
-
-   .content .fun_piece .basics li {
-      float: left;
-      width: 33%;
-      margin-top: 10px;
-      height: 62px;
-      position: relative;
-   }
-
-   .content .fun_piece .basics li div {
-      width: 60px;
-      height: 60px;
-      border: 1px solid #dee1e7;
-      margin: 0px 7px;
-      background: #ebedf3;
-      cursor: move;
-      position: absolute;
-      left: 0;
-      top: 0;
-   }
-
-   .content .fun_piece .basics li span {
-      width: 36px;
-      height: 36px;
-      display: block;
-      margin: 5px auto 0;
-   }
-
-   .content .fun_piece .basics li p {
-      font-size: 12px;
-      text-align: center;
-      font-weight: 900;
-      line-height: 18px;
-   }
-
-   /* 视窗窗口 */
-   .content .content_show {
-      right: 0;
-   }
-
-   /* 视窗头部选择按钮 */
-   .content .content_show .con_header {
-      height: 59px;
-      width: 100%;
-      border-bottom: 1px solid #d9dae0;
-   }
-
-   .con_header select {
-      outline: none;
-      width: 200px;
-      margin: 15px 0 0 20px;
-      border: 1px solid #9FA6AD;
-      height: 30px;
-      padding-left: 10px;
-      font-size: 14px;
-      cursor: pointer;
-      appearance: none;
-      -moz-appearance: none;
-      -webkit-appearance: none;
-      background: url(../../static/img/FXX.png) no-repeat right 10px center;
-   }
-
-   .con_header ul {
-      height: 32px;
-      margin: 15px 0 0 20px;
-   }
-
-   .con_header ul.fl li {
-      line-height: 30px;
-      width: 80px;
-      text-align: center;
-      float: left;
-      font-size: 14px;
-      border: 1px solid #b2b4b6;
-      background: url(../../static/img/FXXbg.png) 0px 30px;
-      cursor: pointer;
-      border-radius: 3px;
-      color: #666;
-   }
-
-   .con_header ul.fl li:last-child {
-      margin-left: -1px;
-   }
-
-   .con_header ul.fl li.active {
-      background: url(../../static/img/FXXbg.png) 0px 0px;
-   }
-
-   .con_header ul.fr li {
-      font-size: 14px;
-      line-height: 30px;
-      padding: 0 20px;
-      text-align: center;
-      border: 1px solid #b2b4b6;
-      float: left;
-      border-radius: 3px;
-      margin: 0 10px 0;
-      cursor: pointer;
-   }
-
-   .con_header ul.fr li:last-child {
-      background: #3487ec;
-      border: 1px solid #3487ec;
-      color: #fff;
-   }
-
-   /* 展示视窗 */
-   .con_con {
-      /* overflow: scroll */
-   }
-
-   .con_con .html {
-      width: 100%;
-      height: 100%;
-      overflow: scroll;
-   }
-
-   /* 页面编辑视窗 */
-   .html .edit1 {
-      min-width: 1000px;
-      min-height: 80%;
-   }
-
-   .html .edit1>div {
-      margin-bottom: 10px;
-   }
-
-   .html .edit1 .html_con>div {
-      margin-top: 10px !important;
-   }
-
-   .html .edit1 .ts {
-      width: 950px;
-      margin: 0 auto;
-      margin-top: 10px;
-      text-align: center;
-      line-height: 100px;
-      color: #B2B4B6;
-      background: #eeeeee;
-   }
-
-   /* 模块单元编辑视窗 */
-   .html .edit2 {
-      width: 100%;
-   }
-
-   .html .edit2 .layout_edit {
-      width: 850px;
-      margin: 0 auto
-   }
-
-   .html .edit2>div {
-      padding-top: 70px
-   }
-
-   .html .edit2 .layout_edit>div {
-      padding: 5px;
-      border: 1px solid #ddd;
-      margin-bottom: 10px;
-   }
-
-   .html .edit2 .layout_edit>div>.title {
-      text-align: center;
-      font-size: 12px;
-   }
-
-   .html .edit2 .layout_edit .layout_con .new_layout {
-
-      border: 1px dashed #FF9831;
-      background: #fff2e3;
-      cursor: pointer;
-      font-size: 12px;
-      text-align: center;
-      line-height: 16px;
-      padding: 5px;
-   }
-
-   .html .edit2 .layout_edit .layout_con .layout_con_con {
-      margin-top: 10px
-   }
-
-   .html .edit2 .layout_edit .layout_con .layout_con_con .clear {
-      margin: 0;
-      padding: 0
-   }
-
-   .html .edit2 .layout_edit .layout_con .layout_con_con .move {
-      background: url(../../static/img/move.png) no-repeat center;
-      cursor: move;
-   }
-
-   .html .edit2 .layout_edit .layout_con .layout_con_con .shezhi {
-      background: url(../../static/img/sz.png) no-repeat center;
-      cursor: pointer;
-   }
-
-   .html .edit2 .layout_edit .layout_con .layout_con_con .shanchu {
-      background: url(../../static/img/del.png) no-repeat center;
-      cursor: pointer;
-   }
-
-   .html .edit2 .layout_edit .layout_con .layout_con_con .move,
-   .html .edit2 .layout_edit .layout_con .layout_con_con .shezhi,
-   .html .edit2 .layout_edit .layout_con .layout_con_con .shanchu {
-      width: 30px;
-      height: 30px;
-   }
-
-   .html .edit2 .layout_edit .module {
-      border: 1px solid #add2fe;
-      font-size: 12px;
-      margin-bottom: 10px;
-      height: 34px;
-      line-height: 34px;
-      padding-left: 10px;
-      background-color: #daeaff;
-   }
-
-   .html .edit2 .layout_edit .module span.fr {
-      display: inline-block;
-      width: 34px;
-      height: 34px;
-   }
-
-   .html .edit2 .layout_edit .module span.modulebd {
-      background: url(../../static/img/del.png) no-repeat center;
-      cursor: pointer;
-   }
-
-   .html .edit2 .layout_edit .module span.module_move {
-      background: url(../../static/img/move.png) no-repeat center;
-      cursor: move;
-   }
-
-   .html .edit2 .layout_edit .moduleDom {
-      border: 2px dashed #FF9831;
-      font-size: 12px;
-      margin: 10px;
-      height: 34px;
-      max-width: 926px;
-      margin: 0 auto;
-      line-height: 34px;
-      padding: 0 10px;
-      background-color: #fff;
-      margin-bottom: 10px;
-   }
-
-   .layout_con_con .w1975>div {
-      padding: 5px 10px;
-   }
-
-   .layout_con_con .w1975>ul {
-      position: absolute;
-      right: -90px;
-      top: 1px;
-      width: 90px;
-      height: 30px;
-      overflow: hidden;
-      background: #daeaff;
-   }
-
-   .layout_con_con .w1975>.fl {
-      width: 150px;
-      padding: 5px 10px;
-      min-height: 20px;
-      border: 1px solid #d4d4d4;
-      background: #ececec;
-      margin-bottom: 10px;
-
-   }
-
-   .layout_con_con .w1975>.fr {
-      width: 635px;
-      padding: 5px 10px;
-      min-height: 20px;
-      border: 1px solid #d4d4d4;
-      background: #ececec;
-      margin-bottom: 10px;
-   }
-
-   .layout_con_con .w1975>.fl p,
-   .layout_con_con .w1975>.fr p {
-      font-size: 12px;
-   }
-
-   .layout_con_con .w7519>div {
-      padding: 5px 10px;
-   }
-
-   .layout_con_con .w7519>ul {
-      position: absolute;
-      right: -90px;
-      top: 1px;
-      width: 90px;
-      height: 30px;
-      overflow: hidden;
-      background: #daeaff;
-   }
-
-   .layout_con_con .w7519>.fl {
-      width: 635px;
-      padding: 5px 10px;
-      min-height: 20px;
-      border: 1px solid #d4d4d4;
-      background: #ececec;
-      margin-bottom: 10px;
-
-   }
-
-   .layout_con_con .w7519>.fr {
-      width: 150px;
-      padding: 5px 10px;
-      min-height: 20px;
-      border: 1px solid #d4d4d4;
-      background: #ececec;
-      margin-bottom: 10px;
-   }
-
-   .layout_con_con .w7519>.fl p,
-   .layout_con_con .w7519>.fr p {
-      font-size: 12px;
-   }
-
-   .layout_con_con .w1920>div {
-      padding: 5px 10px;
-   }
-
-   .layout_con_con .w1920>ul {
-      position: absolute;
-      right: -90px;
-      top: 1px;
-      width: 90px;
-      height: 30px;
-      overflow: hidden;
-      background: #daeaff;
-   }
-
-   .layout_con_con .w1920 .layout_body {
-
-      padding: 5px 10px;
-      min-height: 20px;
-      border: 1px solid #d4d4d4;
-      background: #ececec;
-      margin-bottom: 10px;
-   }
-
-   .layout_con_con .w1920 .layout_body>p {
-      font-size: 12px;
-   }
-
-
-
-   /* 布局单元模块选择 */
-   .layout_choose {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      margin-left: -350px;
-      margin-top: -200px;
-      width: 700px;
-      padding: 10px 20px;
-      background: rgba(100, 100, 100, 0.2);
-      z-index: 100;
-   }
-
-   .layout_choose .title {
-
-      background: #293749;
-      color: #fff;
-      padding: 5px 10px;
-      font-size: 12px;
-      cursor: move;
-   }
-
-   .layout_choose .title .gb {
-      cursor: pointer;
-   }
-
-   .layout_choose .layout_content {
-      background: #fff;
-      padding: 5px 10px;
-   }
-
-   .layout_choose .layout_content .fr {
-      font-size: 12px;
-   }
-
-   .layout_choose .layout_content ul li {
-      float: left;
-      width: 32%;
-      margin: 5px;
-      padding: 5px;
-      border: 1px solid #add2fe;
-      color: #369;
-      cursor: pointer;
-   }
-
-   .layout_choose .layout_content ul li:hover {
-      border: 1px solid #FF9831;
-   }
-
-   .layout_choose .layout_content .w75 {
-      width: 150px;
-      height: 50px;
-      border: 1px solid #ddd;
-      font-size: 12px;
-      text-align: center;
-   }
-
-   .layout_choose .layout_content .w19 {
-      height: 50px;
-      width: 50px;
-      border: 1px solid #ddd;
-      font-size: 12px;
-      text-align: center;
-   }
-
-   .layout_choose .layout_content .w95 {
-      width: 215px;
-      border: 1px solid #ddd;
-      height: 50px;
-      font-size: 12px;
-      text-align: center;
+
+      /* 头部样式 */
+      .header {
+         padding-top: 20px;
+         background: #293749;
+
+         ul {
+            margin: 0 auto;
+            display: block;
+            overflow: hidden;
+            text-align: center;
+            width: 520px;
+
+            li {
+               width: 50%;
+               height: 34px;
+               line-height: 34px;
+               background: #3e4b5b;
+               float: left;
+               color: #9fa6ad;
+               cursor: pointer;
+            }
+
+            .active {
+               background: #fff;
+               color: #666;
+               border-radius: 4px 4px 0 0;
+            }
+         }
+      }
+
+      /* 主体内容左侧工具栏 */
+
+      .content {
+         .fun_area {
+            z-index: 1002;
+
+            ul {
+               float: left;
+               width: 69px;
+               height: 100%;
+               background: #f8f9fa;
+               border-right: 1px solid #cad0d8;
+
+               li {
+                  height: 69px;
+                  text-align: center;
+                  line-height: 69px;
+                  border-bottom: 1px solid #ddd;
+                  cursor: pointer;
+               }
+
+               .active {
+                  color: #0589d8;
+               }
+            }
+         }
+
+         /* 主题内容模块栏 */
+         .fun_piece {
+            position: relative;
+            left: 0;
+            width: 229px;
+            border-right: 1px solid #cad0d8;
+            height: 100%;
+            z-index: 1001;
+
+         }
+
+         .fun_piece>ul>li {
+            display: none;
+         }
+
+         .fun_piece .active {
+            display: block;
+         }
+
+         .fun_piece .gb {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: url(../../static/img/GB.png)no-repeat center;
+            cursor: pointer;
+         }
+
+         .fun_piece .remove {
+            text-align: right;
+            margin-top: 10px !important;
+            padding-right: 10px;
+         }
+
+         .fun_piece {
+            li .ts {
+               text-align: center;
+               font-size: 12px;
+               margin-top: 20px;
+            }
+
+            .win_width {
+               width: 80%;
+               margin: 0 auto;
+               overflow: hidden;
+               margin-top: 20px;
+            }
+
+            .win_width>li:first-child {
+               margin-left: 0px;
+            }
+
+            .win_width {
+               li {
+                  float: left;
+                  font-size: 12px;
+                  width: 19%;
+                  height: 16px;
+                  line-height: 16px;
+                  text-align: center;
+                  border: 1px solid #DDDDDD;
+                  margin-left: -1px;
+                  cursor: pointer;
+               }
+
+               li.active {
+                  border-color: #428ce8;
+                  background: #428ce8;
+                  color: #fff;
+               }
+            }
+
+            .tool_head {
+               padding: 0 10px;
+               line-height: 35px;
+               font-size: 14px;
+               border-top: 1px solid #dee1e7;
+               background: #ebedf3;
+               margin-top: 20px;
+               cursor: pointer;
+
+               .fx {
+                  display: inline-block;
+                  float: right;
+                  height: 12px;
+                  margin-top: 11px;
+                  width: 20px;
+                  background: url(../../static/img/FX.png) 0px 12px;
+               }
+            }
+
+            .basics li {
+               float: left;
+               width: 33%;
+               margin-top: 10px;
+               height: 62px;
+               position: relative;
+
+               div {
+                  width: 60px;
+                  height: 60px;
+                  border: 1px solid #dee1e7;
+                  margin: 0px 7px;
+                  background: #ebedf3;
+                  cursor: move;
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+
+                  span {
+                     width: 36px;
+                     height: 36px;
+                     display: block;
+                     margin: 5px auto 0;
+                  }
+
+                  p {
+                     font-size: 12px;
+                     text-align: center;
+                     font-weight: 900;
+                     line-height: 18px;
+                  }
+               }
+            }
+         }
+
+         /* 视窗窗口 */
+         .content_show {
+            right: 0;
+
+            .con_header {
+               height: 59px;
+               width: 100%;
+               border-bottom: 1px solid #d9dae0;
+
+               select {
+                  outline: none;
+                  width: 200px;
+                  margin: 15px 0 0 20px;
+                  border: 1px solid #9FA6AD;
+                  height: 30px;
+                  padding-left: 10px;
+                  font-size: 14px;
+                  cursor: pointer;
+                  appearance: none;
+                  -moz-appearance: none;
+                  -webkit-appearance: none;
+                  background: url(../../static/img/FXX.png) no-repeat right 10px center;
+               }
+
+               ul {
+                  height: 32px;
+                  margin: 15px 0 0 20px;
+               }
+
+               ul.fl li {
+                  line-height: 30px;
+                  width: 80px;
+                  text-align: center;
+                  float: left;
+                  font-size: 14px;
+                  border: 1px solid #b2b4b6;
+                  background: url(../../static/img/FXXbg.png) 0px 30px;
+                  cursor: pointer;
+                  border-radius: 3px;
+                  color: #666;
+               }
+
+               ul.fl li:last-child {
+                  margin-left: -1px;
+               }
+
+               ul.fl li.active {
+                  background: url(../../static/img/FXXbg.png) 0px 0px;
+               }
+
+               ul.fr li {
+                  font-size: 14px;
+                  line-height: 30px;
+                  width: 70px;
+                  text-align: center;
+                  border: 1px solid #b2b4b6;
+                  float: left;
+                  border-radius: 3px;
+                  margin: 0 10px 0;
+                  cursor: pointer;
+
+                  .link {
+                     display: inline-block;
+                     width: 100%;
+                     height: 100%;
+                     color: #333;
+                  }
+               }
+
+               ul.fr li:last-child {
+                  background: #3487ec;
+                  border: 1px solid #3487ec;
+                  color: #fff;
+               }
+            }
+
+            /* 展示视窗 */
+            .con_con {
+
+               /* overflow: scroll */
+               .html {
+                  width: 100%;
+                  height: 100%;
+                  overflow: scroll;
+
+
+                  .edit1>div {
+                     /* margin-bottom: 10px; */
+                  }
+
+                  .edit1 {
+                     min-width: 1000px;
+                     min-height: 80%;
+
+                     .html_con>div {
+                        /* margin-top: 10px !important; */
+                     }
+
+                     .ts {
+                        width: 950px;
+                        margin: 0 auto;
+                        margin-top: 10px;
+                        text-align: center;
+                        line-height: 100px;
+                        color: #B2B4B6;
+                        background: #eeeeee;
+                     }
+                  }
+
+                  .edit2>div {
+                     padding-top: 70px
+                  }
+
+                  .edit2 {
+                     width: 100%;
+
+                     .layout_edit>div {
+                        padding: 5px;
+                        border: 1px solid #ddd;
+                        margin-bottom: 10px;
+                     }
+
+                     .layout_edit>div>.title {
+                        text-align: center;
+                        font-size: 12px;
+                     }
+
+                     .layout_edit {
+                        width: 850px;
+                        margin: 0 auto;
+
+                        .module {
+                           border: 1px solid #add2fe;
+                           font-size: 12px;
+                           margin-bottom: 10px;
+                           height: 34px;
+                           line-height: 34px;
+                           padding-left: 10px;
+                           background-color: #daeaff;
+
+                           span.fr {
+                              display: inline-block;
+                              width: 34px;
+                              height: 34px;
+                           }
+
+                           span.modulebd {
+                              background: url(../../static/img/del.png) no-repeat center;
+                              cursor: pointer;
+                           }
+
+                           span.module_move {
+                              background: url(../../static/img/move.png) no-repeat center;
+                              cursor: move;
+                           }
+                        }
+
+                        .moduleDom {
+                           border: 2px dashed #FF9831;
+                           font-size: 12px;
+                           margin: 10px;
+                           height: 34px;
+                           max-width: 926px;
+                           margin: 0 auto;
+                           line-height: 34px;
+                           padding: 0 10px;
+                           background-color: #fff;
+                           margin-bottom: 10px;
+                        }
+
+                        .layout_con {
+                           .new_layout {
+                              border: 1px dashed #FF9831;
+                              background: #fff2e3;
+                              cursor: pointer;
+                              font-size: 12px;
+                              text-align: center;
+                              line-height: 16px;
+                              padding: 5px;
+                           }
+
+                           .layout_con_con {
+                              margin-top: 10px;
+
+                              .clear {
+                                 margin: 0;
+                                 padding: 0
+                              }
+
+                              .move {
+                                 background: url(../../static/img/move.png) no-repeat center;
+                                 cursor: move;
+                              }
+
+                              .shezhi {
+                                 background: url(../../static/img/sz.png) no-repeat center;
+                                 cursor: pointer;
+                              }
+
+                              .shanchu {
+                                 background: url(../../static/img/del.png) no-repeat center;
+                                 cursor: pointer;
+                              }
+
+                              .move,
+                              .shezhi,
+                              .shanchu {
+                                 width: 30px;
+                                 height: 30px;
+                              }
+
+                              .w1975>div {
+                                 padding: 5px 10px;
+                              }
+
+                              .w1975>ul {
+                                 position: absolute;
+                                 right: -90px;
+                                 top: 1px;
+                                 width: 90px;
+                                 height: 30px;
+                                 overflow: hidden;
+                                 background: #daeaff;
+                              }
+
+                              .w1975>.fl {
+                                 width: 150px;
+                                 padding: 5px 10px;
+                                 min-height: 20px;
+                                 border: 1px solid #d4d4d4;
+                                 background: #ececec;
+                                 margin-bottom: 10px;
+
+                              }
+
+                              .w1975>.fr {
+                                 width: 635px;
+                                 padding: 5px 10px;
+                                 min-height: 20px;
+                                 border: 1px solid #d4d4d4;
+                                 background: #ececec;
+                                 margin-bottom: 10px;
+                              }
+
+                              .w1975>.fl p,
+                              .w1975>.fr p {
+                                 font-size: 12px;
+                              }
+
+                              .w7519>div {
+                                 padding: 5px 10px;
+                              }
+
+                              .w7519>ul {
+                                 position: absolute;
+                                 right: -90px;
+                                 top: 1px;
+                                 width: 90px;
+                                 height: 30px;
+                                 overflow: hidden;
+                                 background: #daeaff;
+                              }
+
+                              .w7519>.fl {
+                                 width: 635px;
+                                 padding: 5px 10px;
+                                 min-height: 20px;
+                                 border: 1px solid #d4d4d4;
+                                 background: #ececec;
+                                 margin-bottom: 10px;
+                              }
+
+                              .w7519>.fr {
+                                 width: 150px;
+                                 padding: 5px 10px;
+                                 min-height: 20px;
+                                 border: 1px solid #d4d4d4;
+                                 background: #ececec;
+                                 margin-bottom: 10px;
+                              }
+
+                              .w7519>.fl p,
+                              .w7519>.fr p {
+                                 font-size: 12px;
+                              }
+
+                              .w1920>div {
+                                 padding: 5px 10px;
+                              }
+
+                              .w1920>ul {
+                                 position: absolute;
+                                 right: -90px;
+                                 top: 1px;
+                                 width: 90px;
+                                 height: 30px;
+                                 overflow: hidden;
+                                 background: #daeaff;
+                              }
+
+                              .w1920 .layout_body {
+                                 padding: 5px 10px;
+                                 min-height: 20px;
+                                 border: 1px solid #d4d4d4;
+                                 background: #ececec;
+                                 margin-bottom: 10px;
+                              }
+
+                              .w1920 .layout_body>p {
+                                 font-size: 12px;
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      }
+
+      /* 布局单元模块选择 */
+      .layout_choose {
+         position: absolute;
+         left: 50%;
+         top: 50%;
+         margin-left: -350px;
+         margin-top: -200px;
+         width: 700px;
+         padding: 10px 20px;
+         background: rgba(100, 100, 100, 0.2);
+         z-index: 1005;
+
+         .title {
+            background: #293749;
+            color: #fff;
+            padding: 5px 10px;
+            font-size: 12px;
+            /* cursor: move; */
+
+            .gb {
+               cursor: pointer;
+            }
+
+
+         }
+
+         .layout_content {
+            background: #fff;
+            padding: 5px 10px;
+
+            fr {
+               font-size: 12px;
+            }
+
+            ul {
+               li {
+                  float: left;
+                  width: 32%;
+                  margin: 5px;
+                  padding: 5px;
+                  border: 1px solid #add2fe;
+                  color: #369;
+                  cursor: pointer;
+               }
+
+               li:hover {
+                  border: 1px solid #FF9831;
+               }
+            }
+
+            .w75 {
+               width: 150px;
+               height: 50px;
+               border: 1px solid #ddd;
+               font-size: 12px;
+               text-align: center;
+            }
+
+            .w19 {
+               height: 50px;
+               width: 50px;
+               border: 1px solid #ddd;
+               font-size: 12px;
+               text-align: center;
+            }
+
+            .w95 {
+               width: 215px;
+               border: 1px solid #ddd;
+               height: 50px;
+               font-size: 12px;
+               text-align: center;
+            }
+         }
+      }
    }
 
    #leftEdit {
@@ -2806,6 +2857,7 @@
 
    #leftEdit .w19 h3,
    #leftEdit .w75 h3 {
+      margin-top: 10px;
       color: #B2B4B6;
       text-align: center;
       line-height: 100px;
@@ -2827,6 +2879,7 @@
 
    #rightEdit .w19 h3,
    #rightEdit .w75 h3 {
+      margin-top: 10px;
       color: #B2B4B6;
       text-align: center;
       line-height: 100px;
@@ -2849,7 +2902,8 @@
       text-align: center;
       line-height: 100px;
       background: #eeeeee;
-      margin: 0 auto
+      margin: 0 auto;
+      margin-top: 10px;
    }
 
    #mkmk {
@@ -2869,8 +2923,7 @@
    #dymk {
       width: 834px;
       height: 28px;
-
-      cursor: move;
+      /* cursor: move; */
       z-index: 1002;
    }
 

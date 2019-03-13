@@ -5,7 +5,7 @@
       <div class="top" :class="{cursortop:dataLocation4!=0}" @click="top()"></div>
       <div class="bottom  " :class="{cursorbtm:dataLocation4!=datalength}" @click="bottom()"></div>
       <div class="edit cursor" @click="edit_mk"></div>
-      <div class="del cursor " @click="del_mk"></div>
+      <div class="del " :class="{cursordel:dataName!='导航'}" @click="del_mk"></div>
    </div>
 </template>
 <script>
@@ -22,6 +22,8 @@
       },
       mounted: function () {
          var that = this
+         // console.log(that.dataName)
+
       },
       methods: {
          // 删除模块操作
@@ -37,10 +39,12 @@
                datalength: that.datalength,
 
             }
-            dispatch({
-               type: "del_mk_ac",
-               data: data,
-            })
+            if (that.dataName != "导航") {
+               dispatch({
+                  type: "del_mk_ac",
+                  data: data,
+               })
+            }
          },
          // 模块上移
          top() {
@@ -102,6 +106,10 @@
    }
 </script>
 <style>
+   .not_cursor {
+      /* cursor: not-allowed !important; */
+   }
+
    .cursor {
       cursor: pointer !important;
    }
@@ -114,6 +122,11 @@
    .cursorbtm {
       cursor: pointer !important;
       background: url(/static/img/bottom_mk.png) center center no-repeat rgb(236, 236, 236) !important;
+   }
+
+   .cursordel {
+      cursor: pointer !important;
+      background: url(/static/img/del_mk.png) center center no-repeat rgb(236, 236, 236) !important;
    }
 
    .all {
@@ -174,6 +187,7 @@
       position: absolute;
       right: 0;
       top: 0;
-      background: url(/static/img/del_mk.png)no-repeat center #ECECEC;
+      background: url(/static/img/del_mkf.png)no-repeat center #ECECEC;
+      cursor: not-allowed;
    }
 </style>
