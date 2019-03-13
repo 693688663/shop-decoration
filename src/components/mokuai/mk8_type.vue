@@ -243,7 +243,8 @@ export default {
                   padding: 0 5px;
                 }
                 font{
-                  margin: 0 5px;
+                  margin:0 0 0 5px;
+                  font-size: 12px;
                 }
               }
             }
