@@ -82,7 +82,13 @@
                type: 'eventmove_mk_ac',
                data: data1
             })
-            console.log(that.layout_data)
+            setTimeout(() => {
+               // 移动对比位置
+               dispatch({
+                  type: 'eventmove_mk_move_ac',
+                  data: data1
+               })
+            }, 1)
             // 获取布局管理中模块坐标信息
             document.onmousemove = function (ev) {
                var event = ev || window.event;
