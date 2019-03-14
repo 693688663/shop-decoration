@@ -131,8 +131,7 @@ export default {
     }
     console.log(data);
     console.log(that.layout_data);
-    //    console.log(that.get_CustomData);
-    // }
+
   },
   methods: {
     //数据同步到页面
