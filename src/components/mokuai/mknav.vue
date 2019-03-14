@@ -7,6 +7,7 @@
                <div class="li">首页</div>
                <div class="li">首页</div>
                <div class="li">首页</div>
+               <!-- <div class="li" v-for=""></div> -->
             </div>
          </div>
       </div>
