@@ -96,7 +96,7 @@
       // 加载及执行
       mounted: function () {
          var that = this
-         // 判断数据来源 如果为index
+         // 判断数据来源当数据无意义时说明组件从index页面引入，此时向本地仓库获取数据
          console.log(that.data)
          if (!that.data) {
             // 获取设置数据
@@ -112,7 +112,7 @@
                that.list_data = data
             }
          }
-         // 如果有测说明数据来源于预览页
+         // 当数据有意义时说明组件从预览页引入
          else {
             // 设置数据赋值
             that.list_data = that.data
@@ -132,7 +132,6 @@
             // 否则鼠标可控制编辑按钮是否显示
             else {
                that.hoverActive = value
-
             }
          },
          // 获取后台数据
