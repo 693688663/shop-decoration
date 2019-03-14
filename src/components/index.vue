@@ -4,7 +4,7 @@
       <div class="header" ref="header">
          <ul>
             <li :class="{active:header_active==1}" @click="header_active=1">电脑页面装修</li>
-            <li :class="{active:header_active==2}" @click="header_active=2"> 手机页面装修</li>
+            <!-- <li :class="{active:header_active==2}" @click="header_active=2"> 手机页面装修</li> -->
          </ul>
       </div>
       <!-- 主体部分 -->
