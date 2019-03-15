@@ -108,7 +108,7 @@
       mounted: function () {
          var that = this
          that.layout_data = JSON.parse(localStorage.layoutData)
-         console.log( JSON.parse(localStorage.layoutData))
+        //  console.log( JSON.parse(localStorage.layoutData))
       },
    }
 </script>
