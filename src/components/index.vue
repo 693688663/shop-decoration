@@ -326,7 +326,8 @@
       <div class="mokuai_mask" v-if="edit_mk_data.type">
          <component :is="edit_mk_data.datamk+'_type'"></component>
       </div>
-
+      <!-- 弹框 -->
+      <dialog1 v-show="showDialog" :dialog-option="dialogOption" ref="dialog"></dialog1>
    </div>
 </template>
 <script>
@@ -363,14 +364,19 @@
    import mk21 from './mokuai/mk21'//功能模块
    import mk22 from './mokuai/mk22'//功能模块
    import mknav from './mokuai/mknav'//导航
+   import mknav_type from './mokuai/mknav_type'//导航
    // 布局管理页组件
    import guanliButton from './mokuai/mkbutton/guanliButton'//功能模块
+   // 弹框组件
+   import dialog1 from './dialog/dialog';
+
    export default {
       // 组件名
       name: 'index',
       components: {
          // 页面编辑页组件
          mknav,
+         mknav_type,
          mk,
          mk1,
          mk1_type,
@@ -399,6 +405,8 @@
          mk22,
          // 布局管理页组件
          guanliButton,
+         // 
+         dialog1
       },
       // 原始数据
       data: function () {
@@ -439,6 +447,14 @@
             dy_move_show: false,
             // 模块个数
             mk_number: 0,
+            // 弹框显示隐藏
+            showDialog: false,
+            dialogOption: {
+               title: '温馨提示',
+               text: '删除单元将同时删除内部的模块',
+               cancelButtonText: '取消',
+               confirmButtonText: '确定'
+            }
          }
       },
       computed: mapState({
@@ -764,11 +780,50 @@
          },
          // 点击删除单元格
          remove_layout(num) {
+            var that = this
             var dispatch = this.$store.dispatch
-            dispatch({
-               type: "remove_layout_ac",
-               data: num,
-            })
+            // 单元模块数
+            var dy_mk_length = 0
+            // 当在center中时
+            if (that.layout_data.con[num].name == "center") {
+               // 获取单元中模块数
+               dy_mk_length = that.layout_data.con[num].w1920.length
+            }
+            // 当为left或者right中时
+            else {
+               //  加上w19中的模块数
+               dy_mk_length += that.layout_data.con[num].w19.length
+               //  加上w75中的模块数
+               dy_mk_length += that.layout_data.con[num].w75.length
+            }
+            // 有模块
+            if (dy_mk_length > 0) {
+               // 显示弹框
+               that.showDialog = true;
+               // 返回弹框操作
+               that.$refs.dialog.confirm().then(() => {
+                  // 确定
+                  // 删除单元
+                  dispatch({
+                     type: "remove_layout_ac",
+                     data: num,
+                  })
+                  // 隐藏弹框
+                  that.showDialog = false;
+               }).catch(() => {
+                  // 隐藏弹框
+                  // 取消
+                  this.showDialog = false;
+
+               })
+            } else {
+               // 删除单元
+               dispatch({
+                  type: "remove_layout_ac",
+                  data: num,
+               })
+            }
+
             return Promise.resolve("删除单元")
          },
          // 模块移动功能

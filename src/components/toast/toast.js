@@ -83,7 +83,7 @@ Toast.install = function (Vue, options) {
       }
    };
 
-   ['open', 'close'].forEach(function (type) { 
+   ['open', 'close'].forEach(function (type) {
       Vue.prototype.$loading[type] = function (tips) {
          return Vue.prototype.$loading(tips, type)
       }
