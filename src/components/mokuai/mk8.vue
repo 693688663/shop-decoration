@@ -1,11 +1,5 @@
 <template>
-  <div
-    :ref="dataref"
-    id="mk8"
-    class="pr"
-    @mouseover="hoverActive=true"
-    @mouseout="hoverActive=false"
-  >
+  <div :ref="dataref" id="mk8" class="pr" @mouseover="hoverActive_fun(true)" @mouseout="hoverActive_fun(false)">
     <div class="CustomService">
       <h2 :style="title_bg">
         <span v-if="get_CustomData.selected5">{{get_CustomData.set_title}}</span>
@@ -67,7 +61,7 @@ export default {
   props: {
     dataref: "", //ref值
     dataName: "", //模块名
-    data: null, //
+    data: null, //判断编辑按钮显示在预览页还是主页,从预览页拿到的数据分发到组件上
     datamk: null, //模块序列名
     dataLocation1: "", //布局位置（hd  ft  con）
     dataLocation2: "", //单元序列（0,1,2 ····）
@@ -95,43 +89,58 @@ export default {
       handler(newName, oldName) {
         var that = this;
         // 获取设置数据
-        var data = that.get_datalist();
-        that.get_CustomData = data;
+        var customdata = that.get_datalist();
+        //console.log(customdata);
+        that.get_CustomData = customdata;
       },
       deep: true
     }
   },
   mounted: function() {
     var that = this;
-    console.log(that.data);
-    var data = that.get_datalist();
-    //当后台存在数据时,显示
-    if (Object.keys(data).length > 0) {
-      that.get_CustomData = data;
-    } else {
-      //当后台没有数据时,是指初始数据
-      that.get_CustomData = {
-        working_str_time: "周一",
-        working_end_time: "周一",
-        firdetail_start: "00:00",
-        firdetail_end: "00:00",
-        secdetail_start: "00:00",
-        secdetail_end: "00:00",
-        weekend_str_time: "周五",
-        weekend_end_time: "周五",
-        tel: "",
-        m_phone: "",
-        set_title: "客服中心",
-        selected: true,
-        selected2: true,
-        selected3: true,
-        selected4: true,
-        selected5: true
-      };
-    }
-    console.log(data);
-    console.log(that.layout_data);
+    //console.log(that.data);
 
+    //从仓库拿到的值
+    var customdata = that.get_datalist();
+    //console.log(customdata);
+    
+    //当customdata未被定义undefined时,程序结束return;被定义时,判断后台是否存在数据;如果存在把值赋给一个空数组,如果不存在初始化数据
+    //判断data有无意义,数据从哪个页面拿到得值
+    if(!that.data){  //当data无意义时,当前页为主页
+    
+       //当后台存在数据时,主页显示后台数据
+      if (Object.keys(customdata).length > 0) {
+        
+        that.get_CustomData = customdata;
+
+      } else {
+        //当后台没有数据时,客服中心模块显示初始数据
+        that.get_CustomData = {
+          working_str_time: "周一",
+          working_end_time: "周一",
+          firdetail_start: "00:00",
+          firdetail_end: "00:00",
+          secdetail_start: "00:00",
+          secdetail_end: "00:00",
+          weekend_str_time: "周五",
+          weekend_end_time: "周五",
+          tel: "",
+          m_phone: "",
+          set_title: "客服中心",
+          selected: true,
+          selected2: true,
+          selected3: true,
+          selected4: true,
+          selected5: true
+        };
+      }
+    }else{
+      //有意义时的时候,当前页为浏览页..data是浏览页从状态仓库拿到的值,赋值给get_CustomData,数据同步在预览页上
+      that.get_CustomData = that.data;
+
+    }
+
+    // console.log(that.layout_data);
   },
   methods: {
     //数据同步到页面
@@ -145,8 +154,20 @@ export default {
         location4: that.dataLocation4
       };
       return fun.get_data(site, that.layout_data);
+    },
+
+    //预览时判断编辑按钮的显示状态
+    hoverActive_fun(value){
+        var that = this;
+        if(that.data){
+          that.hoverActive = false;
+        }else{
+          that.hoverActive = value;
+        }
     }
   }
+
+
 };
 </script>
 <style scoped lang="less">

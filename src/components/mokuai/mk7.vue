@@ -3,8 +3,8 @@
     :ref="dataref"
     id="mk7"
     class="pr"
-    @mouseover="hoverActive=true"
-    @mouseout="hoverActive=false"
+    @mouseover="hoverActive_fun(true)"
+    @mouseout="hoverActive_fun(false)"
   >
     <div
       :class="{content_w19:dataLocation3=='w19',content_w95:dataLocation3=='center',content_ft_w95:dataLocation3==''}"
@@ -39,11 +39,11 @@ export default {
   props: {
     dataref: "", //ref值
     dataName: "", //模块名
-    data: null, //
+    data: null, //判断编辑按钮显示在预览页还是主页,从预览页拿到的数据分发到组件上
     datamk: null, //模块序列名
     dataLocation1: "", //布局位置（hd  ft  con）
     dataLocation2: "", //单元序列（0,1,2 ····）
-    dataLocation3: "",  //单元布局（w19,w75 w1920）
+    dataLocation3: "", //单元布局（w19,w75 w1920）
     dataLocation4: "", //模块序列(0,1,2 ····)
     datalength: "" //模块长度
   },
@@ -73,9 +73,30 @@ export default {
   },
   mounted: function() {
     var that = this;
-    that.re_selection();
-    console.log(that.get_links_data);
-    that.linktitle();
+    //that.re_selection();
+    // console.log(that.get_links_data);
+    // that.linktitle();
+    var linkdataNew = that.re_selection();
+    console.log(linkdataNew);
+    console.log(that.data);
+    //判断data有无意义,当data无意义不存在时,当前页为主页
+    if (!that.data) {
+      //判断仓库返回来的值有没有数据
+      //若仓库linkdataNew有数据,则页面get_links_data显示从仓库拿来的数据
+      if (Object.keys(linkdataNew).length > 0) {
+        //  console.log(1);
+        that.get_links_data = linkdataNew
+      } else {
+        //  console.log(12);
+        //若仓库没有数据,,则显示初始化数据
+          that.get_links_data=that.linktitle();
+      }
+    } else {
+      //  console.log(13);
+      //当data 有意义时,当前页面为预览页,data为浏览页从仓库拿过来的值,
+       that.get_links_data = that.data;
+    }
+    //console.log(that.get_links_data);
   },
 
   methods: {
@@ -84,21 +105,27 @@ export default {
       var that = this;
       //判断位置信息,把从仓库拿到的值赋给一个空数组
       if (that.dataLocation1 == "hd") {
-        that.get_links_data = that.layout_data.hd[that.dataLocation4].data;
+        return that.layout_data.hd[that.dataLocation4].data;
       }
       if (that.dataLocation1 == "ft") {
-        that.get_links_data = that.layout_data.ft[that.dataLocation4].data;
+        return that.layout_data.ft[that.dataLocation4].data;
         console.log(that.get_links_data);
       }
       if (that.dataLocation1 == "con") {
         if (that.dataLocation3 == "w19") {
-          that.get_links_data = that.layout_data.con[that.dataLocation2].w19[that.dataLocation4].data;
+          return that.layout_data.con[that.dataLocation2].w19[
+            that.dataLocation4
+          ].data;
         }
         if (that.dataLocation3 == "w75") {
-          that.get_links_data = that.layout_data.con[that.dataLocation2].w75[that.dataLocation4].data;
+          return that.layout_data.con[that.dataLocation2].w75[
+            that.dataLocation4
+          ].data;
         }
         if (that.dataLocation3 == "center") {
-          that.get_links_data = that.layout_data.con[that.dataLocation2].w1920[that.dataLocation4].data;
+          return that.layout_data.con[that.dataLocation2].w1920[
+            that.dataLocation4
+          ].data;
         }
       }
       //console.log(that.dataLocation1)
@@ -135,12 +162,47 @@ export default {
           },
           site: site
         };
+        // return data.linkdata;
         dispatch({
           type: "set_csh_info",
           data: data
         });
       }
+    },
+    //判断编辑按钮在主页还是预览页显示的状态
+    hoverActive_fun(value) {
+      var that = this;
+      if (that.data) {
+        //data存在,预览页
+        that.hoverActive = false;
+      } else {
+        that.hoverActive = value;
+      }
+    },
+
+    //获取后台数据
+    get_data:function(){
+      var that = this;
+      var getLinkData = []
+
+      for(var i=0;i<get_links_data.length;i++){
+        var links_data={
+           linklist: [
+              {
+                descration:"sfsd",
+                display:false,
+                name:"dasd",
+                urlsite:"sdfsd" ,
+              }
+           ],
+           set_title:'友情链接'
+        };
+        that.getLinkData[i]=links_data;
+
+      }
+
     }
+
   }
 };
 </script>
