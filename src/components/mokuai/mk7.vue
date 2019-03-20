@@ -66,37 +66,15 @@ export default {
     layout_data: {
       handler(newName, oldName) {
         var that = this;
-        that.re_selection();
+        that.concatdata();
       },
       deep: true
     }
   },
   mounted: function() {
     var that = this;
-    //that.re_selection();
-    // console.log(that.get_links_data);
-    // that.linktitle();
-    var linkdataNew = that.re_selection();
-    console.log(linkdataNew);
-    console.log(that.data);
-    //判断data有无意义,当data无意义不存在时,当前页为主页
-    if (!that.data) {
-      //判断仓库返回来的值有没有数据
-      //若仓库linkdataNew有数据,则页面get_links_data显示从仓库拿来的数据
-      if (Object.keys(linkdataNew).length > 0) {
-        //  console.log(1);
-        that.get_links_data = linkdataNew
-      } else {
-        //  console.log(12);
-        //若仓库没有数据,,则显示初始化数据
-          that.get_links_data=that.linktitle();
-      }
-    } else {
-      //  console.log(13);
-      //当data 有意义时,当前页面为预览页,data为浏览页从仓库拿过来的值,
-       that.get_links_data = that.data;
-    }
-    //console.log(that.get_links_data);
+    that.linktitle();
+    that.concatdata();
   },
 
   methods: {
@@ -151,12 +129,12 @@ export default {
         var data = {
           linkdata: {
             linklist: [
-              {
-                name: null,
-                urlsite: null,
-                descration: null,
-                display: false
-              }
+              // {
+              //   name: null,
+              //   urlsite: null,
+              //   descration: null,
+              //   display: false
+              // }
             ],
             set_title: "友情链接"
           },
@@ -181,28 +159,61 @@ export default {
     },
 
     //获取后台数据
-    get_data:function(){
+    get_data: function() {
       var that = this;
-      var getLinkData = []
+      var getLinkData = [];
 
-      for(var i=0;i<get_links_data.length;i++){
-        var links_data={
-           linklist: [
-              {
-                descration:"sfsd",
-                display:false,
-                name:"dasd",
-                urlsite:"sdfsd" ,
-              }
-           ],
-           set_title:'友情链接'
+      for (var i = 0; i < 3; i++) {
+        var links_data = {
+          descration: "sfsd",
+          display: false,
+          name: "dasd",
+          urlsite: "sdfsd"
         };
-        that.getLinkData[i]=links_data;
-
+        getLinkData.push(links_data);
       }
-
+      // that.getLinkData[i] = links_data.linklist;
+      console.log(getLinkData);
+      return getLinkData;
+    },
+    concatdata: function() {
+      var that = this;
+      var linkdataNew = that.re_selection();
+      console.log(linkdataNew);
+      // 获取后台数据列表
+      let getdata = that.get_data();
+      console.log(getdata);
+      // 用于保存仓库数据列表
+      let storelist = {};
+      //判断data有无意义,当data无意义不存在时,当前页为主页
+      if (!that.data) {
+        //判断仓库返回来的值有没有数据
+        //若仓库linkdataNew有数据,则页面get_links_data显示从仓库拿来的数据
+        //判断后台有没有值
+        // 判断仓库有没有数据
+        if (Object.keys(linkdataNew).length > 0) {
+          // 保存模块名
+          storelist = linkdataNew;
+        }
+      } else {
+        //当data 有意义时,当前页面为预览页,data为浏览页从仓库拿过来的值,
+        storelist = that.data;
+      }
+      console.log(storelist);
+      console.log(getdata);
+      if (getdata.length > 0) {
+        var c = storelist.linklist.concat(getdata); //c=[1,2,3,4,5,6];
+        var qwe = {
+          linklist: c,
+          set_title: storelist.set_title
+        };
+        console.log(qwe);
+      }
+      that.get_links_data = qwe;
+      // console.log(storelist);
+      // console.log(that.get_links_data);
+      // console.log(that.get_links_data.linkdata);
     }
-
   }
 };
 </script>
