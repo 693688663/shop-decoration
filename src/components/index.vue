@@ -475,8 +475,8 @@
                var that = this
                localStorage.layoutData = JSON.stringify(newName)
                // console.log(newName)
-               that.get_mk_number_fun()
-               // localStorage.layoutData = ""
+               // that.get_mk_number_fun()
+               localStorage.layoutData = ""
             },
             deep: true,
          },
@@ -515,7 +515,6 @@
                   // 获取模块坐标
                   that.$nextTick(() => {
                      that.getGuanli_xy()
-                     // return Promise.resolve("获取坐标")
                      // 放置临时模块
                      // 跟随鼠标的临时模块
                      that.mk_move_xy = newName
@@ -783,46 +782,46 @@
             var that = this
             var dispatch = this.$store.dispatch
             // 单元模块数
-            var dy_mk_length = 0
-            // 当在center中时
-            if (that.layout_data.con[num].name == "center") {
-               // 获取单元中模块数
-               dy_mk_length = that.layout_data.con[num].w1920.length
-            }
-            // 当为left或者right中时
-            else {
-               //  加上w19中的模块数
-               dy_mk_length += that.layout_data.con[num].w19.length
-               //  加上w75中的模块数
-               dy_mk_length += that.layout_data.con[num].w75.length
-            }
-            // 有模块
-            if (dy_mk_length > 0) {
-               // 显示弹框
-               that.showDialog = true;
-               // 返回弹框操作
-               that.$refs.dialog.confirm().then(() => {
-                  // 确定
-                  // 删除单元
-                  dispatch({
-                     type: "remove_layout_ac",
-                     data: num,
-                  })
-                  // 隐藏弹框
-                  that.showDialog = false;
-               }).catch(() => {
-                  // 隐藏弹框
-                  // 取消
-                  this.showDialog = false;
+            // var dy_mk_length = 0
+            // // 当在center中时
+            // if (that.layout_data.con[num].name == "center") {
+            //    // 获取单元中模块数
+            //    dy_mk_length = that.layout_data.con[num].w1920.length
+            // }
+            // // 当为left或者right中时
+            // else {
+            //    //  加上w19中的模块数
+            //    dy_mk_length += that.layout_data.con[num].w19.length
+            //    //  加上w75中的模块数
+            //    dy_mk_length += that.layout_data.con[num].w75.length
+            // }
+            // // 有模块
+            // if (dy_mk_length > 0) {
+            //    // 显示弹框
+            //    that.showDialog = true;
+            //    // 返回弹框操作
+            //    that.$refs.dialog.confirm().then(() => {
+            // 确定
+            // 删除单元
+            dispatch({
+               type: "remove_layout_ac",
+               data: num,
+            })
+            //       // 隐藏弹框
+            //       that.showDialog = false;
+            //    }).catch(() => {
+            //       // 隐藏弹框
+            //       // 取消
+            //       this.showDialog = false;
 
-               })
-            } else {
-               // 删除单元
-               dispatch({
-                  type: "remove_layout_ac",
-                  data: num,
-               })
-            }
+            //    })
+            // } else {
+            //    // 删除单元
+            //    dispatch({
+            //       type: "remove_layout_ac",
+            //       data: num,
+            //    })
+            // }
 
             return Promise.resolve("删除单元")
          },
@@ -1284,11 +1283,11 @@
                   mk: [],
                },
             }
+
             // 如果头部有模块
             if (that.layout_data.hd.length > 0) {
                for (var i = 0; i < that.layout_data.hd.length; i++) {
                   var ref = "layout_hd" + i + that.layout_data.hd[i].name
-
                   var data = {
                      name: that.layout_data.hd[i].name,
                      xy: {
@@ -1322,43 +1321,48 @@
                for (var i = 0; i < that.layout_data.con.length; i++) {
                   // 单元名同时也是ref名
                   var name = "dy" + i + that.layout_data.con[i].name
-
+                  // console.log(name)
+                  if (that.layout_data.con[i].name == "mn") { return }
                   // 如果不是center
                   if (that.layout_data.con[i].name != "center") {
                      var w19 = name + "w19";
                      var w75 = name + "w75";
-                     var data = {
-                        name: name,
-                        xy: {
-                           left: that.$refs[name][0].getBoundingClientRect().left,
-                           right: that.$refs[name][0].getBoundingClientRect().right,
-                           top: that.$refs[name][0].getBoundingClientRect().top,
-                           bottom: that.$refs[name][0].getBoundingClientRect().bottom,
-                        },
-                        w19: {
-                           name: w19,
+                     if (that.$refs[name]) {
+                        var data = {
+                           name: name,
                            xy: {
-                              left: that.$refs[w19][0].getBoundingClientRect().left,
-                              right: that.$refs[w19][0].getBoundingClientRect().right,
-                              top: that.$refs[w19][0].getBoundingClientRect().top,
-                              bottom: that.$refs[w19][0].getBoundingClientRect().bottom,
+                              left: that.$refs[name][0].getBoundingClientRect().left,
+                              right: that.$refs[name][0].getBoundingClientRect().right,
+                              top: that.$refs[name][0].getBoundingClientRect().top,
+                              bottom: that.$refs[name][0].getBoundingClientRect().bottom,
                            },
-                           // 子单元中模块坐标列表
-                           mk: [],
-                        },
-                        w75: {
-                           name: w75,
-                           xy: {
-                              left: that.$refs[w75][0].getBoundingClientRect().left,
-                              right: that.$refs[w75][0].getBoundingClientRect().right,
-                              top: that.$refs[w75][0].getBoundingClientRect().top,
-                              bottom: that.$refs[w75][0].getBoundingClientRect().bottom,
+                           w19: {
+                              name: w19,
+                              xy: {
+                                 left: that.$refs[w19][0].getBoundingClientRect().left,
+                                 right: that.$refs[w19][0].getBoundingClientRect().right,
+                                 top: that.$refs[w19][0].getBoundingClientRect().top,
+                                 bottom: that.$refs[w19][0].getBoundingClientRect().bottom,
+                              },
+                              // 子单元中模块坐标列表
+                              mk: [],
                            },
-                           // 子单元中模块坐标列表
-                           mk: [],
-                        },
-                     };
+                           w75: {
+                              name: w75,
+                              xy: {
+                                 left: that.$refs[w75][0].getBoundingClientRect().left,
+                                 right: that.$refs[w75][0].getBoundingClientRect().right,
+                                 top: that.$refs[w75][0].getBoundingClientRect().top,
+                                 bottom: that.$refs[w75][0].getBoundingClientRect().bottom,
+                              },
+                              // 子单元中模块坐标列表
+                              mk: [],
+                           },
+                        };
+                     }
                      // 如果在w19中有数据时
+                     // console.log(that.layout_data.con[i])
+                     // if (that.layout_data.con[i].w19) {
                      if (that.layout_data.con[i].w19.length > 0) {
                         for (var o = 0; o < that.layout_data.con[i].w19.length; o++) {
                            var ref = "bjcon" + i + "w19" + o
@@ -1374,7 +1378,9 @@
                            data.w19.mk.push(data1)
                         }
                      }
+                     // }
                      // 如果在w75中有数据时
+                     // if (that.layout_data.con[i].w75) {
                      if (that.layout_data.con[i].w75.length > 0) {
                         for (var o = 0; o < that.layout_data.con[i].w75.length; o++) {
                            var ref = "bjcon" + i + "w75" + o
@@ -1389,6 +1395,7 @@
                            }
                            data.w75.mk.push(data1)
                         }
+                        // }
                      }
                   }
                   // 如果是中
@@ -1417,6 +1424,8 @@
                         data.mk.push(data1)
                      }
                   }
+                  // console.log("这里出错了吗")
+                  // console.log(i)
                   layout_xy.con.dy.push(data)
                }
 
@@ -2102,7 +2111,9 @@
             }
             // 获取布局管理中的坐标
             if (that.edit_manage == "2") {
+               // setTimeout(() => {
                that.getGuanli_xy()
+               // }, 1)
             }
             // 鼠标移动事件
             document.onmousemove = function (ev) {
@@ -2223,10 +2234,12 @@
             // 删除单元
             that.remove_layout(index).then(val => {
                // 获取坐标
-               that.$nextTick(
-                  () => {
-                     that.getGuanli_xy()
-                  }
+               that.$nextTick(() => {
+                  // console.log("这里出错吗")
+                  // setTimeout(() => {
+                  that.getGuanli_xy()
+                  // }, 1)
+               }
                )
             })
             var starty = event.clientY
@@ -2240,6 +2253,7 @@
 
                // 如果存在则删除
                if (that.dy_hint_site != null) {
+                  // console.log("删除模拟单元")
                   dispatch({
                      type: "del_mndy_ac",
                      data: { num: that.dy_hint_site }
