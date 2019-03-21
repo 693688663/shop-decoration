@@ -15,10 +15,10 @@ const mokuai = {
          "com": "mk1",
       },
       {
-         "name": "宝贝排行",
+         "name": "宝贝排行榜",
          "icon": "mk2.png",
-         "width": [190, 750, 950],
-         "type": ["hd", "con", "ft"],
+         "width": [190],
+         "type": ["con"],
          "com": "mk2",
 
       },

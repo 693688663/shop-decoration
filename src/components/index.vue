@@ -460,13 +460,12 @@
       computed: mapState({
          layout_data: state => state.layout_data,//模块数据
          html_xy: state => state.html_xy,//页面编辑页模块坐标
-         layout_xy: state => state.layout_xy,//布局管理页模块坐标
+         layout_xy: state => state.layout_xy,//布局管理页模块坐标 
          layout_data_mk: state => state.layout_data_mk,//当前移动模块的数据
          layout_data_mk_xy: state => state.layout_data_mk_xy,//当前移动模块的起始位置
          layout_data_mk_move_xy: state => state.layout_data_mk_move_xy,//当前移动模块的移动轨迹
          layout_data_mk_site: state => state.layout_data_mk_site,//当前模块的位置信息
          edit_mk_data: state => state.edit_mk_data//编辑模块数据
-
       }),
       watch: {
          // 所有模块数据
@@ -474,9 +473,7 @@
             handler(newName, oldName) {
                var that = this
                localStorage.layoutData = JSON.stringify(newName)
-               // console.log(newName)
-               // that.get_mk_number_fun()
-               localStorage.layoutData = ""
+               // localStorage.layoutData = ""
             },
             deep: true,
          },

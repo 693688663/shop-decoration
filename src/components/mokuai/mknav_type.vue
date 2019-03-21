@@ -1,7 +1,18 @@
 <template>
    <div id="mknav_type">
       <!-- title -->
-      <div class="title pr">宝贝推荐 <span class="del cursor" @click="edit_mk_data_fun(false)"></span></div>
+      <div class="title pr">导航 <span class="del cursor" @click="edit_mk_data_fun(false)"></span></div>
+      <!-- 设置按钮切换 -->
+      <ul class="">
+         <li class="fl" :class="{active:li_active==1}" @click="li_active=1">宝贝设置</li>
+         <!-- <li class="fl" :class="{active:li_active==2}" @click="li_active=2">电脑端显示设置</li> -->
+      </ul>
+      <!-- 导航设置 -->
+      <div class="con">
+         <div class="navset">
+            
+         </div>
+      </div>
    </div>
 </template>
 <script>
@@ -32,10 +43,12 @@
             },
          }
       },
+      // 宝贝分类  页面  自定义链接
       // 获取状态仓库数据
       computed: mapState({
       }),
       mounted: function () {
+         // 
       },
       methods: {
          // 隐藏模块编辑弹窗
@@ -48,6 +61,27 @@
                data: val
             })
          },
+         // 请求宝贝分类列表
+         get_baby_list() {
+            return [
+               {
+                  name: "帽子",
+                  url: "https://www.baidu.com"
+               },
+
+            ]
+         },
+         // 请求页面列表
+         get_win_list() {
+            return [
+               {
+                  name: "百度",
+                  url: "https://www.baidu.com"
+               },
+
+            ]
+         },
+         // 自定义添加链接
       }
    }
 </script>
