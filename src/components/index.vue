@@ -476,7 +476,7 @@
                localStorage.layoutData = JSON.stringify(newName)
                // console.log(newName)
                // that.get_mk_number_fun()
-               localStorage.layoutData = ""
+              //  localStorage.layoutData = ""
             },
             deep: true,
          },

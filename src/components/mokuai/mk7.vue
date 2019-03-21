@@ -9,7 +9,7 @@
     <div
       :class="{content_w19:dataLocation3=='w19',content_w95:dataLocation3=='center',content_ft_w95:dataLocation3==''}"
     >
-      <p :style="title_bg">{{get_links_data.set_title}}</p>
+      <p :style="title_bg"><span v-if="get_links_data.show==2">{{get_links_data.set_title}}</span></p>
       <ul>
         <li v-if="get_links_data.linklist.length>0" v-for="item in get_links_data.linklist">
           <a :href="item.urlsite">{{item.name}}</a>
@@ -73,7 +73,6 @@ export default {
   },
   mounted: function() {
     var that = this;
-    that.linktitle();
     that.concatdata();
   },
 
@@ -113,7 +112,6 @@ export default {
     //友情链接设置初始化信息
     linktitle: function() {
       var that = this;
-      console.log(that.get_links_data);
       var dispatch = this.$store.dispatch;
 
       //组件位置信息
@@ -123,28 +121,25 @@ export default {
         location3: that.dataLocation3,
         location4: that.dataLocation4
       };
-
       //当对象长度为0时,判断对象有没有数据
       if (Object.keys(that.get_links_data).length == 0) {
+        //设定初始化数据,,然后存到仓库
         var data = {
           linkdata: {
-            linklist: [
-              // {
-              //   name: null,
-              //   urlsite: null,
-              //   descration: null,
-              //   display: false
-              // }
-            ],
+            linklist: [],
+            show:2,
             set_title: "友情链接"
           },
           site: site
         };
         // return data.linkdata;
+
+        //保存到仓库
         dispatch({
           type: "set_csh_info",
           data: data
         });
+        
       }
     },
     //判断编辑按钮在主页还是预览页显示的状态
@@ -162,7 +157,7 @@ export default {
     get_data: function() {
       var that = this;
       var getLinkData = [];
-
+      //给后台设定一个静态数据,饼返回这个数据
       for (var i = 0; i < 3; i++) {
         var links_data = {
           descration: "sfsd",
@@ -176,43 +171,34 @@ export default {
       console.log(getLinkData);
       return getLinkData;
     },
+    // 设置数据
     concatdata: function() {
       var that = this;
-      var linkdataNew = that.re_selection();
-      console.log(linkdataNew);
-      // 获取后台数据列表
-      let getdata = that.get_data();
-      console.log(getdata);
-      // 用于保存仓库数据列表
-      let storelist = {};
-      //判断data有无意义,当data无意义不存在时,当前页为主页
+      //获取仓库数据
+      var state_data = that.re_selection();
+      console.log(state_data);
+     
+      //data无意义说明来自index页
       if (!that.data) {
-        //判断仓库返回来的值有没有数据
-        //若仓库linkdataNew有数据,则页面get_links_data显示从仓库拿来的数据
-        //判断后台有没有值
-        // 判断仓库有没有数据
-        if (Object.keys(linkdataNew).length > 0) {
-          // 保存模块名
-          storelist = linkdataNew;
+        // 如果仓库数据没有值
+        if (Object.keys(state_data).length == 0) {
+          // 设置数据
+          that.linktitle();
         }
-      } else {
-        //当data 有意义时,当前页面为预览页,data为浏览页从仓库拿过来的值,
-        storelist = that.data;
       }
-      console.log(storelist);
-      console.log(getdata);
-      if (getdata.length > 0) {
-        var c = storelist.linklist.concat(getdata); //c=[1,2,3,4,5,6];
-        var qwe = {
-          linklist: c,
-          set_title: storelist.set_title
-        };
-        console.log(qwe);
+      // 有意义说明来自预览页
+      else {
+        state_data = that.data;
       }
-      that.get_links_data = qwe;
-      // console.log(storelist);
-      // console.log(that.get_links_data);
-      // console.log(that.get_links_data.linkdata);
+      //  获取后端数据
+      var hd_data = that.get_data();
+      //若仓库有数据,则数据追加到后端数据里
+      that.get_links_data = {
+        linklist: state_data.linklist.concat(hd_data),
+        set_title: state_data.set_title,
+        show: state_data.show,
+      };
+      console.log(that.get_links_data)
     }
   }
 };
