@@ -1,14 +1,6 @@
 <template>
-  <div
-    :ref="dataref"
-    id="mk7"
-    class="pr"
-    @mouseover="hoverActive_fun(true)"
-    @mouseout="hoverActive_fun(false)"
-  >
-    <div
-      :class="{content_w19:dataLocation3=='w19',content_w95:dataLocation3=='center',content_ft_w95:dataLocation3==''}"
-    >
+  <div :ref="dataref" id="mk7" class="pr" @mouseover="hoverActive_fun(true)" @mouseout="hoverActive_fun(false)">
+    <div :class="{content_w19:dataLocation3=='w19',content_w95:dataLocation3=='center',content_ft_w95:dataLocation3==''}">
       <p :style="title_bg"><span v-if="get_links_data.show==2">{{get_links_data.set_title}}</span></p>
       <ul>
         <li v-if="get_links_data.linklist.length>0" v-for="item in get_links_data.linklist">
@@ -16,16 +8,8 @@
         </li>
       </ul>
     </div>
-    <mkbutton
-      v-if="hoverActive==true"
-      :datamk="datamk"
-      :dataName="dataName"
-      :dataLocation1="dataLocation1"
-      :dataLocation2="dataLocation2"
-      :dataLocation3="dataLocation3"
-      :dataLocation4="dataLocation4"
-      :datalength="datalength"
-    ></mkbutton>
+    <mkbutton v-if="hoverActive==true" :datamk="datamk" :dataName="dataName" :dataLocation1="dataLocation1" :dataLocation2="dataLocation2" :dataLocation3="dataLocation3"
+      :dataLocation4="dataLocation4" :datalength="datalength"></mkbutton>
   </div>
 </template>
 <script>
@@ -88,7 +72,7 @@ export default {
       }
       if (that.dataLocation1 == "ft") {
         return that.layout_data.ft[that.dataLocation4].data;
-        console.log(that.get_links_data);
+        //console.log(that.get_links_data);
       }
       if (that.dataLocation1 == "con") {
         if (that.dataLocation3 == "w19") {
@@ -170,7 +154,7 @@ export default {
         getLinkData.push(links_data);
       }
       // that.getLinkData[i] = links_data.linklist;
-      console.log(getLinkData);
+      //console.log(getLinkData);
       return getLinkData;
     },
     // 设置数据
@@ -178,7 +162,7 @@ export default {
       var that = this;
       //获取仓库数据
       var state_data = that.re_selection();
-      console.log(state_data);
+      //console.log(state_data);
      
       //data无意义说明来自index页
       if (!that.data) {
@@ -200,7 +184,7 @@ export default {
         set_title: state_data.set_title,
         show: state_data.show,
       };
-      console.log(that.get_links_data)
+      //console.log(that.get_links_data)
     }
   }
 };
@@ -210,6 +194,7 @@ export default {
   width: 100%;
   max-width: 950px;
   margin: 0 auto;
+  padding-bottom: 10px;
 }
 
 .content_w95,

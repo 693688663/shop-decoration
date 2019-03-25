@@ -96,14 +96,14 @@ const mokuai = {
       //       "com": "mk11",
 
       //   },
-      //   {
-      //       "name": "宝贝搜索",
-      //       "icon": "mk12.png",
-      //       "width": [190, 750, 950],
-      //       "type": ["con"],
-      //       "com": "mk12",
+        {
+            "name": "宝贝搜索",
+            "icon": "mk12.png",
+            "width": [190, 750, 950],
+            "type": ["con"],
+            "com": "mk12",
 
-      //   },
+        },
       //   {
       //       "name": "满返",
       //       "icon": "mk13.png",

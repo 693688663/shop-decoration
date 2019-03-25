@@ -92,55 +92,14 @@ export default {
         var customdata = that.get_datalist();
         //console.log(customdata);
         that.get_CustomData = customdata;
+        that.set_time();
       },
       deep: true
     }
   },
   mounted: function() {
-    var that = this;
-    //console.log(that.data);
-
-    //从仓库拿到的值
-    var customdata = that.get_datalist();
-    //console.log(customdata);
-    
-    //当customdata未被定义undefined时,程序结束return;被定义时,判断后台是否存在数据;如果存在把值赋给一个空数组,如果不存在初始化数据
-    //判断data有无意义,数据从哪个页面拿到得值
-    if(!that.data){  //当data无意义时,当前页为主页
-    
-       //当后台存在数据时,主页显示后台数据
-      if (Object.keys(customdata).length > 0) {
-        
-        that.get_CustomData = customdata;
-
-      } else {
-        //当后台没有数据时,客服中心模块显示初始数据
-        that.get_CustomData = {
-          working_str_time: "周一",
-          working_end_time: "周一",
-          firdetail_start: "00:00",
-          firdetail_end: "00:00",
-          secdetail_start: "00:00",
-          secdetail_end: "00:00",
-          weekend_str_time: "周五",
-          weekend_end_time: "周五",
-          tel: "",
-          m_phone: "",
-          set_title: "客服中心",
-          selected: true,
-          selected2: true,
-          selected3: true,
-          selected4: true,
-          selected5: true
-        };
-      }
-    }else{
-      //有意义时的时候,当前页为浏览页..data是浏览页从状态仓库拿到的值,赋值给get_CustomData,数据同步在预览页上
-      that.get_CustomData = that.data;
-
-    }
-
-    // console.log(that.layout_data);
+      var that = this;
+      that.set_time();
   },
   methods: {
     //数据同步到页面
@@ -164,6 +123,53 @@ export default {
         }else{
           that.hoverActive = value;
         }
+    },
+    //数据同步到页面上,并设定初始化状态
+    set_time:function(){
+      var that = this;
+      //console.log(that.data);
+
+      //从仓库拿到的值
+      var customdata = that.get_datalist();
+      //console.log(customdata);
+      
+      //当customdata未被定义undefined时,程序结束return;被定义时,判断后台是否存在数据;如果存在把值赋给一个空数组,如果不存在初始化数据
+      //判断data有无意义,数据从哪个页面拿到得值
+      if(!that.data){  //当data无意义时,当前页为主页
+      
+        //当后台存在数据时,主页显示后台数据
+        if (Object.keys(customdata).length > 0) {
+          
+          that.get_CustomData = customdata;
+
+        } else {
+          //当后台没有数据时,客服中心模块显示初始数据
+          that.get_CustomData = {
+            working_str_time: "周一",
+            working_end_time: "周一",
+            firdetail_start: "00:00",
+            firdetail_end: "00:00",
+            secdetail_start: "00:00",
+            secdetail_end: "00:00",
+            weekend_str_time: "周五",
+            weekend_end_time: "周五",
+            tel: "",
+            m_phone: "",
+            set_title: "客服中心",
+            selected: true,
+            selected2: true,
+            selected3: true,
+            selected4: true,
+            selected5: true
+          };
+        }
+      }else{
+        //有意义时的时候,当前页为浏览页..data是浏览页从状态仓库拿到的值,赋值给get_CustomData,数据同步在预览页上
+        that.get_CustomData = that.data;
+
+      }
+
+      // console.log(that.layout_data);
     }
   }
 
@@ -174,6 +180,7 @@ export default {
 #mk8 {
   width: 100%;
   max-width: 190px;
+  padding-bottom: 10px;
 }
 .CustomService {
   width: 190px;

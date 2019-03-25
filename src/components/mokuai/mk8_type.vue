@@ -193,7 +193,7 @@ export default {
       fun.save_data(dispatch, that.CustomData);
     },
 
-    //获取本地存储的数据
+    //获取仓库存储的数据,同步到弹窗里
     get_data() {
       var that = this;
       var data = fun.get_data(that.edit_mk_data, that.layout_data); //将本地存储的数据赋值给data
