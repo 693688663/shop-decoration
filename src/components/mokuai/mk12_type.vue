@@ -51,6 +51,7 @@
         <button type="button" class="save" @click="savedata();edit_mk_data_fun(false)">保存</button>
         <button type="button" class="cancel" @click="edit_mk_data_fun(false)">取消</button>
       </div>
+      
     </div>
   </div>
 </template>

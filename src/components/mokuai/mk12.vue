@@ -86,6 +86,7 @@ export default {
     that.get_searchlist();
   },
   methods: {
+    
     //回显,数据同步到页面上
     get_searchdata: function() {
       var that = this;

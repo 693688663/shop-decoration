@@ -94,6 +94,7 @@ export default {
       that.set_time();
   },
   methods: {
+    
     //数据同步到页面
     get_datalist: function() {
       var that = this;
