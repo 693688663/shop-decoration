@@ -37,16 +37,8 @@
         </li>
       </ul>
     </div>
-    <mkbutton
-      v-if="hoverActive==true"
-      :datamk="datamk"
-      :dataName="dataName"
-      :dataLocation1="dataLocation1"
-      :dataLocation2="dataLocation2"
-      :dataLocation3="dataLocation3"
-      :dataLocation4="dataLocation4"
-      :datalength="datalength"
-    ></mkbutton>
+    <mkbutton v-if="hoverActive==true" :datamk="datamk" :dataName="dataName" :dataLocation1="dataLocation1" :dataLocation2="dataLocation2" :dataLocation3="dataLocation3"
+    :dataLocation4="dataLocation4" :datalength="datalength"></mkbutton>
   </div>
 </template>
 <script>
@@ -144,7 +136,29 @@ export default {
 
         } else {
           //当后台没有数据时,客服中心模块显示初始数据
-          that.get_CustomData = {
+          that.set_data();
+        }
+      }else{
+        //有意义时的时候,当前页为浏览页..data是浏览页从状态仓库拿到的值,赋值给get_CustomData,数据同步在预览页上
+        that.get_CustomData = that.data;
+      }
+    },
+
+    //无数据时设定初始化数据
+    set_data:function(){
+      var that = this;
+      var dispatch = this.$store.dispatch;
+
+      //位置信息
+      var site={
+        location1:that.dataLocation1,
+        location2:that.dataLocation2,
+        location3:that.dataLocation3,
+        location4:that.dataLocation4
+      }
+
+      //发送初始化信息
+       var get_CustomData = {
             working_str_time: "周一",
             working_end_time: "周一",
             firdetail_start: "00:00",
@@ -161,15 +175,11 @@ export default {
             selected3: true,
             selected4: true,
             selected5: true
-          };
-        }
-      }else{
-        //有意义时的时候,当前页为浏览页..data是浏览页从状态仓库拿到的值,赋值给get_CustomData,数据同步在预览页上
-        that.get_CustomData = that.data;
+        };
 
-      }
+        //初始设置信息保存到仓库
+        fun.first_save_data(dispatch,site,get_CustomData);
 
-      // console.log(that.layout_data);
     }
   }
 

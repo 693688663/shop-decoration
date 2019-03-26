@@ -64,7 +64,7 @@ export default {
         background:"#0079fe"
       },
       searchdata:{
-        show:1,
+        show:2,
         set_title:"本店搜索",
         keyword:null,
         re_keyword1:null,
@@ -110,8 +110,6 @@ export default {
         data: val
       });
     }
-
-    //
 
   }
 };
