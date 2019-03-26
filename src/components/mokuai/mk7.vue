@@ -80,9 +80,10 @@ export default {
     //返回值显示在页面上
     re_selection: function() {
       var that = this;
-      
+
       //判断位置信息,把从仓库拿到的值赋给一个空数组
       if (that.dataLocation1 == "hd") {
+        
         return that.layout_data.hd[that.dataLocation4].data;
       }
       if (that.dataLocation1 == "ft") {
