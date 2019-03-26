@@ -176,13 +176,13 @@ const mokuai = {
       //       "com": "mk21",
 
       //   },
-      //   {
-      //       "name": "店铺招牌",
-      //       "icon": "mk22.png",
-      //       "width": [950],
-      //       "type": ["hd"],
-      //       "com": "mk22",
-      //   },
+        {
+            "name": "店铺招牌",
+            "icon": "mk22.png",
+            "width": [950],
+            "type": ["hd"],
+            "com": "mk22",
+        },
    ]
 }
 export default mokuai;
