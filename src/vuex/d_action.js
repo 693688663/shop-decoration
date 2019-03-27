@@ -1,4 +1,3 @@
-
 export default {
   // 保存宝贝设置数据
   baby_set_data_ac: function (context, payload) {
@@ -17,4 +16,4 @@ export default {
   del_url_ac: function (context, payload) {
     context.commit("del_url_mu", payload)
   },
-}
+} 

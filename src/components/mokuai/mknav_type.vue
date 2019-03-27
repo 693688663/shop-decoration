@@ -166,10 +166,9 @@
             name: "宝贝" + i,
             url: "https://www.baidu.com/?tn=62095104_7_oem_dg",
             show: false
-          } 
+          }
           list_data.push(data)
         }
-
         that.baby_list = list_data
       },
       change_baby_list() {
@@ -316,7 +315,6 @@
               .el-input__inner {
                 height: 34px;
               }
-
             }
 
             .url_name {
@@ -357,8 +355,6 @@
           margin: 0;
           padding: 0;
         }
-
-
       }
 
       .operation {

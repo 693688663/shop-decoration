@@ -40,8 +40,8 @@ export default {
   //  新增列表数据
   again_data(dispatch, data) {
     dispatch({
-      type:"again_data_ac",
-      data:data,
+      type: "again_data_ac",
+      data: data,
     })
   }
-}
+} 

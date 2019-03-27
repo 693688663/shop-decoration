@@ -1,4 +1,3 @@
-
 export default {
   // 宝贝推荐赋值
   baby_set_data_mu(state, n) {
@@ -56,4 +55,4 @@ export default {
       delete state.layout_data.hd[site.location4].data[n.data];
     }
   },
-} 
+}
