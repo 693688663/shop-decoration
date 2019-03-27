@@ -344,6 +344,7 @@
   import mk10 from './mokuai/mk10'//功能模块
   import mk11 from './mokuai/mk11'//功能模块
   import mk12 from './mokuai/mk12'//功能模块
+  import mk12_type from './mokuai/mk12_type'//功能模块
   import mk13 from './mokuai/mk13'//功能模块
   import mk14 from './mokuai/mk14'//功能模块
   import mk15 from './mokuai/mk15'//功能模块
@@ -384,6 +385,7 @@
       mk10,
       mk11,
       mk12,
+      mk12_type,
       mk13,
       mk14,
       mk15,
