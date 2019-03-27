@@ -152,7 +152,7 @@
           list_data.push(data)
         }
         that.win_list = list_data
-        that.win_name_list[0] = that.win_list[0].name
+        that.win_name_list[0] = that.win_list[0].name 
       },
       change_win_list() {
         var that = this
