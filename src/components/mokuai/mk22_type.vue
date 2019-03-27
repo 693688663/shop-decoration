@@ -2,7 +2,7 @@
   <div class="dialog">
     <div class="dialog-cont">
       <h2 :style="title_bg">
-        <p>本店搜索</p>
+        <p>本店搜索</p> 
         <i @click="edit_mk_data_fun(false)">x</i>
       </h2>
 
