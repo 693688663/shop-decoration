@@ -170,7 +170,7 @@ export default {
         getLinkData.push(links_data);
       }
       // that.getLinkData[i] = links_data.linklist;
-      console.log(getLinkData);
+      // console.log(getLinkData);
       return getLinkData;
     },
     // 设置数据
@@ -178,7 +178,7 @@ export default {
       var that = this;
       //获取仓库数据
       var state_data = that.re_selection();
-      console.log(state_data);
+      // console.log(state_data);
      
       //data无意义说明来自index页
       if (!that.data) {
@@ -200,7 +200,7 @@ export default {
         set_title: state_data.set_title,
         show: state_data.show,
       };
-      console.log(that.get_links_data)
+      // console.log(that.get_links_data)
     }
   }
 };

@@ -3,33 +3,36 @@
     <!-- title -->
     <div class="title pr">导航 <span class="del cursor" @click="edit_mk_data_fun(false)"></span></div>
     <!-- 提示 -->
-    <div class="tips">提示：导航建议不超过7个，并且最多不超过12个。当前导航数量为{{win_name_list.length+baby_name_list.length}}</div>
+    <div class="tips">提示：导航建议不超过7个，并且最多不超过12个。当前导航数量为{{win_name_list.length+baby_name_list.length+user_name_list.length}}</div>
     <!-- content -->
     <div class="con">
       <div class="baby_list" v-show="li_active==1">
         <div>
           <p>页面链接</p>
-          <el-checkbox-group class="ofh" v-model="win_name_list" @change="change_win_list()">
-            <div class="ml20 ofh" v-if="win_list.length>0" v-for="(list,index) in win_list">
-              <el-checkbox v-if="list.name==win_list[0].name" :label="list.name" :key="index" disabled></el-checkbox>
-              <el-checkbox v-else-if="list.name!=win_list[0].name" :label="list.name" :key="index"></el-checkbox>
+          <el-checkbox-group class="ofh win" v-model="win_name_list">
+            <div class="ml20 ofh" v-if="state_list.win.length>0" v-for="(list,index) in state_list.win">
+              {{list.selected}}
+              <el-checkbox v-if="list.selected==true" :label="list.name" :key="index" disabled></el-checkbox>
+              <el-checkbox v-else :label="list.name" :value="index" :key="index" @change="change_data_list('win',index)"></el-checkbox>
             </div>
           </el-checkbox-group>
           <p>宝贝分类</p>
-          <el-checkbox-group class="ofh" v-model="baby_name_list" @change="change_baby_list()">
-            <div class="ml20 ofh" v-show="baby_list.length>0" v-for="(list,index) in baby_list">
-              <el-checkbox :label="list.name" :key="index"></el-checkbox>
+          <el-checkbox-group class="ofh baby" v-model="baby_name_list">
+            <div class="ml20 ofh" v-show="state_list.baby.length>0" v-for="(list,index) in state_list.baby">
+              <el-checkbox v-if="list.selected==true" :label="list.name" :key="index" disabled></el-checkbox>
+              <el-checkbox v-else :label="list.name" :value="index" :key="index" @change="change_data_list('baby',index)"></el-checkbox>
             </div>
           </el-checkbox-group>
           <p>自定义链接</p>
-          <el-checkbox-group class="ofh" v-model="user_name_list" @change="change_baby_list()">
-            <div class="ml20 ofh" v-if="Object.keys(user_list).length>0" v-for="(list,index) in user_list">
-              <el-checkbox class="user_btn" :label="list.name" :key="index"></el-checkbox>
-              <el-button class="user_del" size="12px" icon="el-icon-close" @click="user_del(index)" circle></el-button>
+          <el-checkbox-group class="ofh user" v-model="user_name_list">
+            <div class="ml20 ofh" v-if="state_list.user.length>0" v-for="(list,index) in state_list.user">
+              <el-checkbox v-if="list.selected==true" :label="list.name" :key="index" disabled></el-checkbox>
+              <el-checkbox v-else :label="list.name" :value="index" :key="index" @change="change_data_list('user',index)"></el-checkbox>
+              <el-button class="user_del" size="12px" icon="el-icon-close" @click="del_user_url(index)" circle></el-button>
             </div>
           </el-checkbox-group>
           <!-- 添加自定义链接 -->
-          <div class="user">
+          <div class="user_edit">
             <div class="name"><span class="tltle_name fl">名称：</span>
               <!-- 输入框 -->
               <span class="fl">
@@ -63,17 +66,44 @@
     data: function () {
       return {
         // 功能对象
-        // 宝贝列表
-        baby_list: [],
-        baby_name_list: [],
-        // 页面链接
-        win_list: [],
+        // 获取后台数据
+        get_data: {
+          win: [],
+          baby: [],
+          user: []
+        },
+        // 获取后台列表
+        get_data_list: {
+          win: [],
+          baby: [],
+          user: []
+        },
+        // 对比后的链接列表
+        contrast_data: {
+          win: [],
+          baby: [],
+          user: []
+        },
+        // 获取仓库数据
+        state_list: {
+          win: [],
+          baby: [],
+          user: []
+        },
+        // 本地数据
+        bendi_data: {
+          win: [],
+          baby: [],
+          user: []
+        },
+        // 选中的页面链接列表
         win_name_list: [],
-        // 自定义链接
-        user_name: '',
-        user_url: '',
-        user_list: {},
+        // 选中的宝贝链接列表
+        baby_name_list: [],
+        // 选中的用户链接列表
         user_name_list: [],
+        user_name: "",
+        user_url: "",
         //显示切换
         li_active: 1,
         // checkList: ['首页'],
@@ -101,24 +131,248 @@
     }),
     mounted: function () {
       var that = this
-      // 获取页面列表
-      that.get_win_list()
-      // 获取宝贝列表
-      that.get_baby_list()
-      // 获取自定义链接
-      that.get_user_url()
+      // 获取仓库数据
+      that.get_state_data_fun()
     },
     methods: {
-      // 获取自定义链接
-      get_user_url() {
+      // 获取仓库数据
+      get_state_data_fun() {
+        var that = this
+        // 获取仓库数据
+        var data = fun.get_data(that.edit_mk_data, that.layout_data)
+
+        // 如果没有仓库数据
+        if (Object.keys(data.win).length == 0) {
+          // 没有仓库数据
+          console.log("没有仓库数据")
+          // 获取后台数据
+          that.get_data_fun()
+        }
+        // 有仓库数据时获取数据列表
+        else {
+          console.log("有仓库数据")
+          that.get_data = data
+          // 获取数据列表
+          that.get_data_list_fun()
+        }
+      },
+      // 获取后台数据
+      get_data_fun() {
+        var that = this
+        var data = {
+          win: [
+            { "id": 0, "name": "页面0", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": true, "selected": true },
+            { "id": 1, "name": "页面1", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": true, "selected": true },
+            { "id": 2, "name": "页面2", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": false, "selected": false },
+          ],
+          baby: [
+            { "id": 0, "name": "宝贝0", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": true, "selected": false },
+            { "id": 0, "name": "宝贝1", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": true, "selected": false },
+            { "id": 0, "name": "宝贝2", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": false, "selected": false }
+          ],
+          user: [
+            { "id": 3, "name": "用户0", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": false, "selected": false },
+            { "id": 4, "name": "用户1", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": true, "selected": false },
+            { "id": 5, "name": "用户2", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": false, "selected": false },
+            { "id": 6, "name": "用户3", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": false, "selected": false },
+            { "id": 7, "name": "用户4", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": false, "selected": false },
+            { "id": 8, "name": "用户5", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": false, "selected": false },
+            { "id": 9, "name": "用户6", "url": "https://www.baidu.com/?tn=62095104_7_oem_dg", "show": false, "selected": false }
+          ]
+        }
+        that.get_data = data
+        // 获取数据列表
+        that.get_data_list_fun()
+
+      },
+      // 获取后台列表数据
+      get_data_list_fun() {
+
         var that = this
         var dispatch = this.$store.dispatch
-        // 获取状态数据
-        var data = fun.get_data(that.edit_mk_data, that.layout_data)
-        that.user_list = {}
-        if (Object.keys(data).length > 0) {
-          that.user_list = data
+        var list = {
+          win: [],
+          baby: [],
+          user: []
+        },
+          win_list = [],
+          baby_list = [],
+          user_list = [];
+        // 获取页面链接
+        for (var i = 0; i < 5; i++) {
+          var data = {
+            id: i,
+            name: "页面" + i,
+            url: "https://www.baidu.com/?tn=62095104_7_oem_dg",
+            show: false,
+            selected: false
+          }
+          win_list.push(data)
         }
+        list.win = win_list
+        // 获取宝贝链接
+        for (var i = 0; i < 5; i++) {
+
+          var data = {
+            id: i,
+            name: "宝贝" + i,
+            url: "https://www.baidu.com/?tn=62095104_7_oem_dg",
+            show: false,
+            selected: false
+          }
+          baby_list.push(data)
+        }
+        list.baby = baby_list
+
+        that.get_data_list = JSON.parse(JSON.stringify(list))
+        // 对比数据
+        that.contrast_data_fun()
+
+      },
+      // 对比数据
+      contrast_data_fun() {
+        var that = this
+        var dispatch = this.$store.dispatch
+        // 保存现在的数据
+        var win_list = []
+        var baby_list = []
+        var user_list = []
+        // 对比页面链接
+        win_list = that.get_data_list.win
+        for (var i = 0; i < that.get_data_list.win.length; i++) {
+          for (var o = 0; o < that.get_data.win.length; o++) {
+            if (that.get_data_list.win[i].name == that.get_data.win[o].name) {
+              win_list[i] = that.get_data.win[o]
+            }
+          }
+        }
+        console.log("哪里错了")
+        // 对比宝贝链接
+        baby_list = that.get_data_list.baby
+        for (var i = 0; i < that.get_data_list.baby.length; i++) {
+          for (var o = 0; o < that.get_data.baby.length; o++) {
+            if (that.get_data_list.baby[i].name == that.get_data.baby[o].name) {
+              baby_list[i] = that.get_data.baby[o]
+            }
+          }
+        }
+        user_list = that.get_data.user
+        // 保存筛选过的窗口数据
+        that.contrast_data.win = win_list
+        // 保存筛选过的宝贝数据
+        that.contrast_data.baby = baby_list
+        // 保存筛选过的用户数据
+        that.contrast_data.user = user_list
+        console.log(that.contrast_data)
+        // 保存数据
+        fun.save_data(dispatch, that.contrast_data)
+        // 设置选定的数据
+        for (var i = 0; i < that.contrast_data.win.length; i++) {
+          if (that.contrast_data.win[i].show == true) {
+            that.win_name_list.push(that.contrast_data.win[i].name)
+          }
+        }
+        for (var i = 0; i < that.contrast_data.baby.length; i++) {
+          if (that.contrast_data.baby[i].show == true) {
+            that.baby_name_list.push(that.contrast_data.baby[i].name)
+          }
+        }
+        for (var i = 0; i < that.contrast_data.user.length; i++) {
+          if (that.contrast_data.user[i].show == true) {
+            that.user_name_list.push(that.contrast_data.user[i].name)
+          }
+        }
+        // 获取数据
+        that.state_list = fun.get_data(that.edit_mk_data, that.layout_data)
+        that.bendi_data = fun.get_data(that.edit_mk_data, that.layout_data)
+      },
+      // 切换显示
+      change_data_list(name, num) {
+        var that = this
+        var dispatch = that.$store.dispatch
+        var data = {
+          name: name,
+          num: num
+        }
+        if (that.win_name_list.length + that.baby_name_list.length + that.user_name_list.length <= 12) {
+          // 保存到本地
+          that.bendi_data[name][num].show = !that.bendi_data[name][num].show
+        }
+        // 设置选定的数据
+        that.win_name_list = []
+        that.baby_name_list = []
+        that.user_name_list = []
+        for (var i = 0; i < that.bendi_data.win.length; i++) {
+          if (that.bendi_data.win[i].show == true) {
+            that.win_name_list.push(that.bendi_data.win[i].name)
+          }
+        }
+        for (var i = 0; i < that.bendi_data.baby.length; i++) {
+          if (that.bendi_data.baby[i].show == true) {
+            that.baby_name_list.push(that.bendi_data.baby[i].name)
+          }
+        }
+        for (var i = 0; i < that.bendi_data.user.length; i++) {
+          if (that.bendi_data.user[i].show == true) {
+            that.user_name_list.push(that.bendi_data.user[i].name)
+          }
+        }
+      },
+      // 添加用户链接数据
+      again_url() {
+        var that = this
+        var dispatch = that.$store.dispatch
+        // 验证链接名
+        if (!that.user_name) {
+          this.$message({
+            showClose: true,
+            message: '链接名不能为空',
+            type: 'warning'
+          });
+          return
+        }
+        // 验证链接
+        if (!that.user_url) {
+          this.$message({
+            showClose: true,
+            message: '链接不能为空',
+            type: 'warning'
+          });
+          return
+        }
+        // 添加用户链接
+        dispatch({
+          type: "add_user_url_ac",
+          data: {
+            name: that.user_name,
+            url: that.user_url,
+            show: false,
+            selected: false
+          }
+        })
+        // 获取设置
+        that.state_list = fun.get_data(that.edit_mk_data, that.layout_data)
+      },
+      // 删除用户链接
+      del_user_url(num) {
+        var that = this
+        var dispatch = that.$store.dispatch
+        // 删除用户链接
+        dispatch({
+          type: "del_user_url_ac",
+          data: num
+        })
+        // 获取设置
+        that.state_list = fun.get_data(that.edit_mk_data, that.layout_data)
+      },
+      // 保存数据
+      save_fun() {
+        var that = this
+        var dispatch = that.$store.dispatch
+        // 保存数据
+        fun.save_data(dispatch, that.bendi_data)
+        // 关闭弹窗
+        that.edit_mk_data_fun(false)
       },
       // 隐藏模块编辑弹窗
       edit_mk_data_fun(val) {
@@ -131,96 +385,6 @@
         })
       },
 
-      // 获取页面
-      get_win_list() {
-        var that = this
-        let list_data = [];
-        for (var i = 0; i < 10; i++) {
-          if (i == 0) {
-            var data = {
-              name: "页面" + i,
-              url: "https://www.baidu.com/?tn=62095104_7_oem_dg",
-              show: true
-            }
-          } else {
-            var data = {
-              name: "页面" + i,
-              url: "https://www.baidu.com/?tn=62095104_7_oem_dg",
-              show: false
-            }
-          }
-          list_data.push(data)
-        }
-        that.win_list = list_data
-        that.win_name_list[0] = that.win_list[0].name 
-      },
-      change_win_list() {
-        var that = this
-      },
-      // 获取宝贝分类
-      get_baby_list() {
-        var that = this
-        let list_data = [];
-        for (var i = 0; i < 3; i++) {
-          let data = {
-            name: "宝贝" + i,
-            url: "https://www.baidu.com/?tn=62095104_7_oem_dg",
-            show: false
-          }
-          list_data.push(data)
-        }
-        that.baby_list = list_data
-      },
-      change_baby_list() {
-        var that = this
-      },
-      // 删除自定义导航
-      user_del(val) {
-        var that = this
-        var dispatch = this.$store.dispatch
-        // 删除自定义导航
-        dispatch({
-          type: "del_url_ac",
-          data: val
-        })
-        // 获取自定义链接
-        that.get_user_url()
-      },
-      // 添加链接
-      again_url() {
-        var that = this
-        var dispatch = this.$store.dispatch
-        // 获取名称
-        if (!that.user_name) {
-          this.$message({
-            message: '链接名不能为空',
-            type: 'warning',
-            duration: 2000,
-          });
-          return
-        }
-        // 获取连接
-        else if (!that.user_url) {
-          this.$message({
-            message: '链接地址不能为空',
-            type: 'warning',
-            duration: 1000
-          });
-          return
-        }
-        // 发送信息
-        var data = {
-          name: that.user_name,
-          url: that.user_url,
-          show: false
-        }
-        that.user_name = ""
-        that.user_url = ""
-        // 发送数据
-        fun.again_data(dispatch, data)
-        // 获取自定义链接
-        that.get_user_url()
-      },
     }
   }
 </script>
@@ -301,6 +465,12 @@
         }
 
         .user {
+          .el-checkbox {
+            margin-right: 10px;
+          }
+        }
+
+        .user_edit {
           .name {
             line-height: 36px;
             padding-left: 20px;

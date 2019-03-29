@@ -41,18 +41,26 @@ export default {
       }
     }
   },
-  // 添加自定义链接
-  again_data_mu(state, n) {
+  // 添加用户链接
+  add_user_url_mu(state, n) {
     var site = state.edit_mk_data
     if (site.location1 == "hd") {
-      state.layout_data.hd[site.location4].data[Object.keys(state.layout_data.hd[site.location4].data).length] = n.data
+      state.layout_data.hd[site.location4].data.user.push(n.data)
     }
   },
-  // 删除自定义链接
-  del_url_mu(state, n) {
+  // 删除用户链接
+  del_user_url_mu(state, n) {
+    console.log(n.data)
     var site = state.edit_mk_data
     if (site.location1 == "hd") {
-      delete state.layout_data.hd[site.location4].data[n.data];
+      state.layout_data.hd[site.location4].data.user.splice(n.data, 1)
+    }
+  },
+  // 切换导航显示
+  change_data_show_mu(state, n) {
+    var site = state.edit_mk_data
+    if (site.location1 == "hd") {
+      state.layout_data.hd[site.location4].data[n.data.name][n.data.num].show = !state.layout_data.hd[site.location4].data[n.data.name][n.data.num].show
     }
   },
 }
