@@ -1,11 +1,11 @@
 <template>
     <div :ref="dataref" id="mk22" class="pr" @mouseover="hoverActive_fun(true)" @mouseout="hoverActive_fun(false)">
         <div class="shopsigns">
-            <img src="">
-            <p>店铺招牌</p>
+            <img src="../../../static/img/default.png">
+            <p v-if="getSignData.showName">店铺招牌</p>
         </div>
         <mkbutton v-if="hoverActive==true" :datamk="datamk" :dataName="dataName" :dataLocation1="dataLocation1" :dataLocation2="dataLocation2" 
-        :dataLocation3="dataLocation3" :dataLocation4="dataLocation4" :datalength="datalength"></mkbutton>
+        :dataLocation3="dataLocation3" :dataLocation4="dataLocation4" :datalength="datalength"></mkbutton> 
     </div>
 </template>
 <script>
@@ -30,44 +30,74 @@ import fun from "../../assets/js/function.js";
     },
     data:function(){
       return{
+        hoverActive:false,
+        getSignData:{}
 
       }
     },
     computed:mapState({
-
+      layout_data: state => state.layout_data //拿到状态仓库布局信息
     }),
 
-    //监听数据状态改变
-    watch:{
 
-    },
-
-    //数据初始化渲染
-    mounted:function(){
-
-    },
     methods:{
+      //从仓库返回过来的值
+      get_shipsigndat(){
+        var that = this;
+        var dispatch = this.$store.dispatch;
 
+        //位置信息
+        var site = {
+          location1: that.dataLocation1,
+          location2: that.dataLocation2,
+          location3: that.dataLocation3,
+          location4: that.dataLocation4
+        };        
+        return fun.get_data(site, that.layout_data);
+      },
+      
+      //判断编辑按钮在主页还是预览页显示的状态
+      hoverActive_fun(value){
+        var that = this;
+        if(that.data){
+          that.hoverActive = false;
+        }else{
+          that.hoverActive = value;
+        }
+      },
+      
     }
-   
-
-
-
   }
 </script>
-<style>
+<style lang="less" scoped>
+
 #mk22{
     width: 950px;
     margin: 0 auto
 }
 .shopsigns{
   width: 950px;
-  height: 400px;
+  max-height: 120px;
+  height: 120px;
   overflow: hidden;
+  background: #eee;
   img{
     width: 100%;
     height: 100%;
+    position: relative;
+    max-height: 120px
   }
+  p{
+    color: #fff;
+    font-size: 20px;
+    line-height: 30px;
+    position: absolute;
+    z-index: 999;
+    top: 35%;
+    font-weight: 600;
+    left: 20px;
+  }
+
 }
 
 </style>
