@@ -10,7 +10,7 @@
         <div>
           <p>页面链接</p>
           <el-checkbox-group class="ofh win" v-model="win_name_list">
-            <div class="ml20 ofh" v-if="state_list.win.length>0" v-for="(list,index) in state_list.win">
+            <div class="ml20 ofh" v-if="state_list.win.length>0" v-for="(list,index) in state_list.win"> 
               {{list.selected}}
               <el-checkbox v-if="list.selected==true" :label="list.name" :key="index" disabled></el-checkbox>
               <el-checkbox v-else :label="list.name" :value="index" :key="index" @change="change_data_list('win',index)"></el-checkbox>
