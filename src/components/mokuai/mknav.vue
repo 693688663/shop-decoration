@@ -158,8 +158,6 @@
     width: 950px;
 
     .mknav {
-      margin-bottom: 10px;
-
       .ul {
         height: 30px;
         background: #0079fe;
@@ -173,6 +171,10 @@
           color: #fff;
           margin: 0 3px;
           cursor: pointer;
+
+          a {
+            color: #ffffff;
+          }
         }
       }
     }

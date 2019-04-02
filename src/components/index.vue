@@ -355,6 +355,7 @@
   import mk20 from './mokuai/mk20'//功能模块
   import mk21 from './mokuai/mk21'//功能模块
   import mk22 from './mokuai/mk22'//功能模块
+  import mk22_type from './mokuai/mk22_type'//功能模块
   import mknav from './mokuai/mknav'//导航
   import mknav_type from './mokuai/mknav_type'//导航
   // 布局管理页组件
@@ -396,6 +397,7 @@
       mk20,
       mk21,
       mk22,
+      mk22_type,
       // 布局管理页组件
       guanliButton,
       // 
@@ -2613,7 +2615,7 @@
 
 
             .edit1>div {
-              /* margin-bottom: 10px; */
+              margin-bottom: 10px;
             }
 
             .edit1 {

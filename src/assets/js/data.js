@@ -15,7 +15,7 @@ const mokuai = {
          "com": "mk1",
       },
       {
-         "name": "宝贝排行",
+         "name": "宝贝排行榜",
          "icon": "mk2.png",
          "width": [190, 750, 950],
          "type": ["hd", "con", "ft"],
@@ -176,13 +176,13 @@ const mokuai = {
       //       "com": "mk21",
 
       //   },
-      //   {
-      //       "name": "店铺招牌",
-      //       "icon": "mk22.png",
-      //       "width": [950],
-      //       "type": ["hd"],
-      //       "com": "mk22",
-      //   },
+        {
+            "name": "店铺招牌",
+            "icon": "mk22.png",
+            "width": [950],
+            "type": ["hd"],
+            "com": "mk22",
+        },
    ]
 }
 export default mokuai;
