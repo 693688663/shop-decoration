@@ -158,6 +158,8 @@
     width: 950px;
 
     .mknav {
+      margin-bottom: 10px;
+
       .ul {
         height: 30px;
         background: #0079fe;

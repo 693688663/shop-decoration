@@ -44,6 +44,7 @@
                 </el-upload>
                 <a>使用默认图片</a>
                 <img :src="shopsign.defaultImg">
+
               </div>
             </li>
             <li>
@@ -59,6 +60,7 @@
             <li>
               <font>自定义内容:</font>
               <!-- <img src="../../../static/img/Ueditor.png"> -->
+              <vue-editor v-model="content"></vue-editor>
             </li>
             <li>
               <font>高度:</font>
@@ -69,18 +71,23 @@
       </div>
 
       <div class="dialog-btn">
-        <button type="button" class="save" @click="savedata();edit_mk_data_fun(false)">保存</button>
+        <button type="button" class="save" @click="savedata()">保存</button>
         <button type="button" class="cancel" @click="edit_mk_data_fun(false)">取消</button>
       </div>
     </div>
   </div>
 </template>
 <script>
+  import { VueEditor } from 'vue2-editor'
   import { mapState } from "vuex";
   import fun from "../../assets/js/function.js"
   export default {
+    components: {
+      VueEditor
+    },
     data: function () {
       return {
+        content: '<h1>Some initial content</h1>',
         title_bg: {
           background: "#0079fe"
         },
@@ -106,9 +113,9 @@
       //保存数据,并把数据发送到仓库
       savedata: function () {
         var that = this;
-        console.log(that.shopsign);
-        var dispatch = this.$store.dispatch;
-        fun.save_data(dispatch, that.shopsign);
+        console.log(that.content);
+        // var dispatch = this.$store.dispatch;
+        // fun.save_data(dispatch, that.shopsign);
       },
 
 
@@ -140,7 +147,7 @@
 
     .dialog-cont {
       width: 820px;
-      height: 420px;
+      /* height: 420px; */
       background: #fff;
       position: fixed;
       z-index: 999;

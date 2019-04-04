@@ -332,6 +332,7 @@
   import mk1 from './mokuai/mk1'//功能模块
   import mk1_type from './mokuai/mk1_type'//功能模块
   import mk2 from './mokuai/mk2'//功能模块
+  import mk2_type from './mokuai/mk2_type'//功能模块
   import mk3 from './mokuai/mk3'//功能模块
   import mk4 from './mokuai/mk4'//功能模块
   import mk5 from './mokuai/mk5'//功能模块
@@ -374,6 +375,7 @@
       mk1,
       mk1_type,
       mk2,
+      mk2_type,
       mk3,
       mk4,
       mk5,
@@ -2333,7 +2335,7 @@
     },
   }
 </script>
-<style lang="less">
+<style lang="less" >
   /* 全局设置 */
   html,
   body {
