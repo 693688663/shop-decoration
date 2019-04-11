@@ -29,8 +29,7 @@
           <ul>
             <li>
               <font>店铺名称:</font>
-              <span>{{shopsign.name}}</span>
-              <a class="changename">修改</a>
+              <input class="shop_name" type="text" v-model="shopsign.name">
               <label>
                 是否显示店铺名称
                 <input type="checkbox" v-model="shopsign.showName">
@@ -107,9 +106,24 @@
     }),
     mounted: function () {
       var that = this;
-
+      that.qwe()
     },
     methods: {
+      qwe() {
+        var that = this
+        this.$axios({
+          method: 'get',
+          url: 'http://localhost:3000',
+          data: this.qs.stringify({    //这里是发送给后台的数据
+            userId: 123,
+            token: 123,
+          })
+        }).then((response) => {          //这里使用了ES6的语法
+          console.log(response.data)       //请求成功返回的数据
+        }).catch((error) => {
+          console.log(error)       //请求失败返回的数据
+        })
+      },
       //保存数据,并把数据发送到仓库
       savedata: function () {
         var that = this;
@@ -260,6 +274,14 @@
               overflow: hidden;
               margin-bottom: 5px;
 
+              .shop_name {
+                border: 1px solid #ddd;
+                width: 90px;
+                padding: 0 3px;
+                height: 24px;
+                border-radius: 3px;
+              }
+
               font {
                 float: left;
                 margin-right: 10px;
@@ -387,7 +409,7 @@
 
       .dialog-btn {
         overflow: hidden;
-        margin: 10px 0 0;
+        margin: 10px 0 10px;
         padding-left: 125px;
 
         button {

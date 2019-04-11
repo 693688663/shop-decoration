@@ -69,6 +69,7 @@
    import mk16 from './mokuai/mk16'//功能模块
    import mk17 from './mokuai/mk17'//功能模块
    import mk18 from './mokuai/mk18'//功能模块
+   import mk22 from './mokuai/mk22'//功能模块
 
 
    export default {
@@ -93,6 +94,7 @@
          mk16,
          mk17,
          mk18,
+         mk22,
       },
       data: function () {
          return {
